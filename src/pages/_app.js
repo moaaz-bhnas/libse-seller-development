@@ -3,9 +3,9 @@ import App from "next/app";
 //   StyledApp
 // } from '../pagesStyle';
 // import withRedux from "next-redux-wrapper";
-// import GlobalStyles from "../global.css";
+import GlobalStyles from "../global.css";
 // import Header from "../components/header";
-// import Provider from "../redux/store";
+import Provider from "../redux/store";
 import { AuthProvider } from "../contexts/auth";
 // import { DestinationProvider } from "../contexts/destination";
 // import { LayoutProvider } from "../contexts/layout";
@@ -14,19 +14,19 @@ import { AuthProvider } from "../contexts/auth";
 
 function MyApp({ Component, pageProps }) {
   return (
-    // <Provider>
-    //   <DestinationProvider>
-    <AuthProvider>
-      {/* <LayoutProvider>
-            <GlobalStyles />
-            <Header />
+    <Provider>
+      {/* <DestinationProvider> */}
+      <AuthProvider>
+        {/* <LayoutProvider> */}
+        <GlobalStyles />
+        {/* <Header />
             <Main> */}
-      <Component {...pageProps} />
-      {/* </Main> */}
-      {/* </LayoutProvider> */}
-    </AuthProvider>
-    //   {/* </DestinationProvider>
-    // </Provider> */}
+        <Component {...pageProps} />
+        {/* </Main> */}
+        {/* </LayoutProvider> */}
+      </AuthProvider>
+      {/* </DestinationProvider> */}
+    </Provider>
   );
 }
 

@@ -4,7 +4,7 @@ import AuthForm from "../components/authForm";
 import { Container } from "../components/container/style";
 import { AuthContext } from "../contexts/auth";
 
-const LoginPage = () => {
+const SignupPage = () => {
   const user = useContext(AuthContext);
   const router = useRouter();
 
@@ -14,9 +14,9 @@ const LoginPage = () => {
 
   return (
     <Container>
-      <AuthForm action="login" />
+      <AuthForm action="signup" />
     </Container>
   );
 };
 
-export default memo(LoginPage);
+export default memo(SignupPage);
