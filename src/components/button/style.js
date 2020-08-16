@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import theme from '../../shared/theme';
-import measurements from '../../shared/measurements';
+import styled, { css } from "styled-components";
+import theme from "../../shared/theme";
+import measurements from "../../shared/measurements";
 
 export const rectButton = css`
   text-transform: uppercase;
@@ -12,7 +12,7 @@ export const rectButton = css`
   padding: 1em;
   cursor: pointer;
   transition-property: box-shadow, background-color;
-  transition-duration: .15s;
+  transition-duration: 0.15s;
   display: inline-flex;
   align-items: center;
   line-height: 1;
@@ -23,11 +23,11 @@ export const rectButton = css`
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(215, 126, 106, .5);
+    box-shadow: 0 0 0 0.2rem rgba(215, 126, 106, 0.5);
   }
 
   &[data-disabled="true"] {
-    opacity: .65;
+    opacity: 0.65;
     cursor: not-allowed;
 
     &:hover {
@@ -54,15 +54,24 @@ export const AddProduct = styled.a`
 
 export const AddIcon = styled.img`
   width: 1em;
-  margin-right: .55em;
+  margin-right: 0.55em;
 `;
 
 export const NextIcon = styled.img`
   width: 1em;
-  margin-left: .55em;
+  margin-left: 0.55em;
 `;
 
 export const PreviousIcon = styled.img`
   width: 1em;
-  margin-right: .55em;
+  margin-right: 0.55em;
+`;
+
+export const headerButtonStyles = css`
+  border: none;
+  background-color: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

@@ -1,15 +1,19 @@
-import { memo } from "react";
+import { memo, useRef } from "react";
 import styled from "styled-components";
 import theme from "../../../shared/theme";
 import measurements from "../../../shared/measurements";
 import Logo from "../../logo";
 import Chat from "./chat";
+import AccountDropdown from "./accountDropdown";
 
 const TopBar = () => {
+  const chatButtonRef = useRef(null);
+
   return (
     <StyledTopBar>
       <Logo />
-      <Chat />
+      <Chat ref={chatButtonRef} />
+      <AccountDropdown previousInteractiveElement={chatButtonRef} />
     </StyledTopBar>
   );
 };

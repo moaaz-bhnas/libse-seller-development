@@ -1,6 +1,7 @@
 import { memo, forwardRef } from "react";
 import ChatSvg from "../../../svgs/chat";
 import styled from "styled-components";
+import { headerButtonStyles } from "../../button/style";
 
 const Chat = (props, ref) => {
   return (
@@ -16,12 +17,7 @@ const Chat = (props, ref) => {
 const ChatContainer = styled.div``;
 
 const ChatToggler = styled.button`
-  border: none;
-  background-color: transparent;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${headerButtonStyles}
 
   height: 3rem;
   padding: 0 1.05em;
