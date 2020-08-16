@@ -1,1 +1,1 @@
-export const title = 'Libse';
+export const title = "Libse Seller";
