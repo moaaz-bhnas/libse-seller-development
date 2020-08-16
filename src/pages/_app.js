@@ -2,30 +2,27 @@ import App from "next/app";
 // import {
 //   StyledApp
 // } from '../pagesStyle';
-// import withRedux from "next-redux-wrapper";
+import withRedux from "next-redux-wrapper";
 import GlobalStyles from "../global.css";
 // import Header from "../components/header";
 import Provider from "../redux/store";
 import { AuthProvider } from "../contexts/auth";
-// import { DestinationProvider } from "../contexts/destination";
 // import { LayoutProvider } from "../contexts/layout";
-// import { store } from "../redux/store";
+import { store } from "../redux/store";
+import Layout from "../components/layout";
 // import { Main } from "../pagesStyle";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
-      {/* <DestinationProvider> */}
       <AuthProvider>
         {/* <LayoutProvider> */}
         <GlobalStyles />
-        {/* <Header />
-            <Main> */}
-        <Component {...pageProps} />
-        {/* </Main> */}
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         {/* </LayoutProvider> */}
       </AuthProvider>
-      {/* </DestinationProvider> */}
     </Provider>
   );
 }
@@ -35,17 +32,16 @@ function MyApp({ Component, pageProps }) {
 // perform automatic static optimization, causing every page in your app to
 // be server-side rendered.
 
-// // Here will be the requests for initial redux state
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const pageProps = await App.getInitialProps(appContext);
+// Here will be the requests for initial redux state
+MyApp.getInitialProps = async (appContext) => {
+  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const pageProps = await App.getInitialProps(appContext);
 
-//   return { ...pageProps };
-// };
+  return { ...pageProps };
+};
 
-// //makeStore function that returns a new store for every request
-// const makeStore = () => store;
+//makeStore function that returns a new store for every request
+const makeStore = () => store;
 
 //withRedux wrapper that passes the store to the App Component
-// export default withRedux(makeStore)(MyApp);
-export default MyApp;
+export default withRedux(makeStore)(MyApp);

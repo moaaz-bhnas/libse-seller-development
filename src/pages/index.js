@@ -1,15 +1,13 @@
-import Banner from "../components/banner";
-import Categories from "../components/categories";
-import { Container } from "../components/container/style";
 import PrivateRoute from "../privateRoute";
+import { signOut } from "../redux/actions/authActions";
+import { useDispatch } from "react-redux";
 
 const IndexPage = () => {
+  const dispatch = useDispatch();
+
   return (
     <PrivateRoute>
-      <Container>
-        <Banner />
-        <Categories />
-      </Container>
+      <button onClick={() => dispatch(signOut())}>sign out</button>
     </PrivateRoute>
   );
 };

@@ -15,7 +15,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   // const [authIsReady, setAuthIsReady] = useState(false);
   // const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("not set");
   console.log("(Auth Provider) user: ", user);
 
   // Add auth listener
@@ -52,5 +52,9 @@ export const AuthProvider = ({ children }) => {
   //   addSellerClaim();
   // }, [user]);
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={user}>
+      {user !== "not set" && children}
+    </AuthContext.Provider>
+  );
 };
