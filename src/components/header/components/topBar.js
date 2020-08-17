@@ -5,12 +5,14 @@ import measurements from "../../../shared/measurements";
 import Logo from "../../logo";
 import Chat from "./chat";
 import AccountDropdown from "./accountDropdown";
+import Sidebar from "./sidebar";
 
 const TopBar = () => {
   const chatButtonRef = useRef(null);
 
   return (
     <StyledTopBar>
+      <Sidebar />
       <Logo />
       <Chat ref={chatButtonRef} />
       <AccountDropdown previousInteractiveElement={chatButtonRef} />

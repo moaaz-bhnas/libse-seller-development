@@ -1,27 +1,22 @@
 import App from "next/app";
-// import {
-//   StyledApp
-// } from '../pagesStyle';
 import withRedux from "next-redux-wrapper";
 import GlobalStyles from "../global.css";
-// import Header from "../components/header";
 import Provider from "../redux/store";
 import { AuthProvider } from "../contexts/auth";
-// import { LayoutProvider } from "../contexts/layout";
+import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
 import Layout from "../components/layout";
-// import { Main } from "../pagesStyle";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
       <AuthProvider>
-        {/* <LayoutProvider> */}
-        <GlobalStyles />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        {/* </LayoutProvider> */}
+        <LayoutProvider>
+          <GlobalStyles />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </LayoutProvider>
       </AuthProvider>
     </Provider>
   );

@@ -1,15 +1,15 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
 export const LayoutContext = createContext();
 
 export const LayoutProvider = ({ children }) => {
-  const [ sellerSidebarExpanded, setSellerSidebarExpanded ] = useState(true);
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
-  console.log('sellerSidebarExpanded: ', sellerSidebarExpanded);
+  console.log("sidebarExpanded: ", sidebarExpanded);
 
   return (
-    <LayoutContext.Provider value={{ sellerSidebarExpanded, setSellerSidebarExpanded }}>
+    <LayoutContext.Provider value={{ sidebarExpanded, setSidebarExpanded }}>
       {children}
     </LayoutContext.Provider>
-  )
-}
+  );
+};
