@@ -1,18 +1,18 @@
 const measurements = {
   maxWidth: {
-    container: '62em',
-    form: '25em'
+    wrapper: "78em",
+    form: "25em",
   },
   width: {
-    sidebar: '16em',
-    sidebarCollapsed: '4em'
+    sidebar: "16em",
+    sidebarCollapsed: "3.6125em",
   },
   borderRadius: {
-    input: '.1em'
+    input: ".1em",
   },
   height: {
-    sellerHeader: '3em'
-  }
-}
+    sellerHeader: "3em",
+  },
+};
 
 export default measurements;

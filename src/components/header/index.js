@@ -28,7 +28,7 @@ const unvisible = css`
 `;
 
 const StyledHeader = styled.header`
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
   padding-top: 3em;
   position: relative;
   z-index: 1;
