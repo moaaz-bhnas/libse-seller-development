@@ -39,7 +39,7 @@ export const logIn = (credentials) => {
   };
 };
 
-export const signOut = () => {
+export const signOut = (router) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
@@ -48,6 +48,7 @@ export const signOut = () => {
       .signOut()
       .then(() => {
         dispatch({ type: "SIGNOUT_SUCCESS" });
+        // router.push("/login");
       })
       .catch((err) => {
         dispatch({ type: "SIGNOUT_ERROR", err });

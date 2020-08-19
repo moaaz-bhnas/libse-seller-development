@@ -8,10 +8,10 @@ const Header = () => {
   const user = useContext(AuthContext);
 
   return (
-    <StyledHeader>
+    <StyledHeader seller={user && user.seller}>
       <Title>{title}</Title>
 
-      {user && (
+      {user && user.seller && (
         <Navigation>
           <NavigationTitle>Navigation</NavigationTitle>
           <TopBar />
@@ -29,7 +29,7 @@ const unvisible = css`
 
 const StyledHeader = styled.header`
   margin-bottom: 2em;
-  padding-top: 3em;
+  padding-top: ${({ seller }) => (seller ? "3em" : null)};
   position: relative;
   z-index: 1;
 `;

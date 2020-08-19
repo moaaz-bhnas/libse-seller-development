@@ -8,12 +8,12 @@ import {
 } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { AuthContext } from "../../../contexts/auth";
 import { signOut } from "../../../redux/actions/authActions";
 import downArrow from "../../../img/down-arrow.svg";
 import styled from "styled-components";
 import theme from "../../../shared/theme";
 import { headerButtonStyles } from "../../button/style";
+import { useRouter } from "next/router";
 
 const MenuItem = (props) => {
   const {
@@ -52,7 +52,7 @@ const MenuItem = (props) => {
 };
 
 const AccountDropdown = ({ previousInteractiveElement }) => {
-  const { uid } = useContext(AuthContext);
+  const router = useRouter();
 
   // redux
   const profile = useSelector((state) => state.firebase.profile);
@@ -153,16 +153,10 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
   );
 
   const items = [
-    // {
-    //   value: "Orders",
-    //   link: true,
-    //   href: `/user/${uid}/orders`,
-    //   icon: orderIcon,
-    // },
     {
       value: "Log out",
       link: false,
-      handleClick: () => dispatch(signOut()),
+      handleClick: () => dispatch(signOut(router)),
     },
   ];
 

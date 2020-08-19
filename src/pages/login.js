@@ -1,7 +1,6 @@
 import { memo, useContext } from "react";
 import { useRouter } from "next/router";
 import AuthForm from "../components/authForm";
-import { Container } from "../components/container/style";
 import { AuthContext } from "../contexts/auth";
 
 const LoginPage = () => {
@@ -9,14 +8,11 @@ const LoginPage = () => {
   const router = useRouter();
 
   if (user) {
-    router.push("/");
+    if (user.seller) router.push("/");
+    else router.push("/register");
   }
 
-  return (
-    <Container>
-      <AuthForm action="login" />
-    </Container>
-  );
+  return <AuthForm action="login" />;
 };
 
 export default memo(LoginPage);

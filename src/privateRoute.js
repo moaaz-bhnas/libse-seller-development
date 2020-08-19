@@ -7,8 +7,9 @@ const PrivateRoute = ({ children }) => {
   const user = useContext(AuthContext);
 
   const clientSide = typeof window !== "undefined";
-  if (!user && clientSide) {
-    router.push("/login");
+  if (clientSide) {
+    if (!user) router.push("/login");
+    else if (!user.seller) router.push("/register");
   }
 
   return children;

@@ -1,5 +1,6 @@
 const measurements = {
   maxWidth: {
+    smallWrapper: "60em",
     wrapper: "78em",
     form: "25em",
   },
