@@ -1,17 +1,19 @@
-import { memo, useContext } from "react";
+import { useContext } from "react";
 import styled, { css } from "styled-components";
 import { title } from "../../shared/data";
 import { AuthContext } from "../../contexts/auth";
 import TopBar from "./components/topBar";
+import { SellerContext } from "../../contexts/seller";
 
 const Header = () => {
   const user = useContext(AuthContext);
+  const { isSeller } = useContext(SellerContext);
 
   return (
-    <StyledHeader seller={user && user.seller}>
+    <StyledHeader seller={user && isSeller}>
       <Title>{title}</Title>
 
-      {user && user.seller && (
+      {user && isSeller && (
         <Navigation>
           <NavigationTitle>Navigation</NavigationTitle>
           <TopBar />
@@ -44,4 +46,4 @@ const NavigationTitle = styled.h2`
   ${unvisible}
 `;
 
-export default memo(Header);
+export default Header;

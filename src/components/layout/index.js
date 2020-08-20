@@ -5,9 +5,11 @@ import { LayoutContext } from "../../contexts/layout";
 import measurements from "../../shared/measurements";
 import time from "../../shared/time";
 import { AuthContext } from "../../contexts/auth";
+import { SellerContext } from "../../contexts/seller";
 
 const Layout = ({ children }) => {
   const user = useContext(AuthContext);
+  const { isSeller } = useContext(SellerContext);
   const { sidebarExpanded } = useContext(LayoutContext);
 
   return (
@@ -15,7 +17,7 @@ const Layout = ({ children }) => {
       <Header />
 
       <Main>
-        <Wrapper seller={user && user.seller} sidebarExpanded={sidebarExpanded}>
+        <Wrapper seller={user && isSeller} sidebarExpanded={sidebarExpanded}>
           {children}
         </Wrapper>
       </Main>

@@ -17,6 +17,7 @@ import { Input } from "../input/style";
 import { useDispatch } from "react-redux";
 import { registerSeller } from "../../redux/actions/sellerRegistrationActions";
 import { AuthContext } from "../../contexts/auth";
+import { SellerContext } from "../../contexts/seller";
 
 const Register = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const { uid, email } = useContext(AuthContext);
+  const { setIsSeller } = useContext(SellerContext);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -48,7 +50,7 @@ const Register = () => {
         openingHour,
         closingHour,
       };
-      dispatch(registerSeller(seller, router));
+      dispatch(registerSeller(seller, setIsSeller, router));
     },
     [
       firstName,

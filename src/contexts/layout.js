@@ -5,8 +5,6 @@ export const LayoutContext = createContext();
 export const LayoutProvider = ({ children }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
-  console.log("sidebarExpanded: ", sidebarExpanded);
-
   return (
     <LayoutContext.Provider value={{ sidebarExpanded, setSidebarExpanded }}>
       {children}

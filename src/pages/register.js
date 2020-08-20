@@ -1,16 +1,13 @@
 import { memo, useContext } from "react";
-import { Container } from "../components/container/style";
 import Form from "../components/register";
-import { AuthContext } from "../contexts/auth";
 import { useRouter } from "next/router";
+import { SellerContext } from "../contexts/seller";
 
 const RegisterPage = () => {
-  const user = useContext(AuthContext);
+  const { isSeller } = useContext(SellerContext);
   const router = useRouter();
 
-  console.log("user: ", user, "user.seller: ", user.seller);
-
-  if (user.seller) {
+  if (isSeller) {
     router.push("/");
   }
 

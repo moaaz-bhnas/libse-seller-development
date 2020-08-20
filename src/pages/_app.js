@@ -6,17 +6,20 @@ import { AuthProvider } from "../contexts/auth";
 import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
 import Layout from "../components/layout";
+import { SellerProvider } from "../contexts/seller";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
       <AuthProvider>
-        <LayoutProvider>
-          <GlobalStyles />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </LayoutProvider>
+        <SellerProvider>
+          <LayoutProvider>
+            <GlobalStyles />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </LayoutProvider>
+        </SellerProvider>
       </AuthProvider>
     </Provider>
   );
