@@ -1,14 +1,23 @@
 import {
   InputContainer,
   StyledInputWithPrepending,
-  Prepending
-} from './style';
+  Prepending,
+  StyledRadioInput,
+} from "./style";
+import styled from "styled-components";
 
-export const InputWithPrepending = ({ half, prependingText, label, placeholder, value, onChange, required }) => {
+export const InputWithPrepending = ({
+  prependingText,
+  label,
+  placeholder,
+  value,
+  onChange,
+  required,
+}) => {
   return (
     <InputContainer>
       <Prepending>{prependingText}</Prepending>
-      <StyledInputWithPrepending 
+      <StyledInputWithPrepending
         type="number"
         aria-label={label}
         placeholder={placeholder}
@@ -18,4 +27,21 @@ export const InputWithPrepending = ({ half, prependingText, label, placeholder, 
       />
     </InputContainer>
   );
-}
+};
+
+export const RadioInput = ({ name, label, value, checked, style }) => {
+  return (
+    <Label>
+      <StyledRadioInput
+        type="radio"
+        name={name}
+        value={value}
+        checked={checked}
+        style={style}
+      />
+      {label}
+    </Label>
+  );
+};
+
+const Label = styled.label``;

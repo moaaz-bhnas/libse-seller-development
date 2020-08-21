@@ -1,9 +1,11 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
+import { AuthContext } from "./auth";
 
 export const SellerContext = createContext();
 
 export const SellerProvider = ({ children }) => {
+  const user = useContext(AuthContext);
   const profile = useSelector((state) => state.firebase.profile);
 
   const [isSeller, setIsSeller] = useState(null);
@@ -13,7 +15,7 @@ export const SellerProvider = ({ children }) => {
 
   return (
     <SellerContext.Provider value={{ isSeller, setIsSeller }}>
-      {typeof isSeller === "boolean" ? children : <></>}
+      {(typeof isSeller === "boolean" || !user) && children}
     </SellerContext.Provider>
   );
 };

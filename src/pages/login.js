@@ -5,6 +5,7 @@ import { AuthContext } from "../contexts/auth";
 import { SellerContext } from "../contexts/seller";
 
 const LoginPage = () => {
+  console.log("login pgae");
   const user = useContext(AuthContext);
   const { isSeller } = useContext(SellerContext);
   const router = useRouter();

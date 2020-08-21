@@ -1,23 +1,15 @@
 import { memo, useState, useCallback, useContext } from "react";
 import { useRouter } from "next/router";
-import {
-  Form,
-  PersonalInfo,
-  InputGroup,
-  Hr,
-  ShopInfo,
-  SubTitle,
-  WorkingHours,
-  Title,
-  InputContainer,
-  Label,
-  SubmitButton,
-} from "./style";
 import { Input } from "../input/style";
 import { useDispatch } from "react-redux";
 import { registerSeller } from "../../redux/actions/sellerRegistrationActions";
 import { AuthContext } from "../../contexts/auth";
 import { SellerContext } from "../../contexts/seller";
+
+import styled from "styled-components";
+import theme from "../../shared/theme";
+import { rectButton } from "../button/style";
+import { title } from "../title/style";
 
 const Register = () => {
   const router = useRouter();
@@ -153,5 +145,48 @@ const Register = () => {
     </Form>
   );
 };
+
+// styles
+const Form = styled.form`
+  max-width: 30em;
+  padding-bottom: 2em;
+`;
+
+const Title = styled.h2`
+  ${title}
+`;
+
+const PersonalInfo = styled.div``;
+
+const SubTitle = styled.h3`
+  font-size: 1rem;
+  margin: 0 0 1rem;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Hr = styled.hr`
+  margin: 0.5em 0 1em;
+  border: 0.5px solid ${theme.border.grey};
+`;
+
+const ShopInfo = styled.div``;
+
+const WorkingHours = styled.div`
+  margin-bottom: 0.7em;
+`;
+
+const InputContainer = styled.div`
+  flex: 0 calc(50% - 0.5em);
+`;
+
+const Label = styled.label``;
+
+const SubmitButton = styled.button`
+  ${rectButton}
+`;
 
 export default memo(Register);

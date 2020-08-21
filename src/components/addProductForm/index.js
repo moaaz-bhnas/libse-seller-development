@@ -10,13 +10,14 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 const AddProductForm = () => {
-  const { uid: sellerId } = useContext(AuthContext);
+  const user = useContext(AuthContext);
+  const sellerId = user && user.uid;
   const dispatch = useDispatch();
   const router = useRouter();
 
   // Inputs
-  const [productName, setProductName] = useState("");
-  const [category, setCategory] = useState("");
+  const [productName, setProductName] = useState("Product Name");
+  const [category, setCategory] = useState("men");
   const [subCategory, setSubCategory] = useState("");
   const [description, setDescription] = useState("");
   const [colors, setColors] = useState([

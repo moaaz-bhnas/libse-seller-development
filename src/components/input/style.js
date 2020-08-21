@@ -1,17 +1,17 @@
-import styled, { css } from 'styled-components';
-import theme from '../../shared/theme';
-import measurements from '../../shared/measurements';
+import styled, { css } from "styled-components";
+import theme from "../../shared/theme";
+import measurements from "../../shared/measurements";
 
 export const inputStyles = css`
   font-size: 1rem;
   border: 1px solid ${theme.border.grey};
-  padding: .7em .6em;
+  padding: 0.7em 0.6em;
   border-radius: ${measurements.borderRadius.input};
 `;
 
 export const Input = styled.input`
   ${inputStyles}
-  width: ${({ half }) => half ? 'calc(50% - .5em)' : '100%'};
+  width: ${({ half }) => (half ? "calc(50% - .5em)" : "100%")};
   margin-bottom: .8em;
 
   &[data-tiny="true"] {
@@ -24,15 +24,15 @@ export const Input = styled.input`
 export const TextArea = styled.textarea`
   font-size: 1rem;
   border: 1px solid ${theme.border.grey};
-  margin-bottom: .8em;
-  padding: .7em .6em;
+  margin-bottom: 0.8em;
+  padding: 0.7em 0.6em;
   width: 100%;
   border-radius: ${measurements.borderRadius.input};
 `;
 
 export const InputContainer = styled.div`
   display: flex;
-  margin-bottom: .8em;
+  margin-bottom: 0.8em;
 `;
 
 export const StyledInputWithPrepending = styled.input`
@@ -42,8 +42,8 @@ export const StyledInputWithPrepending = styled.input`
 `;
 
 export const Prepending = styled.span`
-  color: #66;
-  background-color: #E9ECEF;
+  color: #666;
+  background-color: #e9ecef;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,3 +51,5 @@ export const Prepending = styled.span`
   border-right: none;
   flex: 0 0 2.6em;
 `;
+
+export const StyledRadioInput = styled.input``;
