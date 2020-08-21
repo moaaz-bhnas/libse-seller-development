@@ -4,10 +4,11 @@ import { SellerContext } from "./contexts/seller";
 import { AuthContext } from "./contexts/auth";
 
 const PrivateRoute = ({ children }) => {
-  console.log("PrivateRoute");
   const router = useRouter();
   const user = useContext(AuthContext);
   const { isSeller } = useContext(SellerContext);
+
+  console.log("privateRoute: ", "user: ", user, "isSeller: ", isSeller);
 
   const clientSide = typeof window !== "undefined";
   if (clientSide) {
@@ -15,7 +16,7 @@ const PrivateRoute = ({ children }) => {
     else if (!isSeller) router.push("/register");
   }
 
-  return user && isSeller ? children : <></>;
+  return children;
 };
 
 export default PrivateRoute;

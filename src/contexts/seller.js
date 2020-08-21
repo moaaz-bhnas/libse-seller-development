@@ -10,11 +10,10 @@ export const SellerProvider = ({ children }) => {
   useEffect(() => {
     setIsSeller(profile.isSeller);
   }, [profile.isLoaded]);
-  console.log("is seller: ", isSeller);
 
   return (
     <SellerContext.Provider value={{ isSeller, setIsSeller }}>
-      {profile.isLoaded ? children : <></>}
+      {typeof isSeller === "boolean" ? children : <></>}
     </SellerContext.Provider>
   );
 };

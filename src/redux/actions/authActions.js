@@ -10,6 +10,7 @@ export const signUp = (credentials) => {
         return firestore.collection("users").doc(response.user.uid).set({
           username: credentials.username,
           favorites: [],
+          isSeller: false,
         });
       })
       .then(() => {
