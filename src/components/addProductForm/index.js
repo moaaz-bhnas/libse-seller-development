@@ -1,5 +1,4 @@
 import { memo, useState, useCallback, useContext } from "react";
-import { Form, Title, FormContainer } from "./style";
 import Information from "./components/information";
 import ProgressBar from "./components/ProgressBar";
 import ColorsAndSizes from "./components/colorsAndSizes";
@@ -8,6 +7,8 @@ import { AuthContext } from "../../contexts/auth";
 import { addProduct } from "../../redux/actions/productActions";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import styled from "styled-components";
+import { title } from "../title/style";
 
 const AddProductForm = () => {
   const user = useContext(AuthContext);
@@ -18,7 +19,7 @@ const AddProductForm = () => {
   // Inputs
   const [productName, setProductName] = useState("Product Name");
   const [category, setCategory] = useState("men");
-  const [subCategory, setSubCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("pants-&-jeans");
   const [description, setDescription] = useState("");
   const [colors, setColors] = useState([
     { value: "", sizes: [], images: [], default: false },
@@ -101,15 +102,10 @@ const AddProductForm = () => {
       <FormContainer data-full-page={activeStep === 2}>
         {activeStep === 1 ? (
           <Information
-            productName={productName}
-            setProductName={setProductName}
             category={category}
             setCategory={setCategory}
             subCategory={subCategory}
             setSubCategory={setSubCategory}
-            description={description}
-            setDescription={setDescription}
-            setActiveStep={activeStep}
             onStepSubmit={handleStepSubmit}
           />
         ) : activeStep === 2 ? (
@@ -134,4 +130,20 @@ const AddProductForm = () => {
   );
 };
 
+const Form = styled.form`
+  margin-left: 2em;
+`;
+
+const Title = styled.h2`
+  ${title}
+`;
+
+const FormContainer = styled.div`
+  max-width: 25em;
+  padding-bottom: 1em;
+
+  &[data-full-page="true"] {
+    max-width: 52em;
+  }
+`;
 export default memo(AddProductForm);

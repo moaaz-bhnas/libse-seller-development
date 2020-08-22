@@ -1,9 +1,4 @@
-import {
-  InputContainer,
-  StyledInputWithPrepending,
-  Prepending,
-  StyledRadioInput,
-} from "./style";
+import { InputContainer, StyledInputWithPrepending, Prepending } from "./style";
 import styled from "styled-components";
 
 export const InputWithPrepending = ({
@@ -29,19 +24,33 @@ export const InputWithPrepending = ({
   );
 };
 
-export const RadioInput = ({ name, label, value, checked, style }) => {
+export const RadioInput = ({
+  name,
+  label,
+  value,
+  checked,
+  style,
+  onChange,
+}) => {
   return (
-    <Label>
+    <Label style={style}>
       <StyledRadioInput
         type="radio"
         name={name}
         value={value}
         checked={checked}
-        style={style}
+        onChange={onChange}
       />
       {label}
     </Label>
   );
 };
 
-const Label = styled.label``;
+const Label = styled.label`
+  width: 50%;
+  padding: 0.2em 0;
+`;
+
+const StyledRadioInput = styled.input`
+  margin: 0 0.75em 0 0;
+`;

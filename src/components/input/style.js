@@ -51,5 +51,3 @@ export const Prepending = styled.span`
   border-right: none;
   flex: 0 0 2.6em;
 `;
-
-export const StyledRadioInput = styled.input``;
