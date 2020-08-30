@@ -33,7 +33,7 @@ const Information = ({
     <>
       <Title>Product Information</Title>
 
-      <SubTitle>Category</SubTitle>
+      <SubTitle>Category:</SubTitle>
       <RadioButtonsGroup
         name="category"
         items={categories}
@@ -41,7 +41,7 @@ const Information = ({
         onChange={(e) => setCategory(e.target.value)}
       />
 
-      <SubTitle>Sub-category</SubTitle>
+      <SubTitle>Sub-category:</SubTitle>
       <RadioButtonsGroup
         name="subcategory"
         items={subCategories}

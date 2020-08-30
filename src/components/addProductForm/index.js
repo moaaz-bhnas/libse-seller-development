@@ -1,5 +1,6 @@
 import { memo, useState, useCallback, useContext } from "react";
-import Information from "./components/information";
+import Category from "./components/category";
+import Details from "./components/details";
 import ProgressBar from "./components/ProgressBar";
 import ColorsAndSizes from "./components/colorsAndSizes";
 import Price from "./components/price";
@@ -48,7 +49,7 @@ const AddProductForm = () => {
     setActiveStep(activeStep - 1);
   }, [activeStep]);
 
-  const finishedStep1 = productName && category && subCategory && description;
+  const finishedStep1 = category && subCategory;
   const finishedStep2 = colors.every(
     (color) => color.value && color.sizes.length && color.images.length
   );
@@ -99,9 +100,9 @@ const AddProductForm = () => {
         finishedStep={finishedStep}
       />
 
-      <FormContainer data-full-page={activeStep === 2}>
+      <FormContainer data-full-page={activeStep === 3}>
         {activeStep === 1 ? (
-          <Information
+          <Category
             category={category}
             setCategory={setCategory}
             subCategory={subCategory}
@@ -109,6 +110,14 @@ const AddProductForm = () => {
             onStepSubmit={handleStepSubmit}
           />
         ) : activeStep === 2 ? (
+          <Details
+            category={category}
+            setCategory={setCategory}
+            subCategory={subCategory}
+            setSubCategory={setSubCategory}
+            onStepSubmit={handleStepSubmit}
+          />
+        ) : activeStep === 3 ? (
           <ColorsAndSizes
             colors={colors}
             setColors={setColors}

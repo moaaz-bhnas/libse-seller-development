@@ -13,5 +13,5 @@ export const title3 = css`
 
 export const title4 = css`
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
 `;

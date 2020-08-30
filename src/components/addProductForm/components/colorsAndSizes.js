@@ -8,10 +8,11 @@ import { Input } from "../../input/style";
 import errorIcon from "../../../img/error.svg";
 import defaultIcon from "../../../img/default.svg";
 import styled from "styled-components";
-import { title3 } from "../../title/style";
+import { title3, title4 } from "../../title/style";
 import theme from "../../../shared/theme";
 import measurements from "../../../shared/measurements";
 import uploadIcon from "../../../img/upload.svg";
+import RadioButtonsGroup from "./radioButtonsGroup";
 
 const sizeOptions = [
   { value: "xSmall", label: "X-small" },
@@ -261,7 +262,7 @@ const ColorsAndSizes = ({
   console.log("colors: ", colors);
   return (
     <>
-      <SubTitle>Colors & Sizes</SubTitle>
+      <Title>Colors & Sizes</Title>
 
       <ColorsNumber>
         <Label htmlFor="productForm__colorsNumber">Number of colors: </Label>
@@ -291,7 +292,7 @@ const ColorsAndSizes = ({
               data-default-styles={color.default && colors.length >= 2}
             >
               <LabelContainer>
-                <Label>Color #{index + 1}</Label>
+                <SubTitle>Color #{index + 1}</SubTitle>
                 {colors.length >= 2 &&
                   (color.default ? (
                     <DefaultBadge>
@@ -312,7 +313,13 @@ const ColorsAndSizes = ({
                   </RemoveButton>
                 )}
               </LabelContainer>
-              <Select
+              <RadioButtonsGroup
+                name={color}
+                items={colorOptions}
+                selectedItem={color}
+                onChange
+              />
+              {/* <Select
                 className="productForm__colorSelect"
                 classNamePrefix="productForm__colorSelectChild"
                 value={
@@ -330,7 +337,7 @@ const ColorsAndSizes = ({
                 onChange={(selectedColor) =>
                   handleColorChange(selectedColor, index)
                 }
-              />
+              /> */}
               {colorError.visible && colorError.index === index && (
                 <ErrorMsg className="inputContainer__errMsg" role="alert">
                   Please choose a color
@@ -397,6 +404,11 @@ const ColorsAndSizes = ({
 // styles
 const Title = styled.h3`
   ${title3}
+`;
+
+const SubTitle = styled.h4`
+  ${title4}
+  margin: 0;
 `;
 
 const ColorsContainer = styled.div`

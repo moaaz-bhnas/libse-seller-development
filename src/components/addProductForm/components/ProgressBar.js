@@ -1,5 +1,6 @@
 import { memo, useCallback, useState, useEffect } from "react";
 import { ErrorMsg, ErrorIcon } from "../style";
+import CategorySvg from "../../../svgs/category";
 import InformationSvg from "../../../svgs/information";
 import ColorsSvg from "../../../svgs/colors";
 import PriceSvg from "../../../svgs/price";
@@ -9,6 +10,7 @@ import styled from "styled-components";
 import theme from "../../../shared/theme";
 
 const steps = [
+  { text: "category", Icon: CategorySvg },
   { text: "information", Icon: InformationSvg },
   { text: "colors\u00A0&\u00A0sizes", Icon: ColorsSvg },
   { text: "price", Icon: PriceSvg },
@@ -125,7 +127,7 @@ export const StepIconButton = styled.button`
     content: "";
     position: absolute;
     z-index: -1;
-    width: 14em;
+    width: 10em;
     height: 2px;
     background-color: ${borderColor};
     top: 50%;
