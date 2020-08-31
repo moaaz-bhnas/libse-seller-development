@@ -313,13 +313,7 @@ const ColorsAndSizes = ({
                   </RemoveButton>
                 )}
               </LabelContainer>
-              <RadioButtonsGroup
-                name={color}
-                items={colorOptions}
-                selectedItem={color}
-                onChange
-              />
-              {/* <Select
+              <Select
                 className="productForm__colorSelect"
                 classNamePrefix="productForm__colorSelectChild"
                 value={
@@ -337,7 +331,7 @@ const ColorsAndSizes = ({
                 onChange={(selectedColor) =>
                   handleColorChange(selectedColor, index)
                 }
-              /> */}
+              />
               {colorError.visible && colorError.index === index && (
                 <ErrorMsg className="inputContainer__errMsg" role="alert">
                   Please choose a color

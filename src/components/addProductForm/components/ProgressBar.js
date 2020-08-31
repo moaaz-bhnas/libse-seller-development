@@ -23,6 +23,7 @@ const ProgressBar = ({ activeStep, setActiveStep, finishedStep }) => {
     (event, step) => {
       console.log("handleStepClick");
       console.log("step: ", step, "finishedStep: ", finishedStep);
+      console.log(step - finishedStep <= 1);
       event.preventDefault();
 
       if (step - finishedStep <= 1) {

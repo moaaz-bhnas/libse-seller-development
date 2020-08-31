@@ -16,7 +16,7 @@ const Details = ({
       <Title>Product Details</Title>
 
       {details.map((detail) => (
-        <>
+        <React.Fragment key={detail.value}>
           <SubTitle>{detail.label}:</SubTitle>
           <RadioButtonsGroup
             name={detail.value}
@@ -30,7 +30,7 @@ const Details = ({
             }
             itemsPerRow={4}
           />
-        </>
+        </React.Fragment>
       ))}
 
       <NextButton
