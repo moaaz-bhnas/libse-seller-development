@@ -29,11 +29,11 @@ export const RadioInput = ({
   label,
   value,
   checked,
-  style,
   onChange,
+  width,
 }) => {
   return (
-    <Label style={style}>
+    <Label width={width}>
       <StyledRadioInput
         type="radio"
         name={name}
@@ -47,8 +47,12 @@ export const RadioInput = ({
 };
 
 const Label = styled.label`
-  width: 50%;
+  width: ${(props) => props.width}%;
   padding: 0.2em 0;
+
+  &:not(:last-child) {
+    padding-right: 0.75em;
+  }
 `;
 
 const StyledRadioInput = styled.input`

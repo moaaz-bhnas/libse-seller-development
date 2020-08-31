@@ -7,7 +7,7 @@ const CategorySvg = () => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 271.673 271.673"
       className="svg categorySvg"
-      style={{ enableBackground: "new 0 0 271.673 271.673;" }}
+      style={{ enableBackground: "new 0 0 271.673 271.673" }}
     >
       <CategorySvgPath
         d="M114.939,0H10.449C4.678,0,0,4.678,0,10.449v104.49c0,5.771,4.678,10.449,10.449,10.449h104.49

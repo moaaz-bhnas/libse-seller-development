@@ -1,7 +1,7 @@
 import { memo, useCallback, useState, useEffect } from "react";
 import { ErrorMsg, ErrorIcon } from "../style";
 import CategorySvg from "../../../svgs/category";
-import InformationSvg from "../../../svgs/information";
+import DetailsSvg from "../../../svgs/details";
 import ColorsSvg from "../../../svgs/colors";
 import PriceSvg from "../../../svgs/price";
 import errorIcon from "../../../img/error.svg";
@@ -11,7 +11,7 @@ import theme from "../../../shared/theme";
 
 const steps = [
   { text: "category", Icon: CategorySvg },
-  { text: "information", Icon: InformationSvg },
+  { text: "details", Icon: DetailsSvg },
   { text: "colors\u00A0&\u00A0sizes", Icon: ColorsSvg },
   { text: "price", Icon: PriceSvg },
 ];

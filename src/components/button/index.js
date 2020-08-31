@@ -15,7 +15,11 @@ export const AddProductButton = () => {
   );
 };
 
-export const NextButton = ({ onClick, disabled, positionedAbsolutely }) => {
+export const NextButton = ({
+  onClick,
+  disabled = false,
+  positionedAbsolutely,
+}) => {
   return (
     <Button
       type="submit"

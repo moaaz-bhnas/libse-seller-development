@@ -4,31 +4,15 @@ import styled from "styled-components";
 import { title3, title4 } from "../../title/style";
 import RadioButtonsGroup from "./radioButtonsGroup";
 
-const categories = [
-  { label: "Men", value: "men" },
-  { label: "Women", value: "women" },
-  { label: "Boys", value: "boys" },
-  { label: "Girls", value: "girls" },
-];
-const subCategories = [
-  { label: "Pants & Jeans", value: "pants-&-jeans" },
-  { label: "T-Shirts & Polos", value: "t-shirts-&-polos" },
-  { label: "Slippers", value: "slippers" },
-  { label: "Formal Shoes", value: "formal-shoes" },
-  { label: "Watches", value: "watches" },
-  { label: "Sunglasses", value: "sunglasses" },
-  { label: "Accessories", value: "accessories" },
-];
-
 const Information = ({
-  category,
-  setCategory,
-  subCategory,
-  setSubCategory,
+  categories,
+  subCategories,
+  selectedCategory,
+  setSelectedCategoryIndex,
+  selectedSubCategory,
+  setSelectedSubCategoryIndex,
   onStepSubmit,
 }) => {
-  const disabled = [category, subCategory].some((value) => value === "");
-
   return (
     <>
       <Title>Product Information</Title>
@@ -37,22 +21,19 @@ const Information = ({
       <RadioButtonsGroup
         name="category"
         items={categories}
-        selectedItem={category}
-        onChange={(e) => setCategory(e.target.value)}
+        selectedItem={selectedCategory}
+        onChange={({ index }) => setSelectedCategoryIndex(index)}
       />
 
       <SubTitle>Sub-category:</SubTitle>
       <RadioButtonsGroup
         name="subcategory"
         items={subCategories}
-        selectedItem={subCategory}
-        onChange={(e) => setSubCategory(e.target.value)}
+        selectedItem={selectedSubCategory}
+        onChange={({ index }) => setSelectedSubCategoryIndex(index)}
       />
 
-      <NextButton
-        disabled={disabled}
-        onClick={(event) => onStepSubmit(event, disabled)}
-      />
+      <NextButton onClick={(event) => onStepSubmit(event)} />
     </>
   );
 };
