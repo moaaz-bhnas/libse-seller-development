@@ -345,7 +345,7 @@ const AddProductForm = () => {
   const { details } = selectedSubCategory;
   useEffect(() => {
     setSelectedDetails({});
-  }, [selectedSubCategoryIndex]); // re-render
+  }, [selectedCategoryIndex, selectedSubCategoryIndex]); // re-render
 
   const [description, setDescription] = useState("");
   const [colors, setColors] = useState([
@@ -379,12 +379,19 @@ const AddProductForm = () => {
     setActiveStep(activeStep - 1);
   }, [activeStep]);
 
+  const finishedStep2 = Object.keys(selectedDetails).length >= 2;
   const finishedStep3 = colors.every(
     (color) => color.value && color.sizes.length && color.images.length
   );
   const finishedStep4 = price;
 
-  const finishedStep = finishedStep4 ? 4 : finishedStep3 ? 3 : 2;
+  const finishedStep = finishedStep4
+    ? 4
+    : finishedStep3
+    ? 3
+    : finishedStep2
+    ? 2
+    : 1;
 
   const handleFormSubmit = useCallback(
     (event) => {
@@ -446,14 +453,15 @@ const AddProductForm = () => {
             details={details}
             selectedDetails={selectedDetails}
             setSelectedDetails={setSelectedDetails}
+            goToPreviousStep={goToPreviousStep}
             onStepSubmit={handleStepSubmit}
           />
         ) : activeStep === 3 ? (
           <ColorsAndSizes
             colors={colors}
             setColors={setColors}
-            onStepSubmit={handleStepSubmit}
             goToPreviousStep={goToPreviousStep}
+            onStepSubmit={handleStepSubmit}
           />
         ) : (
           <Price

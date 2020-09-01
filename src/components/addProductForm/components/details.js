@@ -1,19 +1,42 @@
-import React, { memo } from "react";
-import { NextButton } from "../../button";
+import React, { memo, useState, useEffect, useCallback } from "react";
+import { NextButton, PreviousButton } from "../../button";
 import styled from "styled-components";
 import { title3, title4 } from "../../title/style";
 import RadioButtonsGroup from "./radioButtonsGroup";
+import { ErrorIcon, ButtonsContainer } from "../style";
+import errorIcon from "../../../img/error.svg";
+import theme from "../../../shared/theme";
 
 const Details = ({
   details,
   selectedDetails,
   setSelectedDetails,
+  goToPreviousStep,
   onStepSubmit,
 }) => {
+  const [errorVisible, setErrorVisible] = useState(false);
   const disabled = Object.keys(selectedDetails).length < 2;
+
+  const handleSubmit = useCallback(
+    (event) => {
+      if (Object.keys(selectedDetails).length < 2) {
+        setErrorVisible(true);
+      }
+      onStepSubmit(event, disabled);
+    },
+    [disabled, selectedDetails]
+  );
+
   return (
     <>
       <Title>Product Details</Title>
+
+      {Object.keys(selectedDetails).length < 2 && (
+        <P role="alert" error={errorVisible}>
+          At least <B>2</B> options must be checked.
+          {errorVisible && <ErrorIcon src={errorIcon} alt="" />}
+        </P>
+      )}
 
       {details.map((detail) => (
         <React.Fragment key={detail.value}>
@@ -33,16 +56,26 @@ const Details = ({
         </React.Fragment>
       ))}
 
-      <NextButton
-        disabled={disabled}
-        onClick={(event) => onStepSubmit(event, disabled)}
-      />
+      <ButtonsContainer>
+        <PreviousButton onClick={goToPreviousStep} />
+        <NextButton disabled={disabled} onClick={handleSubmit} />
+      </ButtonsContainer>
     </>
   );
 };
 
 const Title = styled.h3`
   ${title3}
+`;
+
+const P = styled.p`
+  display: flex;
+  align-items: center;
+  color: ${({ error }) => (error ? theme.text.warning : "inherit")};
+`;
+
+const B = styled.b`
+  margin: 0 0.3em;
 `;
 
 const SubTitle = styled.h4`
