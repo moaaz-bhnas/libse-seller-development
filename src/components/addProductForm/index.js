@@ -1,4 +1,4 @@
-import { memo, useState, useCallback, useContext, useEffect } from "react";
+import { memo, useState, useCallback, useContext, useReducer } from "react";
 import Category from "./components/category";
 import Details from "./components/details";
 import ProgressBar from "./components/ProgressBar";
@@ -10,320 +10,12 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { title } from "../title/style";
-
-const categories = [
-  {
-    label: "Men",
-    value: "men",
-    subCategories: [
-      {
-        label: "Pants",
-        value: "pants",
-        details: [
-          {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Jeans", value: "jeans" },
-              { label: "Trousers", value: "trousers" },
-              { label: "Joggers", value: "joggers" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Comfort Fit", value: "comfort-fit" },
-              { label: "Slim Fit", value: "slim-fit" },
-              { label: "Skinny", value: "skinny" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Tops",
-        value: "tops",
-        details: [
-          {
-            label: "Material",
-            value: "material",
-            options: [
-              { label: "Cotton", value: "cotton" },
-              { label: "Polyster", value: "polyster" },
-              { label: "Pique", value: "pique" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Shirt", value: "shirt" },
-              { label: "T-shirt", value: "t-shirt" },
-              { label: "Polo", value: "polo" },
-              { label: "Sweetshirt", value: "sweetshirt" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Short", value: "short" },
-              { label: "Sleeveless", value: "sleeves" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Slippers",
-        value: "slippers",
-        details: [
-          {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Arabic", value: "arabic" },
-              { label: "Flip Flop", value: "flip-flop" },
-              { label: "Slides", value: "slides" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Women",
-    value: "women",
-    subCategories: [
-      {
-        label: "Dresses",
-        value: "dresses",
-        details: [
-          {
-            label: "Length",
-            value: "length",
-            options: [
-              { label: "Above The Knee", value: "above-the-knee" },
-              { label: "Knee Length", value: "knee-length" },
-              { label: "Maxi", value: "maxi" },
-              { label: "Mid Calf", value: "mid-calf" },
-              { label: "Mini", value: "mini" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Straight", value: "straight" },
-              { label: "Shift", value: "shift" },
-              { label: "Bodycon", value: "bodycon" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Half", value: "half" },
-              { label: "Short", value: "short" },
-              { label: "Single", value: "single" },
-              { label: "Sleeveless", value: "sleeveless" },
-              { label: "Three Quarter Sleeve", value: "three-quarter-sleeve" },
-            ],
-          },
-          {
-            label: "Occasion",
-            value: "occasion",
-            options: [
-              { label: "Casual", value: "casual" },
-              { label: "Club", value: "club" },
-              { label: "Cocktail", value: "cocktail" },
-              { label: "Special Occasion", value: "special-occasion" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Sandals",
-        value: "sandals",
-        details: [
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Comfort", value: "comfort" },
-              { label: "Heels", value: "heels" },
-              { label: "Wedges", value: "wedges" },
-              { label: "Hells", value: "hells" },
-              { label: "Clog", value: "clog" },
-              { label: "Thong", value: "thong" },
-            ],
-          },
-          {
-            label: "Occasion",
-            value: "occasion",
-            options: [
-              { label: "Casual", value: "casual" },
-              { label: "Dress", value: "dress" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Boys",
-    value: "boys",
-    subCategories: [
-      {
-        label: "Pants",
-        value: "pants",
-        details: [
-          {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Jeans", value: "jeans" },
-              { label: "Trousers", value: "trousers" },
-              { label: "Joggers", value: "joggers" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Comfort Fit", value: "comfort-fit" },
-              { label: "Slim Fit", value: "slim-fit" },
-              { label: "Skinny", value: "skinny" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Tops",
-        value: "tops",
-        details: [
-          {
-            label: "Material",
-            value: "material",
-            options: [
-              { label: "Cotton", value: "cotton" },
-              { label: "Polyster", value: "polyster" },
-              { label: "Pique", value: "pique" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Shirt", value: "shirt" },
-              { label: "T-shirt", value: "t-shirt" },
-              { label: "Polo", value: "polo" },
-              { label: "Sweetshirt", value: "sweetshirt" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Short", value: "short" },
-              { label: "Sleeveless", value: "sleeves" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Girls",
-    value: "girls",
-    subCategories: [
-      {
-        label: "Dresses",
-        value: "dresses",
-        details: [
-          {
-            label: "Length",
-            value: "length",
-            options: [
-              { label: "Above The Knee", value: "above-the-knee" },
-              { label: "Knee Length", value: "knee-length" },
-              { label: "Maxi", value: "maxi" },
-              { label: "Mid Calf", value: "mid-calf" },
-              { label: "Mini", value: "mini" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Straight", value: "straight" },
-              { label: "Shift", value: "shift" },
-              { label: "Bodycon", value: "bodycon" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Half", value: "half" },
-              { label: "Short", value: "short" },
-              { label: "Single", value: "single" },
-              { label: "Sleeveless", value: "sleeveless" },
-              { label: "Three Quarter Sleeve", value: "three-quarter-sleeve" },
-            ],
-          },
-          {
-            label: "Occasion",
-            value: "occasion",
-            options: [
-              { label: "Casual", value: "casual" },
-              { label: "Club", value: "club" },
-              { label: "Cocktail", value: "cocktail" },
-              { label: "Special Occasion", value: "special-occasion" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Tops",
-        value: "tops",
-        details: [
-          {
-            label: "Material",
-            value: "material",
-            options: [
-              { label: "Cotton", value: "cotton" },
-              { label: "Polyster", value: "polyster" },
-              { label: "Pique", value: "pique" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Shirt", value: "shirt" },
-              { label: "T-shirt", value: "t-shirt" },
-              { label: "Polo", value: "polo" },
-              { label: "Sweetshirt", value: "sweetshirt" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Short", value: "short" },
-              { label: "Sleeveless", value: "sleeves" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
+import CategorySvg from "../../svgs/category";
+import DetailsSvg from "../../svgs/details";
+import ColorsSvg from "../../svgs/colors";
+import PriceSvg from "../../svgs/price";
+import useUpdateEffect from "../../hooks/useUpdateEffect";
+import { categories } from "../../shared/data";
 
 const AddProductForm = () => {
   const user = useContext(AuthContext);
@@ -332,33 +24,152 @@ const AddProductForm = () => {
   const router = useRouter();
 
   // Inputs
-  const [productName, setProductName] = useState("Product Name");
+  const [productName, setProductName] = useState("");
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+  useUpdateEffect(() => {
+    setSelectedSubCategoryIndex(0);
+  }, [selectedCategoryIndex]);
+
   const [selectedSubCategoryIndex, setSelectedSubCategoryIndex] = useState(0);
   const subCategories = categories[selectedCategoryIndex].subCategories;
   const selectedCategory = categories[selectedCategoryIndex];
   const selectedSubCategory =
     selectedCategory.subCategories[selectedSubCategoryIndex];
+  useUpdateEffect(
+    function clearSelectedDetails() {
+      setSelectedDetails({});
+    },
+    [selectedCategoryIndex, selectedSubCategoryIndex]
+  ); // re-render
 
   const [selectedDetails, setSelectedDetails] = useState({});
   const { details } = selectedSubCategory;
-  useEffect(() => {
-    setSelectedDetails({});
-  }, [selectedCategoryIndex, selectedSubCategoryIndex]); // re-render
+  useUpdateEffect(
+    function updateDetailsStepFinishState() {
+      const stepFinished = details
+        .filter((detail) => detail.required)
+        .every((detail) => Object.keys(selectedDetails).includes(detail.value));
+      stepsDispatch({
+        type: "updateFinishState",
+        payload: { stepId: 2, finished: stepFinished },
+      });
+    },
+    [selectedDetails, details]
+  );
+  useUpdateEffect(
+    function updateDetailsStepFinishAndVisibilityState() {
+      if (!details.length) {
+        stepsDispatch({
+          type: "updateFinishAndVisibilityStates",
+          payload: { stepId: 2, visible: false, finished: true },
+        });
+      } else {
+        stepsDispatch({
+          type: "updateFinishAndVisibilityStates",
+          payload: { stepId: 2, visible: true, finished: false },
+        });
+      }
+    },
+    [details] // try details.length if u face an error
+  );
 
   const [description, setDescription] = useState("");
+
   const [colors, setColors] = useState([
     { value: "", sizes: [], images: [], default: false },
   ]);
+  useUpdateEffect(
+    function updateColorsStepFinishState() {
+      const stepFinished = colors.every(
+        (color) => color.value && color.sizes.length && color.images.length
+      );
+      stepsDispatch({
+        type: "updateFinishState",
+        payload: { stepId: 3, finished: stepFinished },
+      });
+    },
+    [colors]
+  );
+
   const [price, setPrice] = useState("");
+  useUpdateEffect(
+    function updatePriceStepFinishState() {
+      const stepFinished = !!price;
+      stepsDispatch({
+        type: "updateFinishState",
+        payload: { stepId: 4, finished: stepFinished },
+      });
+    },
+    [colors]
+  );
+
   const [salePrice, setSalePrice] = useState("");
 
-  useEffect(() => {
-    setSelectedSubCategoryIndex(0);
-  }, [selectedCategoryIndex]);
+  // Steps
+  const initSteps = [
+    {
+      id: 1,
+      text: "category",
+      Icon: CategorySvg,
+      finished: true,
+      visible: true, // true due to the default values
+    },
+    {
+      id: 2,
+      text: "details",
+      Icon: DetailsSvg,
+      finished: Object.keys(selectedDetails).length !== 0, // to be improved
+      finished: false,
+      visible: true,
+    },
+    {
+      id: 3,
+      text: "colors\u00A0&\u00A0sizes",
+      Icon: ColorsSvg,
+      finished: false,
+      visible: true,
+    },
+    {
+      id: 4,
+      text: "price",
+      Icon: PriceSvg,
+      finished: false,
+      visible: true,
+    },
+  ];
+  const stepsReducer = (steps, action) => {
+    const { stepId: id, finished, visible } = action.payload;
+    switch (action.type) {
+      case "updateFinishState":
+        return steps.map((step) => {
+          if (step.id === id) {
+            step.finished = finished;
+          }
+          return step;
+        });
+      case "updateVisibilityState":
+        return steps.map((step) => {
+          if (step.id === id) {
+            step.visible = visible;
+          }
+          return step;
+        });
+      case "updateFinishAndVisibilityStates":
+        console.log("updateFinishAndVisibilityStates");
+        return steps.map((step) => {
+          if (step.id === id) {
+            step.visible = visible;
+            step.finished = finished;
+          }
+          return step;
+        });
+      default:
+        throw new Error("Unknown action type");
+    }
+  };
+  const [steps, stepsDispatch] = useReducer(stepsReducer, initSteps);
 
-  // Active step
   const [activeStep, setActiveStep] = useState(1);
   console.log("activeStep: ", activeStep);
 
@@ -379,24 +190,11 @@ const AddProductForm = () => {
     setActiveStep(activeStep - 1);
   }, [activeStep]);
 
-  const finishedStep2 = Object.keys(selectedDetails).length >= 2;
-  const finishedStep3 = colors.every(
-    (color) => color.value && color.sizes.length && color.images.length
-  );
-  const finishedStep4 = price;
-
-  const finishedStep = finishedStep4
-    ? 4
-    : finishedStep3
-    ? 3
-    : finishedStep2
-    ? 2
-    : 1;
-
   const handleFormSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      if (finishedStep !== 3) return;
+      const allStepsFinished = steps.every((step) => step.finished);
+      if (!allStepsFinished) return;
 
       const product = {
         productName,
@@ -413,7 +211,7 @@ const AddProductForm = () => {
       dispatch(addProduct(sellerId, product, router));
     },
     [
-      finishedStep,
+      steps,
       productName,
       selectedCategoryIndex,
       selectedSubCategoryIndex,
@@ -428,9 +226,10 @@ const AddProductForm = () => {
       <Title>Add Product</Title>
 
       <ProgressBar
+        steps={steps}
         activeStep={activeStep}
         setActiveStep={setActiveStep}
-        finishedStep={finishedStep}
+        subCategoryHasDetails={!!details.length}
       />
 
       <FormContainer
@@ -455,6 +254,7 @@ const AddProductForm = () => {
             setSelectedDetails={setSelectedDetails}
             goToPreviousStep={goToPreviousStep}
             onStepSubmit={handleStepSubmit}
+            finished={steps[1].finished}
           />
         ) : activeStep === 3 ? (
           <ColorsAndSizes
@@ -462,6 +262,7 @@ const AddProductForm = () => {
             setColors={setColors}
             goToPreviousStep={goToPreviousStep}
             onStepSubmit={handleStepSubmit}
+            finished={steps[2].finished}
           />
         ) : (
           <Price
@@ -471,6 +272,7 @@ const AddProductForm = () => {
             setSalePrice={setSalePrice}
             goToPreviousStep={goToPreviousStep}
             onSubmit={handleFormSubmit}
+            finished={steps[3].finished}
           />
         )}
       </FormContainer>
@@ -488,7 +290,7 @@ const Title = styled.h2`
 
 const FormContainer = styled.div`
   max-width: ${({ size }) =>
-    size === "sm" ? "25em" : size === "md" ? "38em" : "52em"};
+    size === "sm" ? "25em" : size === "md" ? "46em" : "52em"};
   padding-bottom: 1em;
 `;
 export default memo(AddProductForm);

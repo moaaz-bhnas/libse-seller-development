@@ -31,6 +31,7 @@ export const RadioInput = ({
   checked,
   onChange,
   width,
+  required,
 }) => {
   return (
     <Label width={width}>
@@ -40,6 +41,7 @@ export const RadioInput = ({
         value={value}
         checked={checked}
         onChange={onChange}
+        required={required}
       />
       {label}
     </Label>

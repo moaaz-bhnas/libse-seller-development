@@ -45,6 +45,7 @@ const ColorsAndSizes = ({
   setColors,
   onStepSubmit,
   goToPreviousStep,
+  finished,
 }) => {
   const [colorsNumber, setColorsNumber] = useState(colors.length);
   const [colorsNumberError, setColorsNumberError] = useState({
@@ -201,6 +202,11 @@ const ColorsAndSizes = ({
 
   const handleImageChange = useCallback(
     (imageFiles, imageDataURLs, index) => {
+      console.log(
+        "handleImageChange",
+        "imageError.visible: ",
+        imageError.visible
+      );
       if (imageError.visible) setImageError({ visible: false, index: null });
 
       const images = imageFiles
@@ -217,7 +223,7 @@ const ColorsAndSizes = ({
       });
       setColors(updatedColors);
     },
-    [colors]
+    [colors, imageError.visible]
   );
 
   const crossIconVisible = useCallback(
@@ -228,12 +234,9 @@ const ColorsAndSizes = ({
     [colors]
   );
 
-  const disabled = colors.some(
-    (color) => !color.value || !color.sizes.length || !color.images.length
-  );
   const handleSubmit = useCallback(
     (event) => {
-      onStepSubmit(event, disabled);
+      onStepSubmit(event, !finished);
 
       colors.forEach((color, index) => {
         if (color.value === "") {
@@ -245,7 +248,7 @@ const ColorsAndSizes = ({
         }
       });
     },
-    [disabled]
+    [finished]
   );
 
   const setDefaultColor = useCallback(
@@ -386,7 +389,7 @@ const ColorsAndSizes = ({
       <ButtonsContainer>
         <PreviousButton onClick={goToPreviousStep} />
         <NextButton
-          disabled={disabled}
+          disabled={!finished}
           onClick={handleSubmit}
           positionedAbsolutely={colors.length === 1}
         />

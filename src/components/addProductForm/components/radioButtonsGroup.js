@@ -8,6 +8,7 @@ const RadioButtonsGroup = ({
   selectedItem,
   onChange,
   itemsPerRow = 2,
+  required = false,
 }) => {
   return (
     <RadioGroup>
@@ -20,6 +21,7 @@ const RadioButtonsGroup = ({
           checked={item.value === selectedItem}
           onChange={(e) => onChange({ e, index })}
           width={100 / itemsPerRow}
+          required={required}
         />
       ))}
     </RadioGroup>

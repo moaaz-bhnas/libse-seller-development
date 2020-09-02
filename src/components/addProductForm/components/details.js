@@ -13,34 +13,38 @@ const Details = ({
   setSelectedDetails,
   goToPreviousStep,
   onStepSubmit,
+  finished,
 }) => {
-  const [errorVisible, setErrorVisible] = useState(false);
+  // const [errorVisible, setErrorVisible] = useState(false);
   const disabled = Object.keys(selectedDetails).length < 2;
 
   const handleSubmit = useCallback(
     (event) => {
-      if (Object.keys(selectedDetails).length < 2) {
-        setErrorVisible(true);
-      }
-      onStepSubmit(event, disabled);
+      // if (Object.keys(selectedDetails).length < 2) {
+      //   setErrorVisible(true);
+      // }
+      onStepSubmit(event, !finished);
     },
-    [disabled, selectedDetails]
+    [finished, selectedDetails]
   );
 
   return (
     <>
       <Title>Product Details</Title>
 
-      {Object.keys(selectedDetails).length < 2 && (
+      {/* {Object.keys(selectedDetails).length < 2 && (
         <P role="alert" error={errorVisible}>
           At least <B>2</B> options must be checked.
           {errorVisible && <ErrorIcon src={errorIcon} alt="" />}
         </P>
-      )}
+      )} */}
 
       {details.map((detail) => (
         <React.Fragment key={detail.value}>
-          <SubTitle>{detail.label}:</SubTitle>
+          <SubTitle>
+            {detail.label}
+            {detail.required ? " (required)" : ""}:
+          </SubTitle>
           <RadioButtonsGroup
             name={detail.value}
             items={detail.options}
@@ -52,13 +56,14 @@ const Details = ({
               })
             }
             itemsPerRow={4}
+            required={detail.required}
           />
         </React.Fragment>
       ))}
 
       <ButtonsContainer>
         <PreviousButton onClick={goToPreviousStep} />
-        <NextButton disabled={disabled} onClick={handleSubmit} />
+        <NextButton disabled={!finished} onClick={handleSubmit} />
       </ButtonsContainer>
     </>
   );
@@ -68,15 +73,15 @@ const Title = styled.h3`
   ${title3}
 `;
 
-const P = styled.p`
-  display: flex;
-  align-items: center;
-  color: ${({ error }) => (error ? theme.text.warning : "inherit")};
-`;
+// const P = styled.p`
+//   display: flex;
+//   align-items: center;
+//   color: ${({ error }) => (error ? theme.text.warning : "inherit")};
+// `;
 
-const B = styled.b`
-  margin: 0 0.3em;
-`;
+// const B = styled.b`
+//   margin: 0 0.3em;
+// `;
 
 const SubTitle = styled.h4`
   ${title4}

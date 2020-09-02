@@ -1,40 +1,17 @@
 import { memo, useCallback, useState, useEffect } from "react";
 import { ErrorMsg, ErrorIcon } from "../style";
-import CategorySvg from "../../../svgs/category";
-import DetailsSvg from "../../../svgs/details";
-import ColorsSvg from "../../../svgs/colors";
-import PriceSvg from "../../../svgs/price";
 import errorIcon from "../../../img/error.svg";
 import time from "../../../shared/time";
 import styled from "styled-components";
 import theme from "../../../shared/theme";
 
-const steps = [
-  { text: "category", Icon: CategorySvg },
-  { text: "details", Icon: DetailsSvg },
-  { text: "colors\u00A0&\u00A0sizes", Icon: ColorsSvg },
-  { text: "price", Icon: PriceSvg },
-];
-
-const ProgressBar = ({ activeStep, setActiveStep, finishedStep }) => {
+const ProgressBar = ({
+  steps,
+  activeStep,
+  setActiveStep,
+  subCategoryHasDetails,
+}) => {
   const [error, setError] = useState(false);
-
-  const handleStepClick = useCallback(
-    (event, step) => {
-      console.log("handleStepClick");
-      console.log("step: ", step, "finishedStep: ", finishedStep);
-      console.log(step - finishedStep <= 1);
-      event.preventDefault();
-
-      if (step - finishedStep <= 1) {
-        setActiveStep(step);
-      } else {
-        setError(true);
-      }
-    },
-    [finishedStep]
-  );
-
   useEffect(() => {
     if (error) {
       setTimeout(function hideErrorMsg() {
@@ -43,27 +20,50 @@ const ProgressBar = ({ activeStep, setActiveStep, finishedStep }) => {
     }
   }, [error]);
 
+  const handleStepClick = useCallback(
+    (event, clickedStepId) => {
+      event.preventDefault();
+
+      const allPreviousStepsFinished = steps
+        .filter((step) => step.id < clickedStepId)
+        .every((step) => step.finished);
+      if (allPreviousStepsFinished) {
+        setActiveStep(clickedStepId);
+      } else {
+        setError(true);
+      }
+    },
+    [steps]
+  );
+
+  const activeStepIsFinished = steps[activeStep - 1].finished; // -1 cause activeStep starts from 1 instead of 0
   return (
     <ProgressBarContainer>
       <StyledProgressBar>
-        {steps.map(({ text, Icon }, index) => (
-          <Step key={text} data-opened={activeStep >= index + 1}>
-            <StepIconButton
-              type="button"
-              onClick={(event) => handleStepClick(event, index + 1)}
-              className="progressbar__iconContainer"
-              onMouseDown={(event) => event.preventDefault()}
-            >
-              <Icon />
-            </StepIconButton>
-            <StepText>{text}</StepText>
-          </Step>
-        ))}
+        {steps &&
+          steps
+            .filter((step) => step.visible)
+            .map(({ text, Icon, id }) => (
+              <Step key={id} data-opened={activeStep >= id}>
+                <StepIconButton
+                  type="button"
+                  onClick={(event) => handleStepClick(event, id)}
+                  className="progressbar__iconContainer"
+                  onMouseDown={(event) => event.preventDefault()}
+                  shortLine={subCategoryHasDetails}
+                >
+                  <Icon />
+                </StepIconButton>
+                <StepText>{text}</StepText>
+              </Step>
+            ))}
       </StyledProgressBar>
 
       {error && (
         <ErrorMsg className="progressbar__errMsg" role="alert">
-          You have to finish this step first
+          {activeStepIsFinished
+            ? "You have to finish the preceding steps"
+            : "You have to finish this step first"}
           <ErrorIcon src={errorIcon} alt="" />
         </ErrorMsg>
       )}
@@ -128,7 +128,7 @@ export const StepIconButton = styled.button`
     content: "";
     position: absolute;
     z-index: -1;
-    width: 10em;
+    width: ${(props) => (props.shortLine ? "10em" : "15em")};
     height: 2px;
     background-color: ${borderColor};
     top: 50%;
