@@ -24,7 +24,7 @@ const AddProductForm = () => {
   const router = useRouter();
 
   // Inputs
-  const [productName, setProductName] = useState("");
+  const [productName, setProductName] = useState("Product Name");
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   useUpdateEffect(() => {
@@ -58,7 +58,7 @@ const AddProductForm = () => {
     [selectedDetails, details]
   );
   useUpdateEffect(
-    function updateDetailsStepFinishAndVisibilityState() {
+    function updateDetailsStepVisibilityState() {
       if (!details.length) {
         stepsDispatch({
           type: "updateFinishAndVisibilityStates",
@@ -66,15 +66,15 @@ const AddProductForm = () => {
         });
       } else {
         stepsDispatch({
-          type: "updateFinishAndVisibilityStates",
-          payload: { stepId: 2, visible: true, finished: false },
+          type: "updateVisibilityState",
+          payload: { stepId: 2, visible: true },
         });
       }
     },
     [details] // try details.length if u face an error
   );
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState("Description"); // Not sure about removing this option yet
 
   const [colors, setColors] = useState([
     { value: "", sizes: [], images: [], default: false },
@@ -101,7 +101,7 @@ const AddProductForm = () => {
         payload: { stepId: 4, finished: stepFinished },
       });
     },
-    [colors]
+    [price]
   );
 
   const [salePrice, setSalePrice] = useState("");
@@ -194,15 +194,16 @@ const AddProductForm = () => {
     (event) => {
       event.preventDefault();
       const allStepsFinished = steps.every((step) => step.finished);
+      console.log("allStepsFinished: ", allStepsFinished, "steps: ", steps);
       if (!allStepsFinished) return;
+      // Naming login goes here ..
 
+      const category = categories[selectedCategoryIndex];
       const product = {
         productName,
-        category: categories[selectedCategoryIndex].value,
-        subCategory:
-          categories[selectedCategoryIndex].subCategories[
-            selectedSubCategoryIndex
-          ].value,
+        category: category.value,
+        subCategory: category.subCategories[selectedSubCategoryIndex].value,
+        details: selectedDetails,
         description,
         colors,
         price,
