@@ -15,7 +15,7 @@ const Information = ({
 }) => {
   return (
     <>
-      <Title>Product Information</Title>
+      <Title>Product Category</Title>
 
       <SubTitle>Category:</SubTitle>
       <RadioButtonsGroup

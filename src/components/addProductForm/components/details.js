@@ -8,6 +8,11 @@ import errorIcon from "../../../img/error.svg";
 import theme from "../../../shared/theme";
 
 const Details = ({
+  selectedCategory,
+  selectedSubCategory,
+  groups,
+  selectedGroup,
+  setSelectedGroupIndex,
   details,
   selectedDetails,
   setSelectedDetails,
@@ -30,6 +35,11 @@ const Details = ({
 
   return (
     <>
+      <Breadcrumbs>
+        {selectedCategory.label} / {selectedSubCategory.label} /{" "}
+        {selectedGroup.label}
+      </Breadcrumbs>
+
       <Title>Product Details</Title>
 
       {/* {Object.keys(selectedDetails).length < 2 && (
@@ -39,12 +49,19 @@ const Details = ({
         </P>
       )} */}
 
+      <SubTitle>Group:</SubTitle>
+      <RadioButtonsGroup
+        name="group"
+        items={groups}
+        selectedItem={selectedGroup.value}
+        onChange={({ index }) => setSelectedGroupIndex(index)}
+        itemsPerRow={4}
+        required={true}
+      />
+
       {details.map((detail) => (
         <React.Fragment key={detail.value}>
-          <SubTitle>
-            {detail.label}
-            {detail.required ? " (required)" : ""}:
-          </SubTitle>
+          <SubTitle>{detail.label}:</SubTitle>
           <RadioButtonsGroup
             name={detail.value}
             items={detail.options}
@@ -71,6 +88,10 @@ const Details = ({
 
 const Title = styled.h3`
   ${title3}
+`;
+
+export const Breadcrumbs = styled.p`
+  color: ${theme.text.grey};
 `;
 
 // const P = styled.p`

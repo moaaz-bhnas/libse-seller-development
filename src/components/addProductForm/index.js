@@ -36,30 +36,22 @@ const AddProductForm = () => {
   const selectedCategory = categories[selectedCategoryIndex];
   const selectedSubCategory =
     selectedCategory.subCategories[selectedSubCategoryIndex];
+  useUpdateEffect(() => {
+    setSelectedGroupIndex(0);
+  }, [selectedSubCategoryIndex]); // re-render
+
+  const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
+  const { groups } = selectedSubCategory;
+  const selectedGroup = groups[selectedGroupIndex];
   useUpdateEffect(
     function clearSelectedDetails() {
       setSelectedDetails({});
     },
-    [selectedCategoryIndex, selectedSubCategoryIndex]
+    [selectedCategoryIndex, selectedSubCategoryIndex, selectedGroupIndex]
   ); // re-render
-
-  const [selectedDetails, setSelectedDetails] = useState({});
-  const { details } = selectedSubCategory;
-  useUpdateEffect(
-    function updateDetailsStepFinishState() {
-      const stepFinished = details
-        .filter((detail) => detail.required)
-        .every((detail) => Object.keys(selectedDetails).includes(detail.value));
-      stepsDispatch({
-        type: "updateFinishState",
-        payload: { stepId: 2, finished: stepFinished },
-      });
-    },
-    [selectedDetails, details]
-  );
   useUpdateEffect(
     function updateDetailsStepVisibilityState() {
-      if (!details.length) {
+      if (!groups.length) {
         stepsDispatch({
           type: "updateFinishAndVisibilityStates",
           payload: { stepId: 2, visible: false, finished: true },
@@ -71,7 +63,31 @@ const AddProductForm = () => {
         });
       }
     },
-    [details] // try details.length if u face an error
+    [groups] // try groups.length if u face an error
+  );
+
+  console.log(
+    "selectedCategory: ",
+    selectedCategory,
+    "selectedSubCategory: ",
+    selectedSubCategory,
+    "selectedGroup: ",
+    selectedGroup
+  );
+
+  const [selectedDetails, setSelectedDetails] = useState({});
+  const { details } = selectedGroup;
+  useUpdateEffect(
+    function updateDetailsStepFinishState() {
+      const stepFinished = details
+        .filter((detail) => detail.required)
+        .every((detail) => Object.keys(selectedDetails).includes(detail.value));
+      stepsDispatch({
+        type: "updateFinishState",
+        payload: { stepId: 2, finished: stepFinished },
+      });
+    },
+    [selectedDetails, details]
   );
 
   const [description, setDescription] = useState("Description"); // Not sure about removing this option yet
@@ -230,7 +246,7 @@ const AddProductForm = () => {
         steps={steps}
         activeStep={activeStep}
         setActiveStep={setActiveStep}
-        subCategoryHasDetails={!!details.length}
+        subCategoryHasGroups={!!groups.length}
       />
 
       <FormContainer
@@ -250,7 +266,12 @@ const AddProductForm = () => {
           />
         ) : activeStep === 2 ? (
           <Details
+            selectedCategory={selectedCategory}
+            selectedSubCategory={selectedSubCategory}
             details={details}
+            groups={groups}
+            selectedGroup={selectedGroup}
+            setSelectedGroupIndex={setSelectedGroupIndex}
             selectedDetails={selectedDetails}
             setSelectedDetails={setSelectedDetails}
             goToPreviousStep={goToPreviousStep}
@@ -291,7 +312,7 @@ const Title = styled.h2`
 
 const FormContainer = styled.div`
   max-width: ${({ size }) =>
-    size === "sm" ? "25em" : size === "md" ? "46em" : "52em"};
+    size === "sm" ? "25em" : size === "md" ? "47em" : "52em"};
   padding-bottom: 1em;
 `;
 export default memo(AddProductForm);

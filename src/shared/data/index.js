@@ -6,374 +6,1340 @@ export const categories = [
     value: "men",
     subCategories: [
       {
+        label: "Pants",
+        value: "pants",
+        groups: [
+          {
+            label: "Sweatpants",
+            value: "sweetpants",
+            details: [
+              {
+                label: "Style",
+                value: "style",
+                options: [
+                  { label: "Basic Length", value: "basic-length" },
+                  { label: "Cropped", value: "cropped" },
+                  { label: "Drawstring", value: "drawstring" },
+                  { label: "Baggy", value: "baggy" },
+                  { label: "Other", value: "other" },
+                ],
+                required: true,
+              },
+              {
+                label: "Material",
+                value: "material",
+                options: [
+                  { label: "Fleece", value: "fleece" },
+                  { label: "Cotton", value: "cotton" },
+                  { label: "Nylon", value: "nylon" },
+                  { label: "Polyester", value: "polyester" },
+                  { label: "Spandex", value: "spandex" },
+                  { label: "Cashmere", value: "cashmere" },
+                  { label: "Jersey", value: "jersey" },
+                  { label: "Mohair", value: "mohair" },
+                  { label: "Linen", value: "linen" },
+                  { label: "Other", value: "other" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Jeans",
+            value: "jeans",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Loose", value: "loose" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                  { label: "Tapered", value: "tapered" },
+                  { label: "Narrow", value: "narrow" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Bootcut", value: "bootcut" },
+                ],
+                required: true,
+              },
+              {
+                label: "Stretch",
+                value: "stretch",
+                options: [
+                  { label: "Stretch", value: "stretch" },
+                  { label: "Non Stretch", value: "non-stretch" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Cargo",
+            value: "cargo",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Straight", value: "straight" },
+                  { label: "Tapered", value: "tapered" },
+                ],
+                required: true,
+              },
+              {
+                label: "Stretch",
+                value: "stretch",
+                options: [
+                  { label: "Stretch", value: "stretch" },
+                  { label: "Non Stretch", value: "non-stretch" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Chino",
+            value: "chino",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "Regular" },
+                  { label: "Tapered", value: "tapered" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                ],
+                required: true,
+              },
+              {
+                label: "Stretch",
+                value: "stretch",
+                options: [
+                  { label: "Stretch", value: "stretch" },
+                  { label: "Non Stretch", value: "non-stretch" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Pleated Pants",
+            value: "pleated-pants",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Classic", value: "classic" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                  { label: "Straight", value: "straight" },
+                  { label: "Tapered", value: "tapered" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Khaki",
+            value: "khaki",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Classic", value: "classic" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                  { label: "Straight", value: "straight" },
+                  { label: "Tapered", value: "tapered" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Shorts",
+        value: "shorts",
+        groups: [
+          {
+            label: "Sweatshorts",
+            value: "sweetshorts",
+            details: [
+              {
+                label: "Material",
+                value: "material",
+                options: [
+                  { label: "Fleece", value: "fleece" },
+                  { label: "Cotton", value: "cotton" },
+                  { label: "Nylon", value: "nylon" },
+                  { label: "Polyester", value: "polyester" },
+                  { label: "Spandex", value: "spandex" },
+                  { label: "Cashmere", value: "cashmere" },
+                  { label: "Jersey", value: "jersey" },
+                  { label: "Linen", value: "linen" },
+                  { label: "Other", value: "other" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Jeans",
+            value: "jeans",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Tapered", value: "tapered" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                ],
+                required: true,
+              },
+              {
+                label: "Stretch",
+                value: "stretch",
+                options: [
+                  { label: "Stretch", value: "stretch" },
+                  { label: "Non Stretch", value: "non-stretch" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Cargo",
+            value: "cargo",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Straight", value: "straight" },
+                  { label: "Tapered", value: "tapered" },
+                ],
+                required: true,
+              },
+              {
+                label: "Stretch",
+                value: "stretch",
+                options: [
+                  { label: "Stretch", value: "stretch" },
+                  { label: "Non Stretch", value: "non-stretch" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Chino",
+            value: "chino",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "Regular" },
+                  { label: "Tapered", value: "tapered" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                ],
+                required: true,
+              },
+              {
+                label: "Stretch",
+                value: "stretch",
+                options: [
+                  { label: "Stretch", value: "stretch" },
+                  { label: "Non Stretch", value: "non-stretch" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Pleated Pants",
+            value: "pleated-pants",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Tapered", value: "tapered" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Khaki",
+            value: "khaki",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Tapered", value: "tapered" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                  { label: "Skinny", value: "skinny" },
+                ],
+                required: true,
+              },
+              {
+                label: "Closure",
+                value: "closure",
+                options: [
+                  { label: "Button Fly", value: "button-fly" },
+                  { label: "Zip", value: "zip" },
+                ],
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "T-shirts & Tanks",
+        value: "t-shirts-&-tanks",
+        groups: [
+          {
+            label: "Tanks",
+            value: "tanks",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Graphic Print", value: "graphic-print" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Sport", value: "sport" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "T-shirts",
+            value: "t-shirts",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Graphic Print", value: "graphic-print" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Neckline",
+                value: "neckline",
+                options: [
+                  { label: "Round", value: "round" },
+                  { label: "V", value: "v" },
+                  { label: "Crew", value: "crew" },
+                  { label: "Low Cut", value: "low-cut" },
+                  { label: "Henley", value: "henley" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Sport", value: "sport" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Long Sleeves",
+            value: "long-sleeves",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Graphic Print", value: "graphic-print" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Neckline",
+                value: "neckline",
+                options: [
+                  { label: "Round", value: "round" },
+                  { label: "V", value: "v" },
+                  { label: "Crew", value: "crew" },
+                  { label: "Low Cut", value: "low-cut" },
+                  { label: "Henley", value: "henley" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Sport", value: "sport" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Polo",
+            value: "polo",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Basics",
+            value: "basics",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Neckline",
+                value: "neckline",
+                options: [
+                  { label: "Round", value: "round" },
+                  { label: "V", value: "v" },
+                  { label: "Crew", value: "crew" },
+                  { label: "Low Cut", value: "low-cut" },
+                  { label: "Henley", value: "henley" },
+                ],
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
         label: "Shirts",
         value: "shirts",
-        details: [
+        groups: [
           {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "T-Shirts", value: "t-shirts" },
-              { label: "Casual Button-Down", value: "casual-button-down" },
-              { label: "Polos", value: "polos" },
-              { label: "Tank Tops", value: "tank-tops" },
-              { label: "Dress Shirts", value: "dress-shirts" },
-              { label: "Henleys", value: "henleys" },
+            label: "Casual",
+            value: "casual",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Sleeve Length",
+                value: "sleeve-length",
+                options: [
+                  { label: "Short", value: "short" },
+                  { label: "Long", value: "long" },
+                ],
+                required: true,
+              },
             ],
-            required: true,
           },
-        ],
-      },
-      {
-        label: "Shoes",
-        value: "shoes",
-        details: [
           {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Athletic", value: "athletic" },
-              { label: "Boots", value: "boots" },
-              { label: "Fashion Sneakers", value: "fashion-sneakers" },
-              { label: "Outdoor", value: "outdoor" },
-              { label: "Oxfords", value: "oxfords" },
-              { label: "Sandals", value: "sandals" },
-              { label: "Slippers", value: "slippers" },
-              { label: "Work & Safety", value: "work-&-safety" },
-              { label: "Loafers & Slip-Ons", value: "loafers-&-slip-ons" },
-              { label: "Mules & Clogs", value: "mules-&-clogs" },
+            label: "Dressed",
+            value: "dressed",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Dotted", value: "dotted" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Sleeve Length",
+                value: "sleeve-length",
+                options: [
+                  { label: "Short", value: "short" },
+                  { label: "Long", value: "long" },
+                ],
+                required: true,
+              },
             ],
-            required: true,
           },
-        ],
-      },
-      {
-        label: "Jackets",
-        value: "jackets",
-        details: [
           {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Active & Performance", value: "active-&-performance" },
-              { label: "Lightweight Jackets", value: "lightweight-jackets" },
-              { label: "Leather/Faux Leather", value: "leather-Faux-leather" },
-              { label: "Fleece", value: "fleece" },
-              { label: "Wool", value: "wool" },
-              { label: "Vests", value: "vests" },
-              { label: "Work Wear", value: "work-wear" },
-              { label: "Trench & Rain", value: "trench-&-rain" },
+            label: "Denim",
+            value: "denim",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Sleeve Length",
+                value: "sleeve-length",
+                options: [
+                  { label: "Short", value: "short" },
+                  { label: "Long", value: "long" },
+                ],
+                required: true,
+              },
             ],
-            required: true,
           },
         ],
       },
       {
         label: "Hoodies & Sweatshirts",
         value: "hoodies-&-sweatshirts",
-        details: [],
-      },
-      {
-        label: "Pants",
-        value: "pants",
-        details: [
+        groups: [
           {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Jeans", value: "jeans" },
-              { label: "Trousers", value: "trousers" },
-              { label: "Joggers", value: "joggers" },
+            label: "Hoodies",
+            value: "hoodies",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "Logo", value: "logo" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Floral", value: "floral" },
+                ],
+                required: true,
+              },
+              {
+                label: "Sleeve Length",
+                value: "sleeve-length",
+                options: [
+                  { label: "Long", value: "long" },
+                  { label: "Sleeveless", value: "sleeveless" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Sport", value: "sport" },
+                ],
+                required: true,
+              },
             ],
           },
           {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Comfort Fit", value: "comfort-fit" },
-              { label: "Slim Fit", value: "slim-fit" },
-              { label: "Skinny", value: "skinny" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Tops",
-        value: "tops",
-        details: [
-          {
-            label: "Material",
-            value: "material",
-            options: [
-              { label: "Cotton", value: "cotton" },
-              { label: "Polyster", value: "polyster" },
-              { label: "Pique", value: "pique" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Shirt", value: "shirt" },
-              { label: "T-shirt", value: "t-shirt" },
-              { label: "Polo", value: "polo" },
-              { label: "Sweetshirt", value: "sweetshirt" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Short", value: "short" },
-              { label: "Sleeveless", value: "sleeves" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Slippers",
-        value: "slippers",
-        details: [
-          {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Arabic", value: "arabic" },
-              { label: "Flip Flop", value: "flip-flop" },
-              { label: "Slides", value: "slides" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Women",
-    value: "women",
-    subCategories: [
-      {
-        label: "Dresses",
-        value: "dresses",
-        details: [
-          {
-            label: "Length",
-            value: "length",
-            options: [
-              { label: "Above The Knee", value: "above-the-knee" },
-              { label: "Knee Length", value: "knee-length" },
-              { label: "Maxi", value: "maxi" },
-              { label: "Mid Calf", value: "mid-calf" },
-              { label: "Mini", value: "mini" },
-            ],
-          },
-          {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Straight", value: "straight" },
-              { label: "Shift", value: "shift" },
-              { label: "Bodycon", value: "bodycon" },
-            ],
-          },
-          {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Half", value: "half" },
-              { label: "Short", value: "short" },
-              { label: "Single", value: "single" },
-              { label: "Sleeveless", value: "sleeveless" },
-              { label: "Three Quarter Sleeve", value: "three-quarter-sleeve" },
-            ],
-          },
-          {
-            label: "Occasion",
-            value: "occasion",
-            options: [
-              { label: "Casual", value: "casual" },
-              { label: "Club", value: "club" },
-              { label: "Cocktail", value: "cocktail" },
-              { label: "Special Occasion", value: "special-occasion" },
+            label: "Sweatshirts",
+            value: "sweatshirts",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "Logo", value: "logo" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Floral", value: "floral" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Sport", value: "sport" },
+                ],
+                required: true,
+              },
             ],
           },
         ],
       },
       {
-        label: "Sandals",
-        value: "sandals",
-        details: [
+        label: "Jackets & Coats",
+        value: "jackets-&-coats",
+        groups: [
           {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Comfort", value: "comfort" },
-              { label: "Heels", value: "heels" },
-              { label: "Wedges", value: "wedges" },
-              { label: "Hells", value: "hells" },
-              { label: "Clog", value: "clog" },
-              { label: "Thong", value: "thong" },
+            label: "Casual Jackets",
+            value: "casual-jackets",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "Logo", value: "logo" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Floral", value: "floral" },
+                ],
+                required: true,
+              },
             ],
           },
           {
-            label: "Occasion",
-            value: "occasion",
-            options: [
-              { label: "Casual", value: "casual" },
-              { label: "Dress", value: "dress" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Boys",
-    value: "boys",
-    subCategories: [
-      {
-        label: "Pants",
-        value: "pants",
-        details: [
-          {
-            label: "Type",
-            value: "type",
-            options: [
-              { label: "Jeans", value: "jeans" },
-              { label: "Trousers", value: "trousers" },
-              { label: "Joggers", value: "joggers" },
+            label: "Sport Jackets",
+            value: "sport-jackets",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "Logo", value: "logo" },
+                  { label: "Patterned", value: "patterned" },
+                ],
+                required: true,
+              },
             ],
           },
           {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Comfort Fit", value: "comfort-fit" },
-              { label: "Slim Fit", value: "slim-fit" },
-              { label: "Skinny", value: "skinny" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Tops",
-        value: "tops",
-        details: [
-          {
-            label: "Material",
-            value: "material",
-            options: [
-              { label: "Cotton", value: "cotton" },
-              { label: "Polyster", value: "polyster" },
-              { label: "Pique", value: "pique" },
-            ],
+            label: "Bomber Jackets",
+            value: "bomber-jackets",
+            details: [],
           },
           {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Shirt", value: "shirt" },
-              { label: "T-shirt", value: "t-shirt" },
-              { label: "Polo", value: "polo" },
-              { label: "Sweetshirt", value: "sweetshirt" },
-            ],
+            label: "Denim Jackets",
+            value: "denim-jackets",
+            details: [],
           },
           {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Short", value: "short" },
-              { label: "Sleeveless", value: "sleeves" },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: "Girls",
-    value: "girls",
-    subCategories: [
-      {
-        label: "Dresses",
-        value: "dresses",
-        details: [
-          {
-            label: "Length",
-            value: "length",
-            options: [
-              { label: "Above The Knee", value: "above-the-knee" },
-              { label: "Knee Length", value: "knee-length" },
-              { label: "Maxi", value: "maxi" },
-              { label: "Mid Calf", value: "mid-calf" },
-              { label: "Mini", value: "mini" },
-            ],
+            label: "Leather Jackets",
+            value: "leather-jackets",
+            details: [],
           },
           {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Straight", value: "straight" },
-              { label: "Shift", value: "shift" },
-              { label: "Bodycon", value: "bodycon" },
-            ],
+            label: "Windbreakers",
+            value: "windbreakers",
+            details: [],
           },
           {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Half", value: "half" },
-              { label: "Short", value: "short" },
-              { label: "Single", value: "single" },
-              { label: "Sleeveless", value: "sleeveless" },
-              { label: "Three Quarter Sleeve", value: "three-quarter-sleeve" },
-            ],
+            label: "Shackets",
+            value: "shackets",
+            details: [],
           },
           {
-            label: "Occasion",
-            value: "occasion",
-            options: [
-              { label: "Casual", value: "casual" },
-              { label: "Club", value: "club" },
-              { label: "Cocktail", value: "cocktail" },
-              { label: "Special Occasion", value: "special-occasion" },
+            label: "Coats",
+            value: "coats",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Logo", value: "logo" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Checked", value: "checked" },
+                ],
+                required: true,
+              },
             ],
           },
         ],
       },
       {
-        label: "Tops",
-        value: "tops",
-        details: [
+        label: "Blazers & Suits",
+        value: "blazers-&-suits",
+        groups: [
           {
-            label: "Material",
-            value: "material",
-            options: [
-              { label: "Cotton", value: "cotton" },
-              { label: "Polyster", value: "polyster" },
-              { label: "Pique", value: "pique" },
+            label: "Suits",
+            value: "suits",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Patterned", value: "patterned" },
+                ],
+                required: true,
+              },
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Skinny", value: "skinny" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Formal", value: "formal" },
+                ],
+                required: true,
+              },
             ],
           },
           {
-            label: "Style",
-            value: "style",
-            options: [
-              { label: "Shirt", value: "shirt" },
-              { label: "T-shirt", value: "t-shirt" },
-              { label: "Polo", value: "polo" },
-              { label: "Sweetshirt", value: "sweetshirt" },
+            label: "Blazers",
+            value: "blazers",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Patterned", value: "patterned" },
+                ],
+                required: true,
+              },
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Skinny", value: "skinny" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Formal", value: "formal" },
+                ],
+                required: true,
+              },
             ],
           },
           {
-            label: "Sleeve Length",
-            value: "sleeve-length",
-            options: [
-              { label: "Full", value: "full" },
-              { label: "Short", value: "short" },
-              { label: "Sleeveless", value: "sleeves" },
+            label: "Suit Pants",
+            value: "suit-pants",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Patterned", value: "patterned" },
+                ],
+                required: true,
+              },
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Skinny", value: "skinny" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Occasion",
+                value: "occasion",
+                options: [
+                  { label: "Casual", value: "casual" },
+                  { label: "Formal", value: "formal" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Suit Vests",
+            value: "suit-vests",
+            details: [],
+          },
+        ],
+      },
+      {
+        label: "Cardigans & Sweaters",
+        value: "cardigans-&-sweaters",
+        groups: [
+          {
+            label: "Sweaters",
+            value: "sweaters",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "Patterned", value: "patterned" },
+                ],
+                required: true,
+              },
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Cardigans",
+            value: "cardigans",
+            details: [],
+          },
+        ],
+      },
+      {
+        label: "Shoes",
+        value: "shoes",
+        groups: [
+          {
+            label: "Flip Flops",
+            value: "flip-flops",
+            details: [],
+          },
+          {
+            label: "Sneakers",
+            value: "sneakers",
+            details: [],
+          },
+          {
+            label: "Sandals",
+            value: "sandals",
+            details: [],
+          },
+          {
+            label: "Espadrilles",
+            value: "espadrilles",
+            details: [],
+          },
+          {
+            label: "Boots",
+            value: "boots",
+            details: [
+              {
+                label: "Heel Height",
+                value: "heel-height",
+                options: [
+                  { label: "Low Heel", value: "low-heel" },
+                  { label: "No Heel", value: "no-heel" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Dress",
+            value: "dress",
+            details: [
+              {
+                label: "Heel Height",
+                value: "heel-height",
+                options: [
+                  { label: "Low Heel", value: "low-heel" },
+                  { label: "No Heel", value: "no-heel" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Loafers",
+            value: "loafers",
+            details: [
+              {
+                label: "Heel Height",
+                value: "heel-height",
+                options: [
+                  { label: "Low Heel", value: "low-heel" },
+                  { label: "No Heel", value: "no-heel" },
+                ],
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Sportswear",
+        value: "sportswear",
+        groups: [
+          {
+            label: "Shirts",
+            value: "shirts",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Sleeve Length",
+                value: "sleeve-length",
+                options: [
+                  { label: "Long", value: "long" },
+                  { label: "Short", value: "short" },
+                  { label: "Sleeveless", value: "sleeveless" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Jackets",
+            value: "jackets",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "patterned", value: "striped" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+              {
+                label: "Style",
+                value: "style",
+                options: [
+                  { label: "Hooded", value: "hooded" },
+                  { label: "Parka", value: "parka" },
+                  { label: "Anorak", value: "anorak" },
+                  { label: "Other", value: "other" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Bottoms",
+            value: "bottoms",
+            details: [
+              {
+                label: "Fit",
+                value: "fit",
+                options: [
+                  { label: "Regular", value: "regular" },
+                  { label: "Relaxed", value: "relaxed" },
+                  { label: "Slim", value: "slim" },
+                ],
+                required: true,
+              },
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Color Block", value: "color-block" },
+                  { label: "patterned", value: "striped" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Swimwear",
+        value: "Swimwear",
+        groups: [
+          {
+            label: "Board Shorts",
+            value: "board-shorts",
+            details: [],
+          },
+          {
+            label: "Swim Trunks",
+            value: "swim-trunks",
+            details: [],
+          },
+        ],
+      },
+      {
+        label: "Underwear",
+        value: "underwear",
+        groups: [
+          {
+            label: "Long",
+            value: "long",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Dotted", value: "dotted" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Short",
+            value: "short",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Dotted", value: "dotted" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Floral", value: "floral" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Socks",
+        value: "socks",
+        groups: [
+          {
+            label: "Mini",
+            value: "mini",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Dotted", value: "dotted" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Ankle",
+            value: "ankle",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Dotted", value: "dotted" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
+            ],
+          },
+          {
+            label: "Knee High",
+            value: "knee-high",
+            details: [
+              {
+                label: "Pattern",
+                value: "pattern",
+                options: [
+                  { label: "Solid Color", value: "solid-color" },
+                  { label: "Dotted", value: "dotted" },
+                  { label: "Checked", value: "checked" },
+                  { label: "Stripped", value: "striped" },
+                  { label: "Patterned", value: "patterned" },
+                  { label: "Logo", value: "logo" },
+                ],
+                required: true,
+              },
             ],
           },
         ],

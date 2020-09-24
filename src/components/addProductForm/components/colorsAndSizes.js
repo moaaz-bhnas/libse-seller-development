@@ -55,6 +55,16 @@ const ColorsAndSizes = ({
   const [colorError, setColorError] = useState({ visible: false, index: null });
   const [sizeError, setSizeError] = useState({ visible: false, index: null });
   const [imageError, setImageError] = useState({ visible: false, index: null });
+  console.log(
+    "colors: ",
+    colors,
+    "colorError: ",
+    colorError,
+    "sizeError: ",
+    sizeError,
+    "imageError: ",
+    imageError
+  );
 
   // const colorIsValid = useCallback((color) => {
   //   return color.value !== 0 && color.sizes.length > 0 && color.images.length > 0;
@@ -248,7 +258,7 @@ const ColorsAndSizes = ({
         }
       });
     },
-    [finished]
+    [finished, colors, colorError, sizeError, imageError]
   );
 
   const setDefaultColor = useCallback(

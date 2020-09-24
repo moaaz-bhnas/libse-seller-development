@@ -9,7 +9,7 @@ const ProgressBar = ({
   steps,
   activeStep,
   setActiveStep,
-  subCategoryHasDetails,
+  subCategoryHasGroups,
 }) => {
   const [error, setError] = useState(false);
   useEffect(() => {
@@ -50,7 +50,7 @@ const ProgressBar = ({
                   onClick={(event) => handleStepClick(event, id)}
                   className="progressbar__iconContainer"
                   onMouseDown={(event) => event.preventDefault()}
-                  shortLine={subCategoryHasDetails}
+                  shortLine={subCategoryHasGroups}
                 >
                   <Icon />
                 </StepIconButton>
