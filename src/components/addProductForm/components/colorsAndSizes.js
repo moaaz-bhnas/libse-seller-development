@@ -12,7 +12,6 @@ import { title3, title4 } from "../../title/style";
 import theme from "../../../shared/theme";
 import measurements from "../../../shared/measurements";
 import uploadIcon from "../../../img/upload.svg";
-import RadioButtonsGroup from "./radioButtonsGroup";
 
 const sizeOptions = [
   { value: "xSmall", label: "X-small" },

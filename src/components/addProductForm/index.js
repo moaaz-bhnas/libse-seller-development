@@ -16,8 +16,11 @@ import ColorsSvg from "../../svgs/colors";
 import PriceSvg from "../../svgs/price";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { categories } from "../../shared/data";
+import { LanguageContext } from "../../contexts/language";
 
 const AddProductForm = () => {
+  const { language } = useContext(LanguageContext);
+
   const user = useContext(AuthContext);
   const sellerId = user && user.uid;
   const dispatch = useDispatch();
@@ -45,7 +48,11 @@ const AddProductForm = () => {
   const selectedGroup = groups[selectedGroupIndex];
   useUpdateEffect(
     function clearSelectedDetails() {
-      setSelectedDetails({});
+      setSelectedDetails(
+        selectedDetails.map((detail) => {
+          return { ...detail, value_ar: "", value_en: "" };
+        })
+      );
     },
     [selectedCategoryIndex, selectedSubCategoryIndex, selectedGroupIndex]
   ); // re-render
@@ -66,17 +73,12 @@ const AddProductForm = () => {
     [groups] // try groups.length if u face an error
   );
 
-  console.log(
-    "selectedCategory: ",
-    selectedCategory,
-    "selectedSubCategory: ",
-    selectedSubCategory,
-    "selectedGroup: ",
-    selectedGroup
-  );
-
-  const [selectedDetails, setSelectedDetails] = useState({});
   const { details } = selectedGroup;
+  const [selectedDetails, setSelectedDetails] = useState(
+    details.map(({ name_ar, name_en }) => {
+      return { name_ar, name_en, value_ar: "", value_en: "" };
+    })
+  );
   useUpdateEffect(
     function updateDetailsStepFinishState() {
       const stepFinished = details
@@ -256,10 +258,10 @@ const AddProductForm = () => {
           <Category
             categories={categories}
             subCategories={subCategories}
-            selectedCategory={selectedCategory.value}
+            selectedCategory={selectedCategory[`name_${language}`]}
             setSelectedCategoryIndex={setSelectedCategoryIndex}
             selectedSubCategory={
-              selectedSubCategory && selectedSubCategory.value
+              selectedSubCategory && selectedSubCategory[`name_${language}`]
             }
             setSelectedSubCategoryIndex={setSelectedSubCategoryIndex}
             onStepSubmit={handleStepSubmit}

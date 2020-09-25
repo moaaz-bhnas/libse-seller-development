@@ -7,18 +7,21 @@ import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
 import Layout from "../components/layout";
 import { SellerProvider } from "../contexts/seller";
+import { LanguageProvider } from "../contexts/language";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
       <AuthProvider>
         <SellerProvider>
-          <LayoutProvider>
-            <GlobalStyles />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </LayoutProvider>
+          <LanguageProvider>
+            <LayoutProvider>
+              <GlobalStyles />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </LayoutProvider>
+          </LanguageProvider>
         </SellerProvider>
       </AuthProvider>
     </Provider>

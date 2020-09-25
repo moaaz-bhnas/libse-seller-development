@@ -1,4 +1,10 @@
-import React, { memo, useState, useEffect, useCallback } from "react";
+import React, {
+  memo,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
 import { NextButton, PreviousButton } from "../../button";
 import styled from "styled-components";
 import { title3, title4 } from "../../title/style";
@@ -6,6 +12,7 @@ import RadioButtonsGroup from "./radioButtonsGroup";
 import { ErrorIcon, ButtonsContainer } from "../style";
 import errorIcon from "../../../img/error.svg";
 import theme from "../../../shared/theme";
+import { LanguageContext } from "../../../contexts/language";
 
 const Details = ({
   selectedCategory,
@@ -20,6 +27,8 @@ const Details = ({
   onStepSubmit,
   finished,
 }) => {
+  const { language } = useContext(LanguageContext);
+
   // const [errorVisible, setErrorVisible] = useState(false);
   const disabled = Object.keys(selectedDetails).length < 2;
 
@@ -36,8 +45,9 @@ const Details = ({
   return (
     <>
       <Breadcrumbs>
-        {selectedCategory.label} / {selectedSubCategory.label} /{" "}
-        {selectedGroup.label}
+        {selectedCategory[`name_${language}`] + " "} /{" "}
+        {selectedSubCategory[`name_${language}`] + " "} /{" "}
+        {selectedGroup[`name_${language}`]}
       </Breadcrumbs>
 
       <Title>Product Details</Title>
@@ -53,25 +63,28 @@ const Details = ({
       <RadioButtonsGroup
         name="group"
         items={groups}
-        selectedItem={selectedGroup.value}
+        selectedItem={selectedGroup[`name_${language}`]}
         onChange={({ index }) => setSelectedGroupIndex(index)}
         itemsPerRow={4}
         required={true}
       />
 
-      {details.map((detail) => (
-        <React.Fragment key={detail.value}>
-          <SubTitle>{detail.label}:</SubTitle>
+      {details.map((detail, detailIndex) => (
+        <React.Fragment key={detailIndex}>
+          <SubTitle>{detail[`name_${language}`]}:</SubTitle>
           <RadioButtonsGroup
-            name={detail.value}
+            name={detail[`name_${language}`]}
             items={detail.options}
-            selectedItem={selectedDetails[detail.value]}
-            onChange={({ e }) =>
-              setSelectedDetails({
-                ...selectedDetails,
-                [detail.value]: e.target.value,
-              })
-            }
+            selectedItem={selectedDetails[detailIndex][`value_${language}`]}
+            onChange={({ index: optionIndex }) => {
+              const option = detail.options[optionIndex];
+
+              const selectedDetailsCopy = selectedDetails.slice();
+              selectedDetailsCopy[detailIndex].value_ar = option.name_ar;
+              selectedDetailsCopy[detailIndex].value_en = option.name_en;
+
+              setSelectedDetails(selectedDetailsCopy);
+            }}
             itemsPerRow={4}
             required={detail.required}
           />
