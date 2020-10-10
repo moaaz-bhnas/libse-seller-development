@@ -1,8 +1,9 @@
-import { memo, useContext } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
-import AuthForm from "../components/authForm";
-import { AuthContext } from "../contexts/auth";
-import { SellerContext } from "../contexts/seller";
+import AuthForm from "../../components/authForm";
+import { AuthContext } from "../../contexts/auth";
+import { SellerContext } from "../../contexts/seller";
+import withLocale from "../../hocs/withLocale";
 
 const SignupPage = () => {
   const user = useContext(AuthContext);
@@ -17,4 +18,4 @@ const SignupPage = () => {
   return <AuthForm action="signup" />;
 };
 
-export default memo(SignupPage);
+export default withLocale(SignupPage);

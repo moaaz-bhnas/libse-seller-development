@@ -1,8 +1,9 @@
-import { memo, useContext } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
-import AuthForm from "../components/authForm";
-import { AuthContext } from "../contexts/auth";
-import { SellerContext } from "../contexts/seller";
+import AuthForm from "../../components/authForm";
+import { AuthContext } from "../../contexts/auth";
+import { SellerContext } from "../../contexts/seller";
+import withLocale from "../../hocs/withLocale";
 
 const LoginPage = () => {
   console.log("login pgae");
@@ -18,4 +19,4 @@ const LoginPage = () => {
   return <AuthForm action="login" />;
 };
 
-export default memo(LoginPage);
+export default withLocale(LoginPage);

@@ -1,7 +1,8 @@
-import { memo, useContext } from "react";
-import Form from "../components/register";
+import { useContext } from "react";
+import Form from "../../components/register";
 import { useRouter } from "next/router";
-import { SellerContext } from "../contexts/seller";
+import { SellerContext } from "../../contexts/seller";
+import withLocale from "../../hocs/withLocale";
 
 const RegisterPage = () => {
   const { isSeller } = useContext(SellerContext);
@@ -18,4 +19,4 @@ const RegisterPage = () => {
   );
 };
 
-export default memo(RegisterPage);
+export default withLocale(RegisterPage);

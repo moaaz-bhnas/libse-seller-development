@@ -4,6 +4,7 @@ import strings from "../translations/strings";
 import { defaultLocale } from "../translations/config";
 
 export default function useTranslation() {
+  console.log(LocaleContext);
   const { locale } = useContext(LocaleContext);
 
   function t(key) {

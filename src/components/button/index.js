@@ -3,13 +3,16 @@ import { AddProduct, AddIcon, Button, NextIcon, PreviousIcon } from "./style";
 import addIcon from "../../img/add.svg";
 import nextIcon from "../../img/next.svg";
 import previousIcon from "../../img/previous.svg";
+import useTranslation from "../../hooks/useTranslation";
 
 export const AddProductButton = () => {
+  const { t } = useTranslation();
+
   return (
     <Link href={`/add-product`} passHref>
       <AddProduct>
         <AddIcon src={addIcon} alt="" />
-        Add product
+        {t("addProduct")}
       </AddProduct>
     </Link>
   );

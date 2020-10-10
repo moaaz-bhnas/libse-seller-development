@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       <Main>
         <Wrapper seller={user && isSeller} sidebarExpanded={sidebarExpanded}>

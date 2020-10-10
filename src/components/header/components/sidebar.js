@@ -14,12 +14,6 @@ import styled, { keyframes } from "styled-components";
 import time from "../../../shared/time";
 import useTranslation from "../../../hooks/useTranslation";
 
-const items = [
-  // { value: "dashboard", Icon: SvgDashboard },
-  { value: "my products", Icon: SvgProducts },
-  { value: "sponsored products", Icon: SvgSponsored },
-];
-
 const Item = ({ itemObject, expanded }) => {
   const [contentVisible, setContentVisible] = useState(expanded);
   useEffect(
@@ -65,6 +59,14 @@ const Sidebar = () => {
     sidebarExpanded: expanded,
     setSidebarExpanded: setExpanded,
   } = useContext(LayoutContext);
+
+  const { t } = useTranslation();
+
+  const items = [
+    // { value: "dashboard", Icon: SvgDashboard },
+    { value: t("myProducts"), Icon: SvgProducts },
+    { value: t("sponsoredProducts"), Icon: SvgSponsored },
+  ];
 
   return (
     <StyledSidebar>

@@ -1,4 +1,4 @@
-import { memo } from "react";
+import withLocale from "../../hocs/withLocale";
 import AddProductForm from "../../components/addProductForm";
 import PrivateRoute from "../../privateRoute";
 
@@ -10,4 +10,4 @@ const AddProduct = () => {
   );
 };
 
-export default memo(AddProduct);
+export default withLocale(AddProduct);
