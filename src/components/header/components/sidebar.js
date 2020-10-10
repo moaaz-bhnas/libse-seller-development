@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { LayoutContext } from "../../../contexts/layout";
 import SidebarToggler from "./sidebarToggler";
-import SvgDashboard from "../../../svgs/dashboard";
+// import SvgDashboard from "../../../svgs/dashboard";
 import SvgProducts from "../../../svgs/products";
 import SvgSponsored from "../../../svgs/sponsored";
 import rightArrow from "../../../img/right-arrow.svg";
@@ -12,10 +12,11 @@ import { listStyles } from "../../list/style";
 import measurements from "../../../shared/measurements";
 import styled, { keyframes } from "styled-components";
 import time from "../../../shared/time";
+import useTranslation from "../../../hooks/useTranslation";
 
 const items = [
-  { value: "dashboard", Icon: SvgDashboard },
-  { value: "products", Icon: SvgProducts },
+  // { value: "dashboard", Icon: SvgDashboard },
+  { value: "my products", Icon: SvgProducts },
   { value: "sponsored products", Icon: SvgSponsored },
 ];
 
@@ -35,7 +36,8 @@ const Item = ({ itemObject, expanded }) => {
   );
 
   const { value, Icon } = itemObject;
-  const href = value === "dashboard" ? "/" : `/${value.split(" ").join("-")}`;
+  const dashSplittedValue = value.split(" ").join("-");
+  const href = value === "my products" ? "/" : `/${dashSplittedValue}`;
 
   const { pathname } = useRouter();
   const active = pathname === href;
@@ -44,7 +46,7 @@ const Item = ({ itemObject, expanded }) => {
     <StyledItem>
       <Link href={href} passHref>
         <StyledLink
-          className={`sellerSidebar__${value.split(" ")[0]}Link`}
+          className={`sellerSidebar__${dashSplittedValue}-link`}
           data-active={active}
           onMouseDown={(e) => e.preventDefault()}
           aria-label={value}
@@ -156,15 +158,15 @@ const StyledLink = styled.a`
       width: 5px;
     }
 
-    &.sellerSidebar__dashboardLink::after {
+    /* &.sellerSidebar__dashboard-link::after {
       background-color: #008cff;
-    }
+    } */
 
-    &.sellerSidebar__productsLink::after {
+    &.sellerSidebar__my-products-link::after {
       background-color: #fed02f;
     }
 
-    &.sellerSidebar__sponsoredLink::after {
+    &.sellerSidebar__sponsored-products-link::after {
       background-color: #1fc876;
     }
   }
