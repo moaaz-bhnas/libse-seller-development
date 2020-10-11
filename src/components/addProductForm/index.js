@@ -17,9 +17,14 @@ import PriceSvg from "../../svgs/price";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { categories } from "../../shared/data";
 import { LocaleContext } from "../../contexts/locale";
+import useTranslation from "../../hooks/useTranslation";
+import strings from "../../translations/strings/addProductPage";
 
 const AddProductForm = () => {
   const { locale } = useContext(LocaleContext);
+
+  // translations
+  const { t } = useTranslation();
 
   const user = useContext(AuthContext);
   const sellerId = user && user.uid;
@@ -128,14 +133,14 @@ const AddProductForm = () => {
   const initSteps = [
     {
       id: 1,
-      text: "category",
+      translationKey: "category",
       Icon: CategorySvg,
       finished: true,
       visible: true, // true due to the default values
     },
     {
       id: 2,
-      text: "details",
+      translationKey: "details",
       Icon: DetailsSvg,
       finished: Object.keys(selectedDetails).length !== 0, // to be improved
       finished: false,
@@ -143,14 +148,14 @@ const AddProductForm = () => {
     },
     {
       id: 3,
-      text: "colors\u00A0&\u00A0sizes",
+      translationKey: "colorsSizes",
       Icon: ColorsSvg,
       finished: false,
       visible: true,
     },
     {
       id: 4,
-      text: "price",
+      translationKey: "price",
       Icon: PriceSvg,
       finished: false,
       visible: true,
@@ -174,7 +179,6 @@ const AddProductForm = () => {
           return step;
         });
       case "updateFinishAndVisibilityStates":
-        console.log("updateFinishAndVisibilityStates");
         return steps.map((step) => {
           if (step.id === id) {
             step.visible = visible;
@@ -242,7 +246,7 @@ const AddProductForm = () => {
 
   return (
     <Form onSubmit={handleFormSubmit}>
-      <Title>Add Product</Title>
+      <Title>{t(strings, "addProduct")}</Title>
 
       <ProgressBar
         steps={steps}
@@ -305,7 +309,10 @@ const AddProductForm = () => {
 };
 
 const Form = styled.form`
-  margin-left: 2em;
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "2em" : "initial"};
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "initial" : "2em"};
 `;
 
 const Title = styled.h2`

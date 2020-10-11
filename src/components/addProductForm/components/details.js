@@ -14,6 +14,8 @@ import errorIcon from "../../../img/error.svg";
 import theme from "../../../shared/theme";
 // import { LanguageContext } from "../../../contexts/language";
 import { LocaleContext } from "../../../contexts/locale";
+import strings from "../../../translations/strings/addProductPage";
+import useTranslation from "../../../hooks/useTranslation";
 
 const Details = ({
   selectedCategory,
@@ -29,6 +31,7 @@ const Details = ({
   finished,
 }) => {
   const { locale } = useContext(LocaleContext);
+  const { t } = useTranslation();
 
   // const [errorVisible, setErrorVisible] = useState(false);
   const disabled = Object.keys(selectedDetails).length < 2;
@@ -51,7 +54,7 @@ const Details = ({
         {selectedGroup[`name_${locale}`]}
       </Breadcrumbs>
 
-      <Title>Product Details</Title>
+      <Title>{t(strings, "productDetails")}</Title>
 
       {/* {Object.keys(selectedDetails).length < 2 && (
         <P role="alert" error={errorVisible}>
@@ -60,7 +63,7 @@ const Details = ({
         </P>
       )} */}
 
-      <SubTitle>Group:</SubTitle>
+      <SubTitle>{t(strings, "group")}:</SubTitle>
       <RadioButtonsGroup
         name="group"
         items={groups}

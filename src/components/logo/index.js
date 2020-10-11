@@ -4,12 +4,14 @@ import { title } from "../../shared/data";
 import styled from "styled-components";
 import fonts from "../../shared/fonts";
 import { ContentDirectionContext } from "../../contexts/contentDirection";
+import { LocaleContext } from "../../contexts/locale";
 
 const Logo = ({ fontSize, color }) => {
+  const { locale } = useContext(LocaleContext);
   const contentDirection = useContext(ContentDirectionContext);
 
   return (
-    <Link passHref href="/">
+    <Link passHref href={`/${locale}`}>
       <LogoLink contentDirection={contentDirection}>
         <LogoText fontSize={fontSize} color={color}>
           {title}

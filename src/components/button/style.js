@@ -61,12 +61,20 @@ export const AddIcon = styled.img`
 
 export const NextIcon = styled.img`
   width: 1em;
-  margin-left: 0.55em;
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? ".55em" : "0")};
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "0" : ".55em"};
+  transform: ${(props) =>
+    props.contentDirection === "rtl" ? "rotate(180deg)" : "initial"};
 `;
 
 export const PreviousIcon = styled.img`
   width: 1em;
-  margin-right: 0.55em;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? ".55em" : "0"};
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? "0" : ".55em")};
+  transform: ${(props) =>
+    props.contentDirection === "rtl" ? "rotate(180deg)" : "initial"};
 `;
 
 export const headerButtonStyles = css`

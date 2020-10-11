@@ -1,9 +1,12 @@
-import { memo, useCallback, useState, useEffect } from "react";
+import { memo, useCallback, useState, useEffect, useContext } from "react";
 import { ErrorMsg, ErrorIcon } from "../style";
 import errorIcon from "../../../img/error.svg";
 import time from "../../../shared/time";
 import styled from "styled-components";
 import theme from "../../../shared/theme";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
+import strings from "../../../translations/strings/addProductPage";
+import useTranslation from "../../../hooks/useTranslation";
 
 const ProgressBar = ({
   steps,
@@ -11,6 +14,10 @@ const ProgressBar = ({
   setActiveStep,
   subCategoryHasGroups,
 }) => {
+  const contentDirection = useContext(ContentDirectionContext);
+
+  const { t } = useTranslation();
+
   const [error, setError] = useState(false);
   useEffect(() => {
     if (error) {
@@ -43,7 +50,7 @@ const ProgressBar = ({
         {steps &&
           steps
             .filter((step) => step.visible)
-            .map(({ text, Icon, id }) => (
+            .map(({ translationKey, Icon, id }) => (
               <Step key={id} data-opened={activeStep >= id}>
                 <StepIconButton
                   type="button"
@@ -51,10 +58,11 @@ const ProgressBar = ({
                   className="progressbar__iconContainer"
                   onMouseDown={(event) => event.preventDefault()}
                   shortLine={subCategoryHasGroups}
+                  contentDirection={contentDirection}
                 >
                   <Icon />
                 </StepIconButton>
-                <StepText>{text}</StepText>
+                <StepText>{t(strings, translationKey)}</StepText>
               </Step>
             ))}
       </StyledProgressBar>
@@ -132,7 +140,10 @@ export const StepIconButton = styled.button`
     height: 2px;
     background-color: ${borderColor};
     top: 50%;
-    left: 2.5em;
+    left: ${(props) =>
+      props.contentDirection === "ltr" ? "2.5em" : "initial"};
+    right: ${(props) =>
+      props.contentDirection === "ltr" ? "initial" : "2.5em"};
     transform: translate(0, -50%);
     transition: background-color 0.2s;
   }

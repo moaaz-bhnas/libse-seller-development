@@ -37,8 +37,9 @@ const Item = ({ itemObject, expanded, index, locale, contentDirection }) => {
   const href = index === 0 ? `/${locale}` : `/${locale}/${value}`;
   console.log("href: ", href);
 
-  const { pathname } = useRouter();
-  const active = pathname === href;
+  const { asPath } = useRouter();
+  console.log("asPath: ", asPath, "href: ", href);
+  const active = asPath === href;
 
   return (
     <StyledItem>
@@ -48,6 +49,7 @@ const Item = ({ itemObject, expanded, index, locale, contentDirection }) => {
           data-active={active}
           onMouseDown={(e) => e.preventDefault()}
           aria-label={value}
+          contentDirection={contentDirection}
         >
           <Icon />
           {contentVisible && (
@@ -185,7 +187,8 @@ const StyledLink = styled.a`
     &::after {
       content: "";
       position: absolute;
-      right: 0;
+      right: ${(props) => (props.contentDirection === "ltr" ? "0" : "initial")};
+      left: ${(props) => (props.contentDirection === "ltr" ? "initial" : "0")};
       top: 0;
       bottom: 0;
       width: 5px;

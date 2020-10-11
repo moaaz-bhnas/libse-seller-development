@@ -8,4 +8,5 @@ const strings = {
     addProduct: "إضافة منتج",
   },
 };
+
 export default strings;

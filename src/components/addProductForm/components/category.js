@@ -3,6 +3,8 @@ import { NextButton } from "../../button";
 import styled from "styled-components";
 import { title3, title4 } from "../../title/style";
 import RadioButtonsGroup from "./radioButtonsGroup";
+import useTranslation from "../../../hooks/useTranslation";
+import strings from "../../../translations/strings/addProductPage";
 
 const Information = ({
   categories,
@@ -13,11 +15,13 @@ const Information = ({
   setSelectedSubCategoryIndex,
   onStepSubmit,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Title>Product Category</Title>
+      <Title>{t(strings, "productCategory")}</Title>
 
-      <SubTitle>Category:</SubTitle>
+      <SubTitle>{t(strings, "category")}:</SubTitle>
       <RadioButtonsGroup
         name="category"
         items={categories}
@@ -25,7 +29,7 @@ const Information = ({
         onChange={({ index }) => setSelectedCategoryIndex(index)}
       />
 
-      <SubTitle>Sub-category:</SubTitle>
+      <SubTitle>{t(strings, "clothing")}:</SubTitle>
       <RadioButtonsGroup
         name="subcategory"
         items={subCategories}

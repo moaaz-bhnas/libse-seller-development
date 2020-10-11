@@ -4,7 +4,8 @@ import addIcon from "../../img/add.svg";
 import nextIcon from "../../img/next.svg";
 import previousIcon from "../../img/previous.svg";
 import useTranslation from "../../hooks/useTranslation";
-import strings from "../../translations/strings/productsPage";
+import productsPageStrings from "../../translations/strings/productsPage";
+import addProductPageStrings from "../../translations/strings/addProductPage";
 import { useContext } from "react";
 import { LocaleContext } from "../../contexts/locale";
 import { ContentDirectionContext } from "../../contexts/contentDirection";
@@ -18,7 +19,7 @@ export const AddProductButton = () => {
     <Link href={`/${locale}/add-product`} passHref>
       <AddProduct>
         <AddIcon contentDirection={contentDirection} src={addIcon} alt="" />
-        {t(strings, "addProduct")}
+        {t(productsPageStrings, "addProduct")}
       </AddProduct>
     </Link>
   );
@@ -29,6 +30,9 @@ export const NextButton = ({
   disabled = false,
   positionedAbsolutely,
 }) => {
+  const contentDirection = useContext(ContentDirectionContext);
+  const { t } = useTranslation();
+
   return (
     <Button
       type="submit"
@@ -36,17 +40,24 @@ export const NextButton = ({
       data-disabled={disabled}
       data-positioned-absolutely={positionedAbsolutely}
     >
-      Next
-      <NextIcon src={nextIcon} alt="" />
+      {t(addProductPageStrings, "next")}
+      <NextIcon contentDirection={contentDirection} src={nextIcon} alt="" />
     </Button>
   );
 };
 
 export const PreviousButton = ({ onClick }) => {
+  const contentDirection = useContext(ContentDirectionContext);
+  const { t } = useTranslation();
+
   return (
     <Button type="button" onClick={onClick}>
-      <PreviousIcon src={previousIcon} alt="" />
-      Prev
+      <PreviousIcon
+        contentDirection={contentDirection}
+        src={previousIcon}
+        alt=""
+      />
+      {t(addProductPageStrings, "prev")}
     </Button>
   );
 };
