@@ -9,10 +9,13 @@ import Sidebar from "./sidebar";
 import { headerButtonStyles } from "../../button/style";
 import { LocaleContext } from "../../../contexts/locale";
 import { useRouter } from "next/router";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
 
 const TopBar = () => {
   const router = useRouter();
   const { locale } = useContext(LocaleContext);
+
+  const contentDirection = useContext(ContentDirectionContext);
 
   const setLocale = useCallback(() => {
     router.push(
@@ -29,7 +32,7 @@ const TopBar = () => {
       <Logo />
       <Chat ref={chatButtonRef} />
       <AccountDropdown previousInteractiveElement={chatButtonRef} />
-      <Button onClick={setLocale}>
+      <Button onClick={setLocale} contentDirection={contentDirection}>
         {locale === "ar" ? "English" : "العربية "}
       </Button>
     </StyledTopBar>
@@ -54,7 +57,8 @@ const Button = styled.button`
   ${headerButtonStyles}
 
   color: #fff;
-  margin-left: 1em;
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? "1em" : "0")};
+  margin-right: ${(props) => (props.contentDirection === "ltr" ? "0" : "1em")};
   font-weight: 500;
   height: 3rem;
   transition: 0.1s opacity;

@@ -1,13 +1,16 @@
-import { memo } from "react";
+import { memo, useContext } from "react";
 import Link from "next/link";
 import { title } from "../../shared/data";
 import styled from "styled-components";
 import fonts from "../../shared/fonts";
+import { ContentDirectionContext } from "../../contexts/contentDirection";
 
 const Logo = ({ fontSize, color }) => {
+  const contentDirection = useContext(ContentDirectionContext);
+
   return (
     <Link passHref href="/">
-      <LogoLink>
+      <LogoLink contentDirection={contentDirection}>
         <LogoText fontSize={fontSize} color={color}>
           {title}
         </LogoText>
@@ -22,7 +25,10 @@ const LogoLink = styled.a`
   padding: 0.2em 0;
   display: flex;
   align-items: center;
-  margin-right: auto;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "auto" : "initial"};
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "initial" : "auto"};
 
   &:hover,
   &:focus {

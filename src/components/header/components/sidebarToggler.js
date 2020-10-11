@@ -1,13 +1,17 @@
-import { memo } from "react";
+import { memo, useContext } from "react";
 import hamburgerIcon from "../../../img/menu.svg";
 import styled from "styled-components";
 import { headerButtonStyles } from "../../button/style";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
 
 const SidebarToggler = ({ onClick }) => {
+  const contentDirection = useContext(ContentDirectionContext);
+
   return (
     <StyledSidebarToggler
       onClick={onClick}
       onMouseDown={(e) => e.preventDefault()}
+      contentDirection={contentDirection}
     >
       <HamburgerIcon
         className="sidebar__hamburgerIcon"
@@ -22,8 +26,10 @@ export const StyledSidebarToggler = styled.button`
   ${headerButtonStyles}
   height: 3rem;
   padding: 0 1em;
-  margin-right: 0.5em;
-  margin-left: -1.05em;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? ".5em" : "-1.05em"};
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "-1.05em" : ".5em"};
 
   &:hover,
   &:focus {

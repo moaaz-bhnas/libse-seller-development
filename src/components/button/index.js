@@ -5,14 +5,19 @@ import nextIcon from "../../img/next.svg";
 import previousIcon from "../../img/previous.svg";
 import useTranslation from "../../hooks/useTranslation";
 import strings from "../../translations/strings/productsPage";
+import { useContext } from "react";
+import { LocaleContext } from "../../contexts/locale";
+import { ContentDirectionContext } from "../../contexts/contentDirection";
 
 export const AddProductButton = () => {
   const { t } = useTranslation();
+  const { locale } = useContext(LocaleContext);
+  const contentDirection = useContext(ContentDirectionContext);
 
   return (
-    <Link href={`/add-product`} passHref>
+    <Link href={`/${locale}/add-product`} passHref>
       <AddProduct>
-        <AddIcon src={addIcon} alt="" />
+        <AddIcon contentDirection={contentDirection} src={addIcon} alt="" />
         {t(strings, "addProduct")}
       </AddProduct>
     </Link>

@@ -1,15 +1,16 @@
-import styled from 'styled-components';
-import theme from '../../shared/theme';
+import styled from "styled-components";
+import theme from "../../shared/theme";
 
 export const Grid = styled.ul`
   display: flex;
   list-style: none;
-  margin: 0 -1em;
   padding-left: 0;
+  padding-right: 0;
+  margin: 0 -1em;
   flex-wrap: wrap;
 
   .productsGrid__imageSlider {
-    margin-bottom: .8em;
+    margin-bottom: 0.8em;
   }
 `;
 
@@ -34,7 +35,7 @@ export const ProductLink = styled.a`
 `;
 
 export const ProductName = styled.p`
-  margin: .2em auto .2em;
+  margin: 0.2em auto 0.2em;
   text-align: center;
   max-width: 15em;
   line-height: 1.25;
@@ -43,14 +44,15 @@ export const ProductName = styled.p`
 export const Colors = styled.ul`
   list-style: none;
   padding-left: 0;
+  padding-right: 0;
   display: flex;
   justify-content: center;
-  margin: 0 auto .65em;
+  margin: 0 auto 0.65em;
   max-width: 15em;
 `;
 
 export const Color = styled.li`
-  margin: 0 .5em;
+  margin: 0 0.5em;
 `;
 
 export const ColorButton = styled.button`
@@ -60,11 +62,11 @@ export const ColorButton = styled.button`
   border-radius: 50%;
   border: 1px solid #bbb;
   border: #e2e2e2 1px solid;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4px;
     left: -4px;
@@ -89,7 +91,10 @@ export const PriceContainer = styled.div`
 
 export const Price = styled.p`
   color: ${theme.text.interactive};
-  margin: 0 .2em 0 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: ${(props) => (props.contentDirection === "ltr" ? ".2em" : "0")};
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? "0" : ".2em")};
 `;
 
 export const Abbr = styled.abbr`
@@ -103,15 +108,17 @@ export const LikeButton = styled.button`
   display: flex;
   background: transparent;
   border: none;
-  padding: .5em;
-  margin-right: -.5em;
+  padding: 0.5em;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "-.5em" : "0"};
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? "0" : "-.5em")};
 
   .product__likeSvg {
     width: 100%;
     fill: transparent;
     stroke: ${theme.bg.accent};
     stroke-width: 30;
-    transition: .1s fill;
+    transition: 0.1s fill;
   }
 
   &[data-favorite="true"] {

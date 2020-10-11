@@ -25,12 +25,17 @@ import { LocaleContext } from "../../../contexts/locale";
 import { useDispatch } from "react-redux";
 import ImageSlider from "../../ImageSlider";
 import formatPrice from "../../../utils/formatPrice";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
 
 const Product = ({ product, seller, inFavorites }) => {
   const { uid: userId } = useContext(AuthContext);
   const dispatch = useDispatch();
 
+  // language
   const { locale } = useContext(LocaleContext);
+
+  // content direction
+  const contentDirection = useContext(ContentDirectionContext);
 
   const defaultColor =
     product.colors.find((color) => color.default) || colors[0];
@@ -94,7 +99,7 @@ const Product = ({ product, seller, inFavorites }) => {
         </Link>
 
         <PriceContainer>
-          <Price>
+          <Price contentDirection={contentDirection}>
             {/* {product.price} <Abbr title="Egyptian">EGP</Abbr> */}
             {formatPrice(locale, product.price)}
           </Price>
@@ -103,6 +108,7 @@ const Product = ({ product, seller, inFavorites }) => {
             data-favorite={inFavorites}
             onClick={handleLikeToggle}
             onMouseDown={(e) => e.preventDefault()}
+            contentDirection={contentDirection}
           >
             <LikeSvg className="product__likeSvg" />
           </LikeButton>

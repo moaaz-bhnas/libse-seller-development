@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import useTranslation from "../../../hooks/useTranslation";
 import capitalize from "../../../utils/capitalize";
 import strings from "../../../translations/strings/header";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
 
 const MenuItem = (props) => {
   const {
@@ -59,6 +60,9 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
 
   // translation
   const { t } = useTranslation();
+
+  // content direction
+  const contentDirection = useContext(ContentDirectionContext);
 
   // redux
   const profile = useSelector((state) => state.firebase.profile);
@@ -178,7 +182,7 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
         onKeyDown={handleTogglerKeyDown}
       >
         {t(strings, "hi")} {capitalize(firstName)}
-        <DownArrow src={downArrow} alt="" />
+        <DownArrow contentDirection={contentDirection} src={downArrow} alt="" />
       </DropdownToggler>
 
       <DropdownMenu
@@ -190,6 +194,7 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
         }
         visible={menuExpanded}
         onKeyDown={handleMenuKeyDown}
+        contentDirection={contentDirection}
       >
         {items.map((item, index) => (
           <MenuItem
@@ -231,12 +236,14 @@ const DropdownToggler = styled.button`
 
 const DownArrow = styled.img`
   width: 0.85em;
-  margin-left: 0.8em;
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? ".8em" : "0")};
+  margin-right: ${(props) => (props.contentDirection === "ltr" ? "0" : ".8em")};
 `;
 
 const DropdownMenu = styled.div`
   position: absolute;
-  right: 0;
+  right: ${(props) => (props.contentDirection === "ltr" ? "0" : "initial")};
+  left: ${(props) => (props.contentDirection === "ltr" ? "initial" : "0")};
   transform: translateX(0);
   display: ${(props) => (props.visible ? "flex" : "none")};
   flex-direction: column;
@@ -250,7 +257,8 @@ const DropdownMenu = styled.div`
     position: absolute;
     z-index: -1;
     top: 0;
-    right: 3em;
+    right: ${(props) => (props.contentDirection === "ltr" ? "3em" : "initial")};
+    left: ${(props) => (props.contentDirection === "ltr" ? "initial" : "3em")};
     transform: translate(0, -50%) rotate(45deg);
     width: 0.8rem;
     height: 0.8rem;

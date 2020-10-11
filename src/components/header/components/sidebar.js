@@ -16,8 +16,9 @@ import useTranslation from "../../../hooks/useTranslation";
 import strings from "../../../translations/strings/header";
 import formatValue from "../../../utils/formatValue";
 import { LocaleContext } from "../../../contexts/locale";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
 
-const Item = ({ itemObject, expanded, index, locale }) => {
+const Item = ({ itemObject, expanded, index, locale, contentDirection }) => {
   const [contentVisible, setContentVisible] = useState(expanded);
   useEffect(
     function delayShowingContent() {
@@ -49,8 +50,16 @@ const Item = ({ itemObject, expanded, index, locale }) => {
           aria-label={value}
         >
           <Icon />
-          {contentVisible && <LinkText>{label}</LinkText>}
-          {contentVisible && !active && <RightArrow src={rightArrow} alt="" />}
+          {contentVisible && (
+            <LinkText contentDirection={contentDirection}>{label}</LinkText>
+          )}
+          {contentVisible && !active && (
+            <Arrow
+              contentDirection={contentDirection}
+              src={rightArrow}
+              alt=""
+            />
+          )}
         </StyledLink>
       </Link>
     </StyledItem>
@@ -59,6 +68,7 @@ const Item = ({ itemObject, expanded, index, locale }) => {
 
 const Sidebar = () => {
   const { locale } = useContext(LocaleContext);
+  const contentDirection = useContext(ContentDirectionContext);
 
   const {
     sidebarExpanded: expanded,
@@ -85,7 +95,7 @@ const Sidebar = () => {
     <StyledSidebar>
       <SidebarToggler onClick={() => setExpanded(!expanded)} />
 
-      <List expanded={expanded}>
+      <List expanded={expanded} contentDirection={contentDirection}>
         {items.map((item, index) => (
           <Item
             index={index}
@@ -93,6 +103,7 @@ const Sidebar = () => {
             itemObject={item}
             expanded={expanded}
             locale={locale}
+            contentDirection={contentDirection}
           />
         ))}
       </List>
@@ -108,7 +119,8 @@ const List = styled.ul`
 
   position: fixed;
   top: ${measurements.height.sellerHeader};
-  left: 0;
+  left: ${(props) => (props.contentDirection === "ltr" ? "0" : "initial")};
+  right: ${(props) => (props.contentDirection === "ltr" ? "initial" : "0")};
   bottom: 0;
   width: ${({ expanded }) =>
     expanded
@@ -203,14 +215,22 @@ const show = keyframes`
 `;
 
 const LinkText = styled.span`
-  margin-right: auto;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "auto" : "initial"};
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "initial" : "auto"};
 
   animation: ${show} 0.1s both;
 `;
 
-const RightArrow = styled.img`
+const Arrow = styled.img`
   width: 0.75em;
-  margin-right: 1em;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "1em" : "initial"};
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "initial" : "1em"};
+  transform: ${(props) =>
+    props.contentDirection === "rtl" ? "rotate(180deg)" : "initial"};
 
   animation: ${show} 0.3s both;
 `;

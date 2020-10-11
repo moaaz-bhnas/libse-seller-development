@@ -6,24 +6,35 @@ import measurements from "../../shared/measurements";
 import time from "../../shared/time";
 import { AuthContext } from "../../contexts/auth";
 import { SellerContext } from "../../contexts/seller";
+import { LocaleContext } from "../../contexts/locale";
+import { ContentDirectionContext } from "../../contexts/contentDirection";
 
 const Layout = ({ children }) => {
   const user = useContext(AuthContext);
   const { isSeller } = useContext(SellerContext);
   const { sidebarExpanded } = useContext(LayoutContext);
 
+  const contentDirection = useContext(ContentDirectionContext);
+  console.log("contentDirection: ", contentDirection);
+
   return (
-    <>
+    <StyledLayout dir={contentDirection}>
       <Header />
 
       <Main>
-        <Wrapper seller={user && isSeller} sidebarExpanded={sidebarExpanded}>
+        <Wrapper
+          seller={user && isSeller}
+          sidebarExpanded={sidebarExpanded}
+          contentDirection={contentDirection}
+        >
           {children}
         </Wrapper>
       </Main>
-    </>
+    </StyledLayout>
   );
 };
+
+const StyledLayout = styled.div``;
 
 const Wrapper = styled.div`
   max-width: ${({ seller }) =>
@@ -31,13 +42,20 @@ const Wrapper = styled.div`
       ? measurements.maxWidth.wrapper
       : measurements.maxWidth.smallWrapper};
   margin: 0 auto;
-  padding-left: ${({ seller, sidebarExpanded }) =>
-    seller
+  padding-left: ${({ seller, sidebarExpanded, contentDirection }) =>
+    seller && contentDirection === "ltr"
       ? sidebarExpanded
         ? measurements.width.sidebar
         : measurements.width.sidebarCollapsed
       : null};
-  transition: padding-left ${time.transition.sidebar}s;
+  padding-right: ${({ seller, sidebarExpanded, contentDirection }) =>
+    seller && contentDirection === "rtl"
+      ? sidebarExpanded
+        ? measurements.width.sidebar
+        : measurements.width.sidebarCollapsed
+      : null};
+  transition-property: padding-left, padding-right;
+  transition-duration: ${time.transition.sidebar}s;
 `;
 
 const Main = styled.main``;

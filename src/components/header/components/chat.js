@@ -1,12 +1,15 @@
-import { memo, forwardRef } from "react";
+import { memo, forwardRef, useContext } from "react";
 import ChatSvg from "../../../svgs/chat";
 import styled from "styled-components";
 import { headerButtonStyles } from "../../button/style";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
 
 const Chat = (props, ref) => {
+  const contentDirection = useContext(ContentDirectionContext);
+
   return (
     <ChatContainer>
-      <ChatToggler ref={ref}>
+      <ChatToggler ref={ref} contentDirection={contentDirection}>
         <ChatSvg />
       </ChatToggler>
     </ChatContainer>
@@ -21,7 +24,8 @@ const ChatToggler = styled.button`
 
   height: 3rem;
   padding: 0 1.05em;
-  margin-right: 1em;
+  margin-right: ${(props) => (props.contentDirection === "ltr" ? "1em" : "0")};
+  margin-left: ${(props) => (props.contentDirection === "ltr" ? "0" : "1em")};
 
   &:hover,
   &:focus {

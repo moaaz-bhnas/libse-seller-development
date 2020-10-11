@@ -3,8 +3,9 @@ import Error from "next/error";
 import { isLocale } from "../translations/types";
 import { LocaleProvider } from "../contexts/locale";
 import { getDisplayName } from "next/dist/next-server/lib/utils";
+import { ContentDirectionProvider } from "../contexts/contentDirection";
 
-export default (WrappedPage) => {
+const PageWithLocale = (WrappedPage) => {
   const WithLocale = ({ locale, ...pageProps }) => {
     if (!locale) {
       return <Error statusCode={404} />;
@@ -12,7 +13,9 @@ export default (WrappedPage) => {
     console.log("withLocale: ", "lang: ", locale);
     return (
       <LocaleProvider lang={locale}>
-        <WrappedPage {...pageProps} />
+        <ContentDirectionProvider>
+          <WrappedPage {...pageProps} />
+        </ContentDirectionProvider>
       </LocaleProvider>
     );
   };
@@ -32,3 +35,5 @@ export default (WrappedPage) => {
 
   return WithLocale;
 };
+
+export default PageWithLocale;
