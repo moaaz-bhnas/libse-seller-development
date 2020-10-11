@@ -7,22 +7,20 @@ import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
 import Layout from "../components/layout";
 import { SellerProvider } from "../contexts/seller";
-import { LanguageProvider } from "../contexts/language";
-import { LocaleProvider } from "../contexts/locale";
+// import { LanguageProvider } from "../contexts/language";
+// import { LocaleProvider } from "../contexts/locale";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
       <AuthProvider>
         <SellerProvider>
-          <LocaleProvider>
-            <LayoutProvider>
-              <GlobalStyles />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </LayoutProvider>
-          </LocaleProvider>
+          <LayoutProvider>
+            <GlobalStyles />
+            {/* <Layout> */}
+            <Component {...pageProps} />
+            {/* </Layout> */}
+          </LayoutProvider>
         </SellerProvider>
       </AuthProvider>
     </Provider>
@@ -35,12 +33,12 @@ function MyApp({ Component, pageProps }) {
 // be server-side rendered.
 
 // Here will be the requests for initial redux state
-MyApp.getInitialProps = async (appContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
-  const pageProps = await App.getInitialProps(appContext);
+// MyApp.getInitialProps = async (appContext) => {
+//   // calls page's `getInitialProps` and fills `appProps.pageProps`
+//   const pageProps = await App.getInitialProps(appContext);
 
-  return { ...pageProps };
-};
+//   return { ...pageProps };
+// };
 
 //makeStore function that returns a new store for every request
 const makeStore = () => store;

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import withLocale from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
 import strings from "../../translations/strings/productsPage";
+import Layout from "../../components/layout";
 
 const ProductsPage = () => {
   useFirestoreConnect("products");
@@ -18,11 +19,13 @@ const ProductsPage = () => {
 
   return (
     <PrivateRoute>
-      <AddProductButton />
+      <Layout>
+        <AddProductButton />
 
-      <Title>{t(strings, "myProducts")}</Title>
+        <Title>{t(strings, "myProducts")}</Title>
 
-      {products && <ProductsGrid products={products} seller />}
+        {products && <ProductsGrid products={products} seller />}
+      </Layout>
     </PrivateRoute>
   );
 };

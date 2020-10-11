@@ -1,4 +1,4 @@
-import { memo, useContext, useRef } from "react";
+import { memo, useCallback, useContext, useRef } from "react";
 import styled from "styled-components";
 import theme from "../../../shared/theme";
 import measurements from "../../../shared/measurements";
@@ -6,12 +6,20 @@ import Logo from "../../logo";
 import Chat from "./chat";
 import AccountDropdown from "./accountDropdown";
 import Sidebar from "./sidebar";
-// import { LanguageContext } from "../../../contexts/language";
 import { headerButtonStyles } from "../../button/style";
 import { LocaleContext } from "../../../contexts/locale";
+import { useRouter } from "next/router";
 
 const TopBar = () => {
-  const { locale, setLocale } = useContext(LocaleContext);
+  const router = useRouter();
+  const { locale } = useContext(LocaleContext);
+
+  const setLocale = useCallback(() => {
+    router.push(
+      router.pathname,
+      router.asPath.replace(locale, locale === "ar" ? "en" : "ar")
+    );
+  }, [locale]);
 
   const chatButtonRef = useRef(null);
 
@@ -21,7 +29,7 @@ const TopBar = () => {
       <Logo />
       <Chat ref={chatButtonRef} />
       <AccountDropdown previousInteractiveElement={chatButtonRef} />
-      <Button onClick={() => setLocale(locale === "ar" ? "en" : "ar")}>
+      <Button onClick={setLocale}>
         {locale === "ar" ? "English" : "العربية "}
       </Button>
     </StyledTopBar>

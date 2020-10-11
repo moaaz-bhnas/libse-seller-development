@@ -4,6 +4,7 @@ import AuthForm from "../../components/authForm";
 import { AuthContext } from "../../contexts/auth";
 import { SellerContext } from "../../contexts/seller";
 import withLocale from "../../hocs/withLocale";
+import Layout from "../../components/layout";
 
 const SignupPage = () => {
   const user = useContext(AuthContext);
@@ -15,7 +16,11 @@ const SignupPage = () => {
     else router.push("/register");
   }
 
-  return <AuthForm action="signup" />;
+  return (
+    <Layout>
+      <AuthForm action="signup" />
+    </Layout>
+  );
 };
 
 export default withLocale(SignupPage);

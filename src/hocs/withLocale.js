@@ -1,7 +1,7 @@
 import React from "react";
 import Error from "next/error";
 import { isLocale } from "../translations/types";
-// import { LocaleProvider } from "../contexts/locale";
+import { LocaleProvider } from "../contexts/locale";
 import { getDisplayName } from "next/dist/next-server/lib/utils";
 
 export default (WrappedPage) => {
@@ -11,9 +11,9 @@ export default (WrappedPage) => {
     }
     console.log("withLocale: ", "lang: ", locale);
     return (
-      // <LocaleProvider lang={locale}>
-      <WrappedPage {...pageProps} locale={locale} />
-      // </LocaleProvider>
+      <LocaleProvider lang={locale}>
+        <WrappedPage {...pageProps} />
+      </LocaleProvider>
     );
   };
 

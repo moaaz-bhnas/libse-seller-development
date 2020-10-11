@@ -32,11 +32,9 @@ const Item = ({ itemObject, expanded, index, locale }) => {
     [expanded]
   );
 
-  const { value, Icon } = itemObject;
-  const dashSplittedValue = formatValue(value);
-  // const href = index === 0 ? `/${locale}` : `/${locale}/${dashSplittedValue}`;
-  const href = index === 0 ? "/[lang]" : `/[lang]/${dashSplittedValue}`;
-  const as = index === 0 ? `/${locale}` : `/${locale}/${dashSplittedValue}`;
+  const { value, label, Icon } = itemObject;
+  const href = index === 0 ? "/[lang]" : `/[lang]/${value}`;
+  const as = index === 0 ? `/${locale}` : `/${locale}/${value}`;
   console.log("href: ", href);
 
   const { pathname } = useRouter();
@@ -46,13 +44,13 @@ const Item = ({ itemObject, expanded, index, locale }) => {
     <StyledItem>
       <Link href={href} as={as} passHref>
         <StyledLink
-          className={`sellerSidebar__${dashSplittedValue}-link`}
+          className={`sellerSidebar__${value}-link`}
           data-active={active}
           onMouseDown={(e) => e.preventDefault()}
           aria-label={value}
         >
           <Icon />
-          {contentVisible && <LinkText>{value}</LinkText>}
+          {contentVisible && <LinkText>{label}</LinkText>}
           {contentVisible && !active && <RightArrow src={rightArrow} alt="" />}
         </StyledLink>
       </Link>
@@ -72,8 +70,16 @@ const Sidebar = () => {
 
   const items = [
     // { value: "dashboard", Icon: SvgDashboard },
-    { value: t(strings, "myProducts"), Icon: SvgProducts },
-    { value: t(strings, "sponsoredProducts"), Icon: SvgSponsored },
+    {
+      value: "my-products",
+      label: t(strings, "myProducts"),
+      Icon: SvgProducts,
+    },
+    {
+      value: "sponsored-products",
+      label: t(strings, "sponsoredProducts"),
+      Icon: SvgSponsored,
+    },
   ];
 
   return (

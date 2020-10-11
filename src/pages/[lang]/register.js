@@ -3,6 +3,7 @@ import Form from "../../components/register";
 import { useRouter } from "next/router";
 import { SellerContext } from "../../contexts/seller";
 import withLocale from "../../hocs/withLocale";
+import Layout from "../../components/layout";
 
 const RegisterPage = () => {
   const { isSeller } = useContext(SellerContext);
@@ -13,9 +14,9 @@ const RegisterPage = () => {
   }
 
   return (
-    <>
+    <Layout>
       <Form />
-    </>
+    </Layout>
   );
 };
 

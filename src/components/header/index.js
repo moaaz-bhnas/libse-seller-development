@@ -4,7 +4,6 @@ import { title } from "../../shared/data";
 import { AuthContext } from "../../contexts/auth";
 import TopBar from "./components/topBar";
 import { SellerContext } from "../../contexts/seller";
-import withLocale from "../../hocs/withLocale";
 
 const Header = () => {
   const user = useContext(AuthContext);

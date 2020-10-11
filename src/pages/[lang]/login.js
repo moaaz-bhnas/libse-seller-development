@@ -4,6 +4,7 @@ import AuthForm from "../../components/authForm";
 import { AuthContext } from "../../contexts/auth";
 import { SellerContext } from "../../contexts/seller";
 import withLocale from "../../hocs/withLocale";
+import Layout from "../../components/layout";
 
 const LoginPage = () => {
   console.log("login pgae");
@@ -16,7 +17,11 @@ const LoginPage = () => {
     else router.push("/register");
   }
 
-  return <AuthForm action="login" />;
+  return (
+    <Layout>
+      <AuthForm action="login" />
+    </Layout>
+  );
 };
 
 export default withLocale(LoginPage);

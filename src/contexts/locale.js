@@ -5,9 +5,10 @@ import Error from "next/error";
 
 export const LocaleContext = createContext();
 
-export const LocaleProvider = ({ children }) => {
+export const LocaleProvider = ({ lang, children }) => {
   const { query } = useRouter();
-  const [locale, setLocale] = useState(query.lang);
+  const [locale, setLocale] = useState(lang);
+  console.log("LocaleProvider - locale: ", locale);
 
   useEffect(() => {
     if (locale !== localStorage.getItem("locale")) {
@@ -27,7 +28,7 @@ export const LocaleProvider = ({ children }) => {
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
-      {isLocale(query.lang) ? children : <Error statusCode={404} />}
+      {children}
     </LocaleContext.Provider>
   );
 };
