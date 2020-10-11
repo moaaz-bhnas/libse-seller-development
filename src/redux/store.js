@@ -1,11 +1,15 @@
-import { memo } from 'react';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './reducers/rootReducer';
-import thunk from 'redux-thunk';
-import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
-import { reduxFirestore, createFirestoreInstance, getFirestore } from 'redux-firestore';
-import firebase from '../lib/firebase';
+import { memo } from "react";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./reducers/rootReducer";
+import thunk from "redux-thunk";
+import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
+import {
+  reduxFirestore,
+  createFirestoreInstance,
+  getFirestore,
+} from "redux-firestore";
+import firebase from "../lib/firebase";
 
 export const store = createStore(
   rootReducer,
@@ -17,15 +21,15 @@ export const store = createStore(
 
 const rrfConfig = {
   useFirestoreForProfile: true,
-  userProfile: 'users'
-}
+  userProfile: "users",
+};
 
 const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance
-}
+  createFirestoreInstance,
+};
 
 const ReactReduxProvider = ({ children }) => {
   return (
@@ -35,6 +39,6 @@ const ReactReduxProvider = ({ children }) => {
       </ReactReduxFirebaseProvider>
     </Provider>
   );
-}
+};
 
 export default memo(ReactReduxProvider);

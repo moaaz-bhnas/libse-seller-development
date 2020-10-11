@@ -33,8 +33,7 @@ const Item = ({ itemObject, expanded, index, locale }) => {
   );
 
   const { value, label, Icon } = itemObject;
-  const href = index === 0 ? "/[lang]" : `/[lang]/${value}`;
-  const as = index === 0 ? `/${locale}` : `/${locale}/${value}`;
+  const href = index === 0 ? `/${locale}` : `/${locale}/${value}`;
   console.log("href: ", href);
 
   const { pathname } = useRouter();
@@ -42,7 +41,7 @@ const Item = ({ itemObject, expanded, index, locale }) => {
 
   return (
     <StyledItem>
-      <Link href={href} as={as} passHref>
+      <Link href={href} passHref>
         <StyledLink
           className={`sellerSidebar__${value}-link`}
           data-active={active}

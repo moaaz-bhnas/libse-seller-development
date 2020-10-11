@@ -1,14 +1,12 @@
 import App from "next/app";
 import withRedux from "next-redux-wrapper";
+import { createWrapper } from "next-redux-wrapper";
 import GlobalStyles from "../global.css";
 import Provider from "../redux/store";
 import { AuthProvider } from "../contexts/auth";
 import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
-import Layout from "../components/layout";
 import { SellerProvider } from "../contexts/seller";
-// import { LanguageProvider } from "../contexts/language";
-// import { LocaleProvider } from "../contexts/locale";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -17,9 +15,7 @@ function MyApp({ Component, pageProps }) {
         <SellerProvider>
           <LayoutProvider>
             <GlobalStyles />
-            {/* <Layout> */}
             <Component {...pageProps} />
-            {/* </Layout> */}
           </LayoutProvider>
         </SellerProvider>
       </AuthProvider>
@@ -43,5 +39,7 @@ function MyApp({ Component, pageProps }) {
 //makeStore function that returns a new store for every request
 const makeStore = () => store;
 
+const wrapper = createWrapper(makeStore, { debug: true });
+
 //withRedux wrapper that passes the store to the App Component
-export default withRedux(makeStore)(MyApp);
+export default wrapper.withRedux(MyApp);
