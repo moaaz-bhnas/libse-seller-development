@@ -47,4 +47,4 @@ const NavigationTitle = styled.h2`
   ${unvisible}
 `;
 
-export default withLocale(Header);
+export default Header;

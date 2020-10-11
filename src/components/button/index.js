@@ -4,6 +4,7 @@ import addIcon from "../../img/add.svg";
 import nextIcon from "../../img/next.svg";
 import previousIcon from "../../img/previous.svg";
 import useTranslation from "../../hooks/useTranslation";
+import strings from "../../translations/strings/productsPage";
 
 export const AddProductButton = () => {
   const { t } = useTranslation();
@@ -12,7 +13,7 @@ export const AddProductButton = () => {
     <Link href={`/add-product`} passHref>
       <AddProduct>
         <AddIcon src={addIcon} alt="" />
-        {t("addProduct")}
+        {t(strings, "addProduct")}
       </AddProduct>
     </Link>
   );

@@ -1,8 +1,9 @@
 import { memo, useContext } from "react";
 import styled from "styled-components";
-import { LanguageContext } from "../../../contexts/language";
+// import { LanguageContext } from "../../../contexts/language";
 import { RadioInput } from "../../input";
 import formatValue from "../../../utils/formatValue";
+import { LocaleContext } from "../../../contexts/locale";
 
 const RadioButtonsGroup = ({
   name,
@@ -12,12 +13,12 @@ const RadioButtonsGroup = ({
   itemsPerRow = 2,
   required = false,
 }) => {
-  const { language } = useContext(LanguageContext);
+  const { locale } = useContext(LocaleContext);
 
   return (
     <RadioGroup>
       {items.map((item, index) => {
-        const label = item[`name_${language}`];
+        const label = item[`name_${locale}`];
         const value = formatValue(label);
 
         return (

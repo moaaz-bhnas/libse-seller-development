@@ -7,6 +7,7 @@ import { useFirestoreConnect } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import withLocale from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
+import strings from "../../translations/strings/productsPage";
 
 const ProductsPage = () => {
   useFirestoreConnect("products");
@@ -19,7 +20,7 @@ const ProductsPage = () => {
     <PrivateRoute>
       <AddProductButton />
 
-      <Title>{t("myProducts")}</Title>
+      <Title>{t(strings, "myProducts")}</Title>
 
       {products && <ProductsGrid products={products} seller />}
     </PrivateRoute>

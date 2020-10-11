@@ -14,6 +14,9 @@ import styled from "styled-components";
 import theme from "../../../shared/theme";
 import { headerButtonStyles } from "../../button/style";
 import { useRouter } from "next/router";
+import useTranslation from "../../../hooks/useTranslation";
+import capitalize from "../../../utils/capitalize";
+import strings from "../../../translations/strings/header";
 
 const MenuItem = (props) => {
   const {
@@ -53,6 +56,9 @@ const MenuItem = (props) => {
 
 const AccountDropdown = ({ previousInteractiveElement }) => {
   const router = useRouter();
+
+  // translation
+  const { t } = useTranslation();
 
   // redux
   const profile = useSelector((state) => state.firebase.profile);
@@ -154,7 +160,7 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
 
   const items = [
     {
-      value: "Log out",
+      value: t(strings, "logout"),
       link: false,
       handleClick: () => dispatch(signOut(router)),
     },
@@ -171,7 +177,7 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
         onClick={() => setMenuExpanded(!menuExpanded)}
         onKeyDown={handleTogglerKeyDown}
       >
-        Hi, {firstName}
+        {t(strings, "hi")} {capitalize(firstName)}
         <DownArrow src={downArrow} alt="" />
       </DropdownToggler>
 

@@ -13,8 +13,11 @@ import measurements from "../../../shared/measurements";
 import styled, { keyframes } from "styled-components";
 import time from "../../../shared/time";
 import useTranslation from "../../../hooks/useTranslation";
+import strings from "../../../translations/strings/header";
+import formatValue from "../../../utils/formatValue";
+import { LocaleContext } from "../../../contexts/locale";
 
-const Item = ({ itemObject, expanded }) => {
+const Item = ({ itemObject, expanded, index, locale }) => {
   const [contentVisible, setContentVisible] = useState(expanded);
   useEffect(
     function delayShowingContent() {
@@ -30,15 +33,18 @@ const Item = ({ itemObject, expanded }) => {
   );
 
   const { value, Icon } = itemObject;
-  const dashSplittedValue = value.split(" ").join("-");
-  const href = value === "my products" ? "/" : `/${dashSplittedValue}`;
+  const dashSplittedValue = formatValue(value);
+  // const href = index === 0 ? `/${locale}` : `/${locale}/${dashSplittedValue}`;
+  const href = index === 0 ? "/[lang]" : `/[lang]/${dashSplittedValue}`;
+  const as = index === 0 ? `/${locale}` : `/${locale}/${dashSplittedValue}`;
+  console.log("href: ", href);
 
   const { pathname } = useRouter();
   const active = pathname === href;
 
   return (
     <StyledItem>
-      <Link href={href} passHref>
+      <Link href={href} as={as} passHref>
         <StyledLink
           className={`sellerSidebar__${dashSplittedValue}-link`}
           data-active={active}
@@ -55,6 +61,8 @@ const Item = ({ itemObject, expanded }) => {
 };
 
 const Sidebar = () => {
+  const { locale } = useContext(LocaleContext);
+
   const {
     sidebarExpanded: expanded,
     setSidebarExpanded: setExpanded,
@@ -64,8 +72,8 @@ const Sidebar = () => {
 
   const items = [
     // { value: "dashboard", Icon: SvgDashboard },
-    { value: t("myProducts"), Icon: SvgProducts },
-    { value: t("sponsoredProducts"), Icon: SvgSponsored },
+    { value: t(strings, "myProducts"), Icon: SvgProducts },
+    { value: t(strings, "sponsoredProducts"), Icon: SvgSponsored },
   ];
 
   return (
@@ -74,7 +82,13 @@ const Sidebar = () => {
 
       <List expanded={expanded}>
         {items.map((item, index) => (
-          <Item key={item.value} itemObject={item} expanded={expanded} />
+          <Item
+            index={index}
+            key={item.value}
+            itemObject={item}
+            expanded={expanded}
+            locale={locale}
+          />
         ))}
       </List>
     </StyledSidebar>

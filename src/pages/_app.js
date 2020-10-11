@@ -8,20 +8,21 @@ import { store } from "../redux/store";
 import Layout from "../components/layout";
 import { SellerProvider } from "../contexts/seller";
 import { LanguageProvider } from "../contexts/language";
+import { LocaleProvider } from "../contexts/locale";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
       <AuthProvider>
         <SellerProvider>
-          <LanguageProvider>
+          <LocaleProvider>
             <LayoutProvider>
               <GlobalStyles />
               <Layout>
                 <Component {...pageProps} />
               </Layout>
             </LayoutProvider>
-          </LanguageProvider>
+          </LocaleProvider>
         </SellerProvider>
       </AuthProvider>
     </Provider>

@@ -16,10 +16,10 @@ import ColorsSvg from "../../svgs/colors";
 import PriceSvg from "../../svgs/price";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { categories } from "../../shared/data";
-import { LanguageContext } from "../../contexts/language";
+import { LocaleContext } from "../../contexts/locale";
 
 const AddProductForm = () => {
-  const { language } = useContext(LanguageContext);
+  const { locale } = useContext(LocaleContext);
 
   const user = useContext(AuthContext);
   const sellerId = user && user.uid;
@@ -258,10 +258,10 @@ const AddProductForm = () => {
           <Category
             categories={categories}
             subCategories={subCategories}
-            selectedCategory={selectedCategory[`name_${language}`]}
+            selectedCategory={selectedCategory[`name_${locale}`]}
             setSelectedCategoryIndex={setSelectedCategoryIndex}
             selectedSubCategory={
-              selectedSubCategory && selectedSubCategory[`name_${language}`]
+              selectedSubCategory && selectedSubCategory[`name_${locale}`]
             }
             setSelectedSubCategoryIndex={setSelectedSubCategoryIndex}
             onStepSubmit={handleStepSubmit}

@@ -12,7 +12,8 @@ import RadioButtonsGroup from "./radioButtonsGroup";
 import { ErrorIcon, ButtonsContainer } from "../style";
 import errorIcon from "../../../img/error.svg";
 import theme from "../../../shared/theme";
-import { LanguageContext } from "../../../contexts/language";
+// import { LanguageContext } from "../../../contexts/language";
+import { LocaleContext } from "../../../contexts/locale";
 
 const Details = ({
   selectedCategory,
@@ -27,7 +28,7 @@ const Details = ({
   onStepSubmit,
   finished,
 }) => {
-  const { language } = useContext(LanguageContext);
+  const { locale } = useContext(LocaleContext);
 
   // const [errorVisible, setErrorVisible] = useState(false);
   const disabled = Object.keys(selectedDetails).length < 2;
@@ -45,9 +46,9 @@ const Details = ({
   return (
     <>
       <Breadcrumbs>
-        {selectedCategory[`name_${language}`] + " "} /{" "}
-        {selectedSubCategory[`name_${language}`] + " "} /{" "}
-        {selectedGroup[`name_${language}`]}
+        {selectedCategory[`name_${locale}`] + " "} /{" "}
+        {selectedSubCategory[`name_${locale}`] + " "} /{" "}
+        {selectedGroup[`name_${locale}`]}
       </Breadcrumbs>
 
       <Title>Product Details</Title>
@@ -63,7 +64,7 @@ const Details = ({
       <RadioButtonsGroup
         name="group"
         items={groups}
-        selectedItem={selectedGroup[`name_${language}`]}
+        selectedItem={selectedGroup[`name_${locale}`]}
         onChange={({ index }) => setSelectedGroupIndex(index)}
         itemsPerRow={4}
         required={true}
@@ -71,11 +72,11 @@ const Details = ({
 
       {details.map((detail, detailIndex) => (
         <React.Fragment key={detailIndex}>
-          <SubTitle>{detail[`name_${language}`]}:</SubTitle>
+          <SubTitle>{detail[`name_${locale}`]}:</SubTitle>
           <RadioButtonsGroup
-            name={detail[`name_${language}`]}
+            name={detail[`name_${locale}`]}
             items={detail.options}
-            selectedItem={selectedDetails[detailIndex][`value_${language}`]}
+            selectedItem={selectedDetails[detailIndex][`value_${locale}`]}
             onChange={({ index: optionIndex }) => {
               const option = detail.options[optionIndex];
 

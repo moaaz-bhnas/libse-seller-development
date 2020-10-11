@@ -6,11 +6,12 @@ import Logo from "../../logo";
 import Chat from "./chat";
 import AccountDropdown from "./accountDropdown";
 import Sidebar from "./sidebar";
-import { LanguageContext } from "../../../contexts/language";
+// import { LanguageContext } from "../../../contexts/language";
 import { headerButtonStyles } from "../../button/style";
+import { LocaleContext } from "../../../contexts/locale";
 
 const TopBar = () => {
-  const { language, setLanguage } = useContext(LanguageContext);
+  const { locale, setLocale } = useContext(LocaleContext);
 
   const chatButtonRef = useRef(null);
 
@@ -20,8 +21,8 @@ const TopBar = () => {
       <Logo />
       <Chat ref={chatButtonRef} />
       <AccountDropdown previousInteractiveElement={chatButtonRef} />
-      <Button onClick={() => setLanguage(language === "ar" ? "en" : "ar")}>
-        {language === "ar" ? "English" : "العربية "}
+      <Button onClick={() => setLocale(locale === "ar" ? "en" : "ar")}>
+        {locale === "ar" ? "English" : "العربية "}
       </Button>
     </StyledTopBar>
   );

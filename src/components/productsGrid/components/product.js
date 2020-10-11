@@ -21,12 +21,16 @@ import {
   removeFromFavorites,
 } from "../../../redux/actions/productActions";
 import { AuthContext } from "../../../contexts/auth";
+import { LocaleContext } from "../../../contexts/locale";
 import { useDispatch } from "react-redux";
 import ImageSlider from "../../ImageSlider";
+import formatPrice from "../../../utils/formatPrice";
 
 const Product = ({ product, seller, inFavorites }) => {
   const { uid: userId } = useContext(AuthContext);
   const dispatch = useDispatch();
+
+  const { locale } = useContext(LocaleContext);
 
   const defaultColor =
     product.colors.find((color) => color.default) || colors[0];
@@ -91,7 +95,8 @@ const Product = ({ product, seller, inFavorites }) => {
 
         <PriceContainer>
           <Price>
-            {product.price} <Abbr title="Egyptian">EGP</Abbr>
+            {/* {product.price} <Abbr title="Egyptian">EGP</Abbr> */}
+            {formatPrice(locale, product.price)}
           </Price>
           <LikeButton
             aria-label="Add to favorites"
