@@ -5,7 +5,8 @@ import { LayoutContext } from "../../../contexts/layout";
 import SidebarToggler from "./sidebarToggler";
 // import SvgDashboard from "../../../svgs/dashboard";
 import SvgProducts from "../../../svgs/products";
-import SvgSponsored from "../../../svgs/sponsored";
+import SvgAdd from "../../../svgs/add";
+// import SvgSponsored from "../../../svgs/sponsored";
 import rightArrow from "../../../img/right-arrow.svg";
 import theme from "../../../shared/theme";
 import { listStyles } from "../../list/style";
@@ -13,7 +14,7 @@ import measurements from "../../../shared/measurements";
 import styled, { keyframes } from "styled-components";
 import time from "../../../shared/time";
 import useTranslation from "../../../hooks/useTranslation";
-import strings from "../../../translations/strings/header";
+import translations from "../../../translations/strings/header";
 import formatValue from "../../../utils/formatValue";
 import { LocaleContext } from "../../../contexts/locale";
 import { ContentDirectionContext } from "../../../contexts/contentDirection";
@@ -83,14 +84,19 @@ const Sidebar = () => {
     // { value: "dashboard", Icon: SvgDashboard },
     {
       value: "my-products",
-      label: t(strings, "myProducts"),
+      label: t(translations, "myProducts"),
       Icon: SvgProducts,
     },
     {
-      value: "sponsored-products",
-      label: t(strings, "sponsoredProducts"),
-      Icon: SvgSponsored,
+      value: "add-product",
+      label: t(translations, "addProduct"),
+      Icon: SvgAdd,
     },
+    // {
+    //   value: "sponsored-products",
+    //   label: t(translations, "sponsoredProducts"),
+    //   Icon: SvgSponsored,
+    // },
   ];
 
   return (
@@ -164,17 +170,21 @@ const StyledLink = styled.a`
   &[data-active="true"] {
     color: #fff;
 
-    .dashboardSvg {
+    /* .dashboardSvg {
+      fill: #008cff;
+    } */
+
+    .productsSvg {
       fill: #008cff;
     }
 
-    .productsSvg {
+    .addSvg {
       fill: #fed02f;
     }
 
-    .sponsoredSvg {
+    /* .sponsoredSvg {
       fill: #1fc876;
-    }
+    } */
   }
 
   &:hover,
@@ -199,12 +209,16 @@ const StyledLink = styled.a`
     } */
 
     &.sellerSidebar__my-products-link::after {
+      background-color: #008cff;
+    }
+
+    &.sellerSidebar__add-product-link::after {
       background-color: #fed02f;
     }
 
-    &.sellerSidebar__sponsored-products-link::after {
+    /* &.sellerSidebar__sponsored-products-link::after {
       background-color: #1fc876;
-    }
+    } */
   }
 `;
 
