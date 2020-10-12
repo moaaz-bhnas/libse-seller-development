@@ -50,7 +50,7 @@ export const categories = [
             details: [
               {
                 name_en: "Fit",
-                name_ar: "القصة",
+                name_ar: "القَصة",
                 options: [
                   { name_en: "Stright", name_ar: "قصة مستقيمة" },
                   { name_en: "Slim", name_ar: "قصة ضيقة" },
@@ -77,7 +77,7 @@ export const categories = [
             details: [
               {
                 name_en: "Fit",
-                name_ar: "القصة",
+                name_ar: "القَصة",
                 options: [
                   { name_en: "Stright", name_ar: "قصة مستقيمة" },
                   { name_en: "Slim", name_ar: "قصة ضيقة" },
@@ -101,7 +101,7 @@ export const categories = [
             details: [
               {
                 name_en: "Fit",
-                name_ar: "القصة",
+                name_ar: "القَصة",
                 options: [
                   { name_en: "Stright", name_ar: "قصة مستقيمة" },
                   { name_en: "Slim", name_ar: "قصة ضيقة" },
@@ -126,7 +126,7 @@ export const categories = [
             details: [
               {
                 name_en: "Fit",
-                name_ar: "القصة",
+                name_ar: "القَصة",
                 options: [
                   { name_en: "Classic", name_ar: "كلاسيك" },
                   { name_en: "Slim", name_ar: "قصة ضيقة" },
@@ -153,7 +153,7 @@ export const categories = [
             details: [
               {
                 name_en: "Fit",
-                name_ar: "القصة",
+                name_ar: "القَصة",
                 options: [
                   { name_en: "Stright", name_ar: "قصة مستقيمة" },
                   { name_en: "Slim", name_ar: "قصة ضيقة" },

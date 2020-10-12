@@ -1,7 +1,13 @@
-import { InputContainer, StyledInputWithPrepending, Prepending } from "./style";
-import styled from "styled-components";
+import {
+  inputStyles,
+  InputContainer,
+  StyledInputWithPrepending,
+  Prepending,
+} from "./style";
+import styled, { css } from "styled-components";
 import { useContext } from "react";
 import { ContentDirectionContext } from "../../contexts/contentDirection";
+import { LocaleContext } from "../../contexts/locale";
 
 export const InputWithPrepending = ({
   prependingText,
@@ -53,6 +59,50 @@ export const RadioInput = ({
   );
 };
 
+export const CheckboxInput = ({
+  name,
+  label,
+  value,
+  checked,
+  onChange,
+  width,
+  required,
+}) => {
+  const contentDirection = useContext(ContentDirectionContext);
+
+  return (
+    <Label width={width} contentDirection={contentDirection}>
+      <StyledCheckboxInput
+        type="checkbox"
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        required={required}
+        contentDirection={contentDirection}
+      />
+      {label}
+    </Label>
+  );
+};
+
+export const MultiLanguageSelect = ({ options, value, onChange }) => {
+  const { locale } = useContext(LocaleContext);
+
+  return (
+    <Select
+      value={value}
+      onChange={(event) => onChange(event.target.selectedIndex)}
+    >
+      {options.map((option, index) => (
+        <Option key={index} value={option[`name_${locale}`]}>
+          {option[`name_${locale}`]}
+        </Option>
+      ))}
+    </Select>
+  );
+};
+
 const Label = styled.label`
   width: ${(props) => props.width}%;
   padding: 0.2em 0;
@@ -65,11 +115,29 @@ const Label = styled.label`
   }
 `;
 
-const StyledRadioInput = styled.input`
+const checkInputStyles = css`
   margin-top: 0;
   margin-bottom: 0;
   margin-right: ${(props) =>
     props.contentDirection === "ltr" ? ".75em" : "initial"};
   margin-left: ${(props) =>
     props.contentDirection === "ltr" ? "initial" : ".75em"};
+`;
+
+const StyledRadioInput = styled.input`
+  ${checkInputStyles}
+`;
+
+const StyledCheckboxInput = styled.input`
+  ${checkInputStyles}
+`;
+
+const Select = styled.select`
+  ${inputStyles}
+  width: 100%;
+  margin-bottom: 0.8em;
+`;
+
+const Option = styled.option`
+  text-transform: capitalize;
 `;

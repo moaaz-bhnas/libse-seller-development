@@ -5,17 +5,21 @@ import { PreviousButton } from "../../button";
 import styled from "styled-components";
 import { title3 } from "../../title/style";
 import { rectButton } from "../../button/style";
+import useTranslation from "../../../hooks/useTranslation";
+import translations from "../../../translations/strings/addProductPage";
 
 const Information = ({ price, setPrice, onSubmit, goToPreviousStep }) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <Title>Price</Title>
+      <Title>{t(translations, "price")}</Title>
 
       <InputWithPrepending
         half
-        prependingText="EGP"
+        prependingText={t(translations, "egp")}
         label="Price"
-        placeholder="Price (e.g. 150)"
+        placeholder={t(translations, "pricePlaceholder")}
         min="1"
         value={price}
         onChange={(event) => setPrice(Number(event.target.value))}
@@ -25,7 +29,7 @@ const Information = ({ price, setPrice, onSubmit, goToPreviousStep }) => {
       <ButtonsContainer>
         <PreviousButton onClick={goToPreviousStep} />
         <SubmitButton type="submit" onClick={onSubmit}>
-          Submit
+          {t(translations, "add")}
         </SubmitButton>
       </ButtonsContainer>
     </>

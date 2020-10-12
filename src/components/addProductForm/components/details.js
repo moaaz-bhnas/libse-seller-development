@@ -59,7 +59,7 @@ const Details = ({
       {/* {Object.keys(selectedDetails).length < 2 && (
         <P role="alert" error={errorVisible}>
           At least <B>2</B> options must be checked.
-          {errorVisible && <ErrorIcon src={errorIcon} alt="" />}
+          {errorVisible && <ErrorIcon contentDirection={contentDirection} src={errorIcon} alt="" />}
         </P>
       )} */}
 

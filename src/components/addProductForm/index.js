@@ -19,9 +19,11 @@ import { categories } from "../../shared/data";
 import { LocaleContext } from "../../contexts/locale";
 import useTranslation from "../../hooks/useTranslation";
 import strings from "../../translations/strings/addProductPage";
+import { ContentDirectionContext } from "../../contexts/contentDirection";
 
 const AddProductForm = () => {
   const { locale } = useContext(LocaleContext);
+  const contentDirection = useContext(ContentDirectionContext);
 
   // translations
   const { t } = useTranslation();
@@ -80,15 +82,24 @@ const AddProductForm = () => {
 
   const { details } = selectedGroup;
   const [selectedDetails, setSelectedDetails] = useState(
-    details.map(({ name_ar, name_en }) => {
-      return { name_ar, name_en, value_ar: "", value_en: "" };
+    details.map(({ name_ar, name_en, required }) => {
+      return { name_ar, name_en, value_ar: "", value_en: "", required };
     })
   );
   useUpdateEffect(
     function updateDetailsStepFinishState() {
-      const stepFinished = details
+      const stepFinished = selectedDetails
         .filter((detail) => detail.required)
-        .every((detail) => Object.keys(selectedDetails).includes(detail.value));
+        .every((detail) => detail.value_ar && detail.value_en);
+
+      console.log(
+        "stepFinished: ",
+        stepFinished,
+        "details: ",
+        details,
+        "selectedDetails: ",
+        selectedDetails
+      );
       stepsDispatch({
         type: "updateFinishState",
         payload: { stepId: 2, finished: stepFinished },
@@ -100,12 +111,13 @@ const AddProductForm = () => {
   const [description, setDescription] = useState("Description"); // Not sure about removing this option yet
 
   const [colors, setColors] = useState([
-    { value: "", sizes: [], images: [], default: false },
+    { name_en: "", name_en: "", sizes: [], images: [], default: false },
   ]);
   useUpdateEffect(
     function updateColorsStepFinishState() {
       const stepFinished = colors.every(
-        (color) => color.value && color.sizes.length && color.images.length
+        (color) =>
+          color[`name_${locale}`] && color.sizes.length && color.images.length
       );
       stepsDispatch({
         type: "updateFinishState",
@@ -245,7 +257,7 @@ const AddProductForm = () => {
   );
 
   return (
-    <Form onSubmit={handleFormSubmit}>
+    <Form contentDirection={contentDirection} onSubmit={handleFormSubmit}>
       <Title>{t(strings, "addProduct")}</Title>
 
       <ProgressBar

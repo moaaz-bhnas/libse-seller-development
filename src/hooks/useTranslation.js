@@ -6,7 +6,6 @@ export default function useTranslation() {
   const { locale } = useContext(LocaleContext);
 
   function t(strings, key) {
-    console.log("strings: ", strings, "key: ", key);
     if (!strings[locale][key]) {
       console.warn(`Translation '${key}' for locale '${locale}' not found.`);
     }

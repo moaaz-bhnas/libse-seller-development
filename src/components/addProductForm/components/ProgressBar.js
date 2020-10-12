@@ -7,6 +7,7 @@ import theme from "../../../shared/theme";
 import { ContentDirectionContext } from "../../../contexts/contentDirection";
 import strings from "../../../translations/strings/addProductPage";
 import useTranslation from "../../../hooks/useTranslation";
+import translations from "../../../translations/strings/addProductPage";
 
 const ProgressBar = ({
   steps,
@@ -70,9 +71,13 @@ const ProgressBar = ({
       {error && (
         <ErrorMsg className="progressbar__errMsg" role="alert">
           {activeStepIsFinished
-            ? "You have to finish the preceding steps"
-            : "You have to finish this step first"}
-          <ErrorIcon src={errorIcon} alt="" />
+            ? t(translations, "finishPrecedingSteps")
+            : t(translations, "finishThisStep")}
+          <ErrorIcon
+            contentDirection={contentDirection}
+            src={errorIcon}
+            alt=""
+          />
         </ErrorMsg>
       )}
     </ProgressBarContainer>

@@ -1,5 +1,5 @@
-import { memo, useCallback, useState, useEffect } from "react";
-import Select from "react-select";
+import { memo, useCallback, useState, useEffect, useContext } from "react";
+// import Select from "react-select";
 import { ErrorIcon, ErrorMsg, ButtonsContainer } from "../style";
 import { NextButton, PreviousButton } from "../../button";
 import removeIcon from "../../../img/remove.svg";
@@ -7,36 +7,43 @@ import ImageUploader from "./imageUploader";
 import { Input } from "../../input/style";
 import errorIcon from "../../../img/error.svg";
 import defaultIcon from "../../../img/default.svg";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { title3, title4 } from "../../title/style";
 import theme from "../../../shared/theme";
 import measurements from "../../../shared/measurements";
 import uploadIcon from "../../../img/upload.svg";
+import useTranslation from "../../../hooks/useTranslation";
+import translations from "../../../translations/strings/addProductPage";
+import { ContentDirectionContext } from "../../../contexts/contentDirection";
+import { MultiLanguageSelect } from "../../input";
+import { LocaleContext } from "../../../contexts/locale";
+import CheckboxesGroup from "./checkboxesGroup";
 
 const sizeOptions = [
-  { value: "xSmall", label: "X-small" },
-  { value: "small", label: "Small" },
-  { value: "medium", label: "Medium" },
-  { value: "large", label: "Large" },
-  { value: "xLarge", label: "X-large" },
+  { name: "xs" },
+  { name: "s" },
+  { name: "m" },
+  { name: "l" },
+  { name: "xl" },
 ];
 
 const colorOptions = [
-  { value: "black", label: "Black" },
-  { value: "grey", label: "Grey" },
-  { value: "white", label: "White" },
-  { value: "brown", label: "Brown" },
-  { value: "beige", label: "Beige" },
-  { value: "red", label: "Red" },
-  { value: "pink", label: "Pink" },
-  { value: "orange", label: "Orange" },
-  { value: "ivory", label: "Ivory" },
-  { value: "green", label: "Green" },
-  { value: "blue", label: "Blue" },
-  { value: "purple", label: "Purple" },
-  { value: "gold", label: "Gold" },
-  { value: "silver", label: "Silver" },
-  { value: "multi", label: "Multi" },
+  { name_en: "--Pick a color--", name_ar: "--اختر لون--" },
+  { name_en: "black", name_ar: "أسود" },
+  { name_en: "grey", name_ar: "رمادي" },
+  { name_en: "white", name_ar: "أبيض" },
+  { name_en: "brown", name_ar: "بني" },
+  { name_en: "beige", name_ar: "بيج" },
+  { name_en: "red", name_ar: "أحمر" },
+  { name_en: "pink", name_ar: "وردي" },
+  { name_en: "orange", name_ar: "برتقالي" },
+  { name_en: "ivory", name_ar: "إيفوري" },
+  { name_en: "green", name_ar: "أخضر" },
+  { name_en: "blue", name_ar: "أزرق" },
+  { name_en: "purple", name_ar: "بنفسجي" },
+  { name_en: "gold", name_ar: "ذهبي" },
+  { name_en: "silver", name_ar: "فضي" },
+  { name_en: "multi", name_ar: "متعدد الألوان" },
 ];
 
 const ColorsAndSizes = ({
@@ -46,6 +53,11 @@ const ColorsAndSizes = ({
   goToPreviousStep,
   finished,
 }) => {
+  const { t } = useTranslation();
+
+  const { locale } = useContext(LocaleContext);
+  const contentDirection = useContext(ContentDirectionContext);
+
   const [colorsNumber, setColorsNumber] = useState(colors.length);
   const [colorsNumberError, setColorsNumberError] = useState({
     visible: false,
@@ -72,7 +84,8 @@ const ColorsAndSizes = ({
   useEffect(
     function checkColorsStateAndSetDefaultColor() {
       const validColorIndex = colors.findIndex(
-        (color) => color.value && color.sizes.length && color.images.length
+        (color) =>
+          color[`name_${locale}`] && color.sizes.length && color.images.length
       );
       const noDefaultColor = !colors.some((color) => color.default);
 
@@ -104,7 +117,13 @@ const ColorsAndSizes = ({
     (newNumber) => {
       setColorsNumber(newNumber);
       const difference = newNumber - colors.length;
-      const emptyColor = { value: "", sizes: [], images: [], default: false };
+      const emptyColor = {
+        name_ar: "",
+        name_en: "",
+        sizes: [],
+        images: [],
+        default: false,
+      };
       const newColors = Array(difference).fill(emptyColor);
       setColors(colors.concat(newColors));
     },
@@ -116,7 +135,7 @@ const ColorsAndSizes = ({
       const difference = colors.length - newNumber;
       const emptyColors = colors.filter(
         (color) =>
-          color.value === "" &&
+          color[`name_${locale}`] === "" &&
           color.sizes.length === 0 &&
           color.images.length === 0
       ).length;
@@ -150,19 +169,20 @@ const ColorsAndSizes = ({
 
   const colorIsEmpty = useCallback((color) => {
     return (
-      color.value === "" &&
+      color[`name_${locale}`] === "" &&
       color.sizes.length === 0 &&
       color.images.length === 0
     );
   }, []);
 
   const handleColorChange = useCallback(
-    (selectedColor, index) => {
-      if (selectedColor) setColorError({ visible: false, index: null });
+    (optionIndex, colorIndex) => {
+      if (optionIndex) setColorError({ visible: false, index: null });
 
       const updatedColors = colors.map((color, i) => {
-        if (i === index) {
-          color.value = selectedColor.value;
+        if (i === colorIndex) {
+          color.name_en = colorOptions[optionIndex].name_en;
+          color.name_ar = colorOptions[optionIndex].name_ar;
         }
         return color;
       });
@@ -172,16 +192,19 @@ const ColorsAndSizes = ({
   );
 
   const handleSizeChange = useCallback(
-    (selectedSizes, index) => {
-      if (selectedSizes) {
-        setSizeError({ visible: false, index: null });
-      } else {
-        selectedSizes = [];
-      }
+    (event, optionIndex, colorIndex) => {
+      setSizeError({ visible: false, index: null });
+
+      const size = sizeOptions[optionIndex].name;
 
       const updatedColors = colors.map((color, i) => {
-        if (i === index) {
-          color.sizes = selectedSizes;
+        if (i === colorIndex) {
+          if (event.target.checked) {
+            color.sizes.push(size);
+          } else {
+            const indexToRemove = color.sizes.indexOf(size);
+            color.sizes.splice(indexToRemove, 1);
+          }
         }
         return color;
       });
@@ -198,7 +221,7 @@ const ColorsAndSizes = ({
 
       const isLastColor = colors.length === 1;
       const updatedColors = isLastColor
-        ? [{ value: "", sizes: [], images: [], default: false }]
+        ? [{ name_ar: "", name_en: "", sizes: [], images: [], default: false }]
         : colors.filter((color, i) => i !== index);
       setColors(updatedColors);
 
@@ -238,7 +261,11 @@ const ColorsAndSizes = ({
   const crossIconVisible = useCallback(
     (index) => {
       const color = colors[index];
-      return color.value || color.sizes.length > 0 || color.images.length > 0;
+      return (
+        color[`name_${locale}`] ||
+        color.sizes.length > 0 ||
+        color.images.length > 0
+      );
     },
     [colors]
   );
@@ -248,7 +275,7 @@ const ColorsAndSizes = ({
       onStepSubmit(event, !finished);
 
       colors.forEach((color, index) => {
-        if (color.value === "") {
+        if (color[`name_${locale}`] === "") {
           setColorError({ visible: true, index });
         } else if (color.sizes.length === 0) {
           setSizeError({ visible: true, index });
@@ -274,10 +301,12 @@ const ColorsAndSizes = ({
   console.log("colors: ", colors);
   return (
     <>
-      <Title>Colors & Sizes</Title>
+      <Title>{t(translations, "colorsSizes")}</Title>
 
       <ColorsNumber>
-        <Label htmlFor="productForm__colorsNumber">Number of colors: </Label>
+        <Label htmlFor="productForm__colorsNumber">
+          {t(translations, "numberOfColors")}:
+        </Label>
         <Input
           data-tiny="true"
           id="productForm__colorsNumber"
@@ -287,86 +316,106 @@ const ColorsAndSizes = ({
           required
           min="1"
           max="10"
+          contentDirection={contentDirection}
         />
       </ColorsNumber>
       {colorsNumberError.visible && (
         <ErrorMsg role="alert">
           You must clear {colorsNumberError.colorsToClear} of the filled colors
-          <ErrorIcon src={errorIcon} alt="" />
+          <ErrorIcon
+            contentDirection={contentDirection}
+            src={errorIcon}
+            alt=""
+          />
         </ErrorMsg>
       )}
 
       <ColorsContainer>
-        {colors.map((color, index) => {
+        {colors.map((color, colorIndex) => {
           return (
             <InputContainer
-              key={index}
+              key={colorIndex}
               data-default-styles={color.default && colors.length >= 2}
             >
               <LabelContainer>
-                <SubTitle>Color #{index + 1}</SubTitle>
+                <SubTitle>
+                  {t(translations, "color")} #{colorIndex + 1}
+                </SubTitle>
                 {colors.length >= 2 &&
                   (color.default ? (
-                    <DefaultBadge>
-                      <DefaultIcon src={defaultIcon} alt="" />
-                      Default
+                    <DefaultBadge contentDirection={contentDirection}>
+                      <DefaultIcon
+                        contentDirection={contentDirection}
+                        src={defaultIcon}
+                        alt=""
+                      />
+                      {t(translations, "default")}
                     </DefaultBadge>
                   ) : (
-                    <DefaultButton onClick={() => setDefaultColor(index)}>
-                      Set as default
+                    <DefaultButton
+                      contentDirection={contentDirection}
+                      onClick={() => setDefaultColor(colorIndex)}
+                    >
+                      {t(translations, "setAsDefault")}
                     </DefaultButton>
                   ))}
-                {crossIconVisible(index) && (
+                {crossIconVisible(colorIndex) && (
                   <RemoveButton
                     type="button"
-                    onClick={(event) => removeColor(event, index)}
+                    onClick={(event) => removeColor(event, colorIndex)}
+                    contentDirection={contentDirection}
                   >
-                    <RemoveIcon src={removeIcon} alt="remove color" />
+                    <RemoveIcon
+                      src={removeIcon}
+                      alt={t(translations, "removeColor")}
+                    />
                   </RemoveButton>
                 )}
               </LabelContainer>
-              <Select
-                className="productForm__colorSelect"
-                classNamePrefix="productForm__colorSelectChild"
-                value={
-                  color.value
-                    ? {
-                        value: color.value,
-                        label:
-                          color.value[0].toUpperCase() + color.value.slice(1),
-                      }
-                    : ""
-                }
+
+              <MultiLanguageSelect
                 options={colorOptions}
-                isSearchable
-                placeholder="Color"
-                onChange={(selectedColor) =>
-                  handleColorChange(selectedColor, index)
+                value={color[`name_${locale}`]}
+                onChange={(optionIndex) =>
+                  handleColorChange(optionIndex, colorIndex)
                 }
               />
-              {colorError.visible && colorError.index === index && (
+              {colorError.visible && colorError.index === colorIndex && (
                 <ErrorMsg className="inputContainer__errMsg" role="alert">
-                  Please choose a color
-                  <ErrorIcon src={errorIcon} alt="" />
+                  {t(translations, "colorErrorMsg")}
+                  <ErrorIcon
+                    contentDirection={contentDirection}
+                    src={errorIcon}
+                    alt=""
+                  />
                 </ErrorMsg>
               )}
 
-              <Select
-                className="productForm__sizeSelect"
-                classNamePrefix="productForm__sizeSelectChild"
-                value={color.sizes}
-                options={sizeOptions}
-                isMulti
-                isSearchable
-                placeholder="Available sizes"
-                onChange={(selectedSizes) =>
-                  handleSizeChange(selectedSizes, index)
-                }
-              />
-              {sizeError.visible && sizeError.index === index && (
+              <SizesSelectContainer>
+                <AvailableSizes contentDirection={contentDirection}>
+                  {t(translations, "availableSizes")}:
+                </AvailableSizes>
+                <CheckboxesGroup
+                  name="sizes"
+                  items={sizeOptions}
+                  multiLanguage={false}
+                  required={true}
+                  onChange={({ event, index: optionIndex }) =>
+                    handleSizeChange(event, optionIndex, colorIndex)
+                  }
+                  selectedItems={color.sizes}
+                  itemsPerRow={5}
+                  inline
+                />
+              </SizesSelectContainer>
+              {sizeError.visible && sizeError.index === colorIndex && (
                 <ErrorMsg className="inputContainer__errMsg" role="alert">
-                  Please choose at least one size
-                  <ErrorIcon src={errorIcon} alt="" />
+                  {t(translations, "sizeErrorMsg")}
+                  <ErrorIcon
+                    contentDirection={contentDirection}
+                    src={errorIcon}
+                    alt=""
+                  />
                 </ErrorMsg>
               )}
 
@@ -376,18 +425,22 @@ const ColorsAndSizes = ({
                 pictures={color.images.map((image) => image.dataURL)}
                 files={color.images.map((image) => image.file)}
                 onChange={(imageFiles, imageDataURLs) =>
-                  handleImageChange(imageFiles, imageDataURLs, index)
+                  handleImageChange(imageFiles, imageDataURLs, colorIndex)
                 }
                 imgExtension={[".jpg", ".png", ".jpeg"]}
                 withPreview={true}
-                label="Max file size: 5mb, accepted: jpg|png"
+                label={t(translations, "imageUploaderLabel")}
                 withIcon={false}
-                buttonText="Choose image"
+                buttonText={t(translations, "chooseImage")}
               />
-              {imageError.visible && imageError.index === index && (
+              {imageError.visible && imageError.index === colorIndex && (
                 <ErrorMsg className="inputContainer__errMsg" role="alert">
-                  Please choose at least one image
-                  <ErrorIcon src={errorIcon} alt="" />
+                  {t(translations, "imageErrorMsg")}
+                  <ErrorIcon
+                    contentDirection={contentDirection}
+                    src={errorIcon}
+                    alt=""
+                  />
                 </ErrorMsg>
               )}
             </InputContainer>
@@ -415,6 +468,15 @@ const Title = styled.h3`
 const SubTitle = styled.h4`
   ${title4}
   margin: 0;
+`;
+const AvailableSizes = styled.p`
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? ".75em" : "initial"};
+  margin-left: ${(props) =>
+    props.contentDirection === "rtl" ? ".75em" : "initial"};
 `;
 
 const ColorsContainer = styled.div`
@@ -477,7 +539,7 @@ const InputContainer = styled.div`
       content: url(${uploadIcon});
       width: 1em;
       display: inline-block;
-      margin-left: 0.75em;
+      margin-inline-start: 0.75em;
     }
   }
 
@@ -506,7 +568,12 @@ const RemoveButton = styled.button`
   width: 3em;
   border: none;
   padding: 0.9em;
-  margin: 0 -0.9em 0 0.5em;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? "-0.9em" : ".5em"};
+  margin-left: ${(props) =>
+    props.contentDirection === "rtl" ? "-0.9em" : ".5em"};
 
   &:hover {
     opacity: 0.6;
@@ -518,11 +585,20 @@ const RemoveIcon = styled.img`
 `;
 
 const DefaultButton = styled.button`
-  margin-left: auto;
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "auto" : "initial"};
+  margin-right: ${(props) =>
+    props.contentDirection === "rtl" ? "auto" : "initial"};
 `;
 
 const DefaultBadge = styled.p`
-  margin: 0 0 0 auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? "auto" : "initial"};
+  margin-right: ${(props) =>
+    props.contentDirection === "rtl" ? "auto" : "initial"};
+
   color: ${theme.text.success};
 
   display: flex;
@@ -532,7 +608,14 @@ const DefaultBadge = styled.p`
 
 const DefaultIcon = styled.img`
   width: 1em;
-  margin-right: 0.25em;
+  margin-right: ${(props) =>
+    props.contentDirection === "ltr" ? ".25em" : "initial"};
+  margin-left: ${(props) =>
+    props.contentDirection === "rtl" ? ".25em" : "initial"};
+`;
+
+const SizesSelectContainer = styled.div`
+  display: flex;
 `;
 
 export default memo(ColorsAndSizes);

@@ -41,8 +41,13 @@ export const Button = styled.button`
 
   &[data-positioned-absolutely="true"] {
     position: absolute;
-    left: 25em;
-    transform: translateX(-100%);
+    left: ${(props) => (props.contentDirection === "ltr" ? "25em" : "initial")};
+    right: ${(props) =>
+      props.contentDirection === "rtl" ? "25em" : "initial"};
+    transform: ${(props) =>
+      props.contentDirection === "ltr"
+        ? "translateX(-100%)"
+        : "translateX(100%)"};
   }
 `;
 

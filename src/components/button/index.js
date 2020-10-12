@@ -39,6 +39,7 @@ export const NextButton = ({
       onClick={onClick}
       data-disabled={disabled}
       data-positioned-absolutely={positionedAbsolutely}
+      contentDirection={contentDirection}
     >
       {t(addProductPageStrings, "next")}
       <NextIcon contentDirection={contentDirection} src={nextIcon} alt="" />

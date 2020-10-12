@@ -12,11 +12,14 @@ export const inputStyles = css`
 export const Input = styled.input`
   ${inputStyles}
   width: ${({ half }) => (half ? "calc(50% - .5em)" : "100%")};
-  margin-bottom: .8em;
+  margin-bottom: 0.8em;
 
   &[data-tiny="true"] {
     margin-bottom: 0;
-    margin-left: 1em;
+    margin-left: ${(props) =>
+      props.contentDirection === "ltr" ? "1em" : "initial"};
+    margin-right: ${(props) =>
+      props.contentDirection === "rtl" ? "1em" : "initial"};
     width: 4em;
   }
 `;

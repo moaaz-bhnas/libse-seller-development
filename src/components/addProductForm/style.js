@@ -19,7 +19,10 @@ export const ErrorMsg = styled.p`
 
 export const ErrorIcon = styled.img`
   width: 1em;
-  margin-left: 0.5em;
+  margin-left: ${(props) =>
+    props.contentDirection === "ltr" ? ".5em" : "initial"};
+  margin-right: ${(props) =>
+    props.contentDirection === "rtl" ? ".5em" : "initial"};
 `;
 
 export const ButtonsContainer = styled.div`
