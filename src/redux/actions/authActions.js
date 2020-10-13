@@ -40,7 +40,7 @@ export const logIn = (credentials) => {
   };
 };
 
-export const signOut = (router) => {
+export const signOut = ({ callback }) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
@@ -49,7 +49,7 @@ export const signOut = (router) => {
       .signOut()
       .then(() => {
         dispatch({ type: "SIGNOUT_SUCCESS" });
-        // router.push("/login");
+        callback();
       })
       .catch((err) => {
         dispatch({ type: "SIGNOUT_ERROR", err });

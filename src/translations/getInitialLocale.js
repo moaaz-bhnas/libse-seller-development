@@ -6,13 +6,11 @@ export function getInitialLocale() {
 
   const localSetting = localStorage.getItem("locale");
   if (localSetting && isLocale(localSetting)) {
-    console.log(localSetting);
     return localSetting;
   }
 
   const [browserSetting] = navigator.language.split("-");
   if (isLocale(browserSetting)) {
-    console.log(browserSetting);
     return browserSetting;
   }
 

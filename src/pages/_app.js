@@ -7,18 +7,24 @@ import { AuthProvider } from "../contexts/auth";
 import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
 import { SellerProvider } from "../contexts/seller";
+import { LocaleProvider } from "../contexts/locale";
+import { ContentDirectionProvider } from "../contexts/contentDirection";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
-      <AuthProvider>
-        <SellerProvider>
-          <LayoutProvider>
-            <GlobalStyles />
-            <Component {...pageProps} />
-          </LayoutProvider>
-        </SellerProvider>
-      </AuthProvider>
+      <LocaleProvider>
+        <AuthProvider>
+          <SellerProvider>
+            <LayoutProvider>
+              <ContentDirectionProvider>
+                <GlobalStyles />
+                <Component {...pageProps} />
+              </ContentDirectionProvider>
+            </LayoutProvider>
+          </SellerProvider>
+        </AuthProvider>
+      </LocaleProvider>
     </Provider>
   );
 }

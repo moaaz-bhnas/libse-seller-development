@@ -9,7 +9,7 @@ import {
   createFirestoreInstance,
   getFirestore,
 } from "redux-firestore";
-import firebase from "../lib/firebase";
+import firebase from "../lib/firebase/client";
 
 export const store = createStore(
   rootReducer,

@@ -1,27 +1,32 @@
-import { useEffect, useState, createContext } from "react";
-import firebase from "../lib/firebase";
-import { useRouter } from "next/router";
+import { useEffect, useState, createContext, useContext } from "react";
+import { setCookie, destroyCookie } from "nookies";
+import firebase from "../lib/firebase/client";
+import { LocaleContext } from "./locale";
+// import { useRouter } from "next/router";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const router = useRouter();
-  const [user, setUser] = useState("not set");
-  console.log("(auth) user: ", user);
-  // Add auth listener
-  useEffect(function addAuthStateListener() {
-    firebase.auth().onAuthStateChanged(setUser);
-  }, []);
+  // const router = useRouter();
+  const { locale } = useContext(LocaleContext);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (user === "not set") return;
+    return firebase.auth().onIdTokenChanged(async (user) => {
+      console.log("onIdTokenChanged - user: ", user);
+      if (!user) {
+        setUser(null);
+        destroyCookie({}, "token", { path: "/" });
+        return;
+      }
 
-    if (!user) router.push("/login");
-  }, [user]);
+      const token = await user.getIdToken();
+      setUser(user);
+      setCookie({}, "token", token, { path: "/" });
+    });
+  }, []);
 
-  return (
-    <AuthContext.Provider value={user}>
-      {user !== "not set" ? children : <></>}
-    </AuthContext.Provider>
-  );
+  console.log("(auth) user: ", user);
+
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };

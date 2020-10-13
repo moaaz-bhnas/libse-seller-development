@@ -18,6 +18,7 @@ import useTranslation from "../../../hooks/useTranslation";
 import capitalize from "../../../utils/capitalize";
 import strings from "../../../translations/strings/header";
 import { ContentDirectionContext } from "../../../contexts/contentDirection";
+import { LocaleContext } from "../../../contexts/locale";
 
 const MenuItem = (props) => {
   const {
@@ -57,6 +58,9 @@ const MenuItem = (props) => {
 
 const AccountDropdown = ({ previousInteractiveElement }) => {
   const router = useRouter();
+
+  // locale
+  const { locale } = useContext(LocaleContext);
 
   // translation
   const { t } = useTranslation();
@@ -166,7 +170,8 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
     {
       value: t(strings, "logout"),
       link: false,
-      handleClick: () => dispatch(signOut(router)),
+      handleClick: () =>
+        dispatch(signOut({ callback: () => router.push(`/${locale}/login`) })),
     },
   ];
 

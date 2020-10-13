@@ -1,16 +1,30 @@
-import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import sellerRegistrationReducer from './sellerRegistrationReducer';
-import productReducer from './productReducer';
-import { firebaseReducer } from 'react-redux-firebase';
-import { firestoreReducer } from 'redux-firestore';
+import { combineReducers } from "redux";
+import authReducer from "./authReducer";
+import sellerRegistrationReducer from "./sellerRegistrationReducer";
+import productReducer from "./productReducer";
+import { firebaseReducer } from "react-redux-firebase";
+import { firestoreReducer } from "redux-firestore";
+import { HYDRATE } from "next-redux-wrapper";
 
-const rootReducer = combineReducers({
+const combinedReducers = combineReducers({
   auth: authReducer,
   sellerRegistration: sellerRegistrationReducer,
   product: productReducer,
   firebase: firebaseReducer,
-  firestore: firestoreReducer
+  firestore: firestoreReducer,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state, // use previous state
+      ...action.payload, // apply delta from hydration
+    };
+    // if (state.count) nextState.count = state.count // preserve count value on client side navigation
+    return nextState;
+  }
+
+  return combinedReducers(state, action);
+};
 
 export default rootReducer;

@@ -2,19 +2,31 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import AuthForm from "../../components/authForm";
 import { AuthContext } from "../../contexts/auth";
-import { SellerContext } from "../../contexts/seller";
-import withLocale from "../../hocs/withLocale";
+// import { SellerContext } from "../../contexts/seller";
+// import withLocale from "../../hocs/withLocale";
 import Layout from "../../components/layout";
+import getLocaleInServer from "../../utils/getLocaleInServer";
+// import { LocaleProvider } from "../../contexts/locale";
+// import { ContentDirectionProvider } from "../../contexts/contentDirection";
 
-const LoginPage = () => {
-  console.log("login pgae");
+export async function getServerSideProps(context) {
+  const locale = getLocaleInServer(context);
+
+  return {
+    props: { locale }, // will be passed to the page component as props
+  };
+}
+
+const LoginPage = ({ locale }) => {
+  console.log("login page");
   const user = useContext(AuthContext);
-  const { isSeller } = useContext(SellerContext);
+  // const { isSeller } = useContext(SellerContext);
   const router = useRouter();
 
   if (user) {
-    if (isSeller) router.push("/");
-    else router.push("/register");
+    router.push(`/${locale}`);
+    //   if (isSeller) router.push(`/${locale}`);
+    //   else router.push(`/${locale}/register`);
   }
 
   return (
@@ -24,4 +36,5 @@ const LoginPage = () => {
   );
 };
 
-export default withLocale(LoginPage);
+// export default withLocale(LoginPage);
+export default LoginPage;

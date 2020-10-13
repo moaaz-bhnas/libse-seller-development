@@ -1,8 +1,8 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/functions';
-import 'firebase/storage'
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/functions";
+import "firebase/storage";
 
 export const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -12,10 +12,10 @@ export const config = {
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_MESSEGING_SENDER_ID,
   appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
-if (!firebase.apps.length) {
+if (typeof window !== undefined && !firebase.apps.length) {
   firebase.initializeApp(config);
   firebase.firestore();
 }
