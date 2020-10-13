@@ -36,10 +36,8 @@ const Item = ({ itemObject, expanded, index, locale, contentDirection }) => {
 
   const { value, label, Icon } = itemObject;
   const href = index === 0 ? `/${locale}` : `/${locale}/${value}`;
-  console.log("href: ", href);
 
   const { asPath } = useRouter();
-  console.log("asPath: ", asPath, "href: ", href);
   const active = asPath === href;
 
   return (

@@ -6,8 +6,8 @@ import { AuthContext } from "../../contexts/auth";
 
 const ProductsGrid = ({ products, seller }) => {
   const user = useContext(AuthContext);
-  const { favorites } = useSelector((state) => state.firebase.profile);
-  console.log("favorites: ", favorites);
+  // const { favorites } = useSelector((state) => state.firebase.profile);
+  const favorites = [];
 
   const checkFavorite = useCallback(
     (productId) => {

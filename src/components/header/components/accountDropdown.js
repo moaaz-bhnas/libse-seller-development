@@ -69,8 +69,9 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
   const contentDirection = useContext(ContentDirectionContext);
 
   // redux
-  const profile = useSelector((state) => state.firebase.profile);
-  const firstName = profile.username && profile.username.split(" ")[0];
+  // const profile = useSelector((state) => state.firebase.profile);
+  // const firstName = profile.username && profile.username.split(" ")[0];
+  const firstName = "test";
   const dispatch = useDispatch();
 
   // Refs

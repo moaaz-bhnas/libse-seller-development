@@ -1,13 +1,7 @@
-import withLocale from "../../hocs/withLocale";
-import PrivateRoute from "../../privateRoute";
 import Layout from "../../components/layout";
 
 const SponsoredProductsPage = () => {
-  return (
-    <PrivateRoute>
-      <Layout>Sponsored page</Layout>
-    </PrivateRoute>
-  );
+  return <Layout>Sponsored page</Layout>;
 };
 
-export default withLocale(SponsoredProductsPage);
+export default SponsoredProductsPage;

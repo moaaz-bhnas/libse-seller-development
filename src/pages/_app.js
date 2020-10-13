@@ -2,7 +2,7 @@ import App from "next/app";
 import withRedux from "next-redux-wrapper";
 import { createWrapper } from "next-redux-wrapper";
 import GlobalStyles from "../global.css";
-import Provider from "../redux/store";
+import Provider, { wrapper } from "../redux/store";
 import { AuthProvider } from "../contexts/auth";
 import { LayoutProvider } from "../contexts/layout";
 import { store } from "../redux/store";
@@ -41,11 +41,6 @@ function MyApp({ Component, pageProps }) {
 
 //   return { ...pageProps };
 // };
-
-//makeStore function that returns a new store for every request
-const makeStore = () => store;
-
-const wrapper = createWrapper(makeStore, { debug: true });
 
 //withRedux wrapper that passes the store to the App Component
 export default wrapper.withRedux(MyApp);

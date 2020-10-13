@@ -2,7 +2,6 @@ import { useContext } from "react";
 import Form from "../../components/register";
 import { useRouter } from "next/router";
 import { SellerContext } from "../../contexts/seller";
-import withLocale from "../../hocs/withLocale";
 import Layout from "../../components/layout";
 
 const RegisterPage = () => {
@@ -20,4 +19,4 @@ const RegisterPage = () => {
   );
 };
 
-export default withLocale(RegisterPage);
+export default RegisterPage;

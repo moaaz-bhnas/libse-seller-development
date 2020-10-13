@@ -2,12 +2,8 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import AuthForm from "../../components/authForm";
 import { AuthContext } from "../../contexts/auth";
-// import { SellerContext } from "../../contexts/seller";
-// import withLocale from "../../hocs/withLocale";
 import Layout from "../../components/layout";
 import getLocaleInServer from "../../utils/getLocaleInServer";
-// import { LocaleProvider } from "../../contexts/locale";
-// import { ContentDirectionProvider } from "../../contexts/contentDirection";
 
 export async function getServerSideProps(context) {
   const locale = getLocaleInServer(context);
@@ -36,5 +32,4 @@ const LoginPage = ({ locale }) => {
   );
 };
 
-// export default withLocale(LoginPage);
 export default LoginPage;

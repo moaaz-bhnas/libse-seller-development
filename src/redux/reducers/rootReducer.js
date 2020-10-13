@@ -7,11 +7,11 @@ import { firestoreReducer } from "redux-firestore";
 import { HYDRATE } from "next-redux-wrapper";
 
 const combinedReducers = combineReducers({
-  auth: authReducer,
-  sellerRegistration: sellerRegistrationReducer,
+  // auth: authReducer,
+  // sellerRegistration: sellerRegistrationReducer,
   product: productReducer,
-  firebase: firebaseReducer,
-  firestore: firestoreReducer,
+  // firebase: firebaseReducer,
+  // firestore: firestoreReducer,
 });
 
 const rootReducer = (state, action) => {

@@ -7,6 +7,32 @@ function uuidGenerator() {
   );
 }
 
+export const setProducts = (sellerId) => {
+  console.log("setProducts");
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    try {
+      console.log("setProducts - try");
+      // request data
+      const snapshot = await firestore
+        .collection("products")
+        .where("seller_id", "==", sellerId)
+        .get();
+
+      // build the array
+      const products = [];
+      snapshot.forEach((doc) => products.push({ id: doc.id, ...doc.data() }));
+      console.log("setProducts - products: ", products);
+
+      dispatch({ type: "SET_PRODUCTS_SUCCESS", products });
+    } catch (err) {
+      console.log("setProducts - catch");
+      dispatch({ type: "SET_PRODUCTS_ERROR", err });
+    }
+  };
+};
+
 const uploadProductToFirestore = async (
   firestore,
   dispatch,

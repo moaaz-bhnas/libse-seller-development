@@ -15,7 +15,6 @@ const Layout = ({ children }) => {
   const { sidebarExpanded } = useContext(LayoutContext);
 
   const contentDirection = useContext(ContentDirectionContext);
-  console.log("contentDirection: ", contentDirection);
 
   return (
     <StyledLayout dir={contentDirection}>

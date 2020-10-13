@@ -1,40 +1,31 @@
-// import PrivateRoute from "../../privateRoute";
 import { AddProductButton } from "../../components/button";
 import styled from "styled-components";
 import { title } from "../../components/title/style";
 import ProductsGrid from "../../components/productsGrid";
-import { useFirestoreConnect } from "react-redux-firebase";
 import { useSelector } from "react-redux";
-import withLocale from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
 import strings from "../../translations/strings/productsPage";
 import Layout from "../../components/layout";
 import checkAuthInServer from "../../utils/checkAuthInServer";
 import getLocaleInServer from "../../utils/getLocaleInServer";
-import { LocaleProvider } from "../../contexts/locale";
-import { ContentDirectionProvider } from "../../contexts/contentDirection";
-// import { withAuthServerSide } from "../../hocs/withAuthServerSide";
+import { setProducts } from "../../redux/actions/productActions";
+import { wrapper } from "../../redux/store";
 
-export async function getServerSideProps(context) {
-  const locale = getLocaleInServer(context);
-  const token = await checkAuthInServer(locale, context);
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const locale = getLocaleInServer(context);
+    const token = await checkAuthInServer(locale, context);
+    const { dispatch } = context.store;
+    await dispatch(setProducts(token.uid)); // async firestore request
+  }
+);
 
-  return {
-    props: { locale, token }, // will be passed to the page component as props
-  };
-}
-
-const ProductsPage = ({ locale, token }) => {
-  console.log("locale: ", locale, "token: ", token);
-  useFirestoreConnect("products");
-  const products = useSelector((state) => state.firestore.ordered.products);
-  console.log("products: ", products);
+const ProductsPage = () => {
+  const { products } = useSelector((state) => state.product);
 
   const { t } = useTranslation();
 
   return (
-    // <LocaleProvider lang={locale}>
-    // <ContentDirectionProvider>
     <Layout>
       <AddProductButton />
 
@@ -42,8 +33,6 @@ const ProductsPage = ({ locale, token }) => {
 
       {products && <ProductsGrid products={products} seller />}
     </Layout>
-    // {/* </ContentDirectionProvider> */}
-    // {/* </LocaleProvider> */}
   );
 };
 

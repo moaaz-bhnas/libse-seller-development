@@ -10,6 +10,7 @@ import {
   getFirestore,
 } from "redux-firestore";
 import firebase from "../lib/firebase/client";
+import { createWrapper } from "next-redux-wrapper";
 
 export const store = createStore(
   rootReducer,
@@ -40,5 +41,10 @@ const ReactReduxProvider = ({ children }) => {
     </Provider>
   );
 };
+
+// makeStore function that returns a new store for every request
+const makeStore = () => store;
+
+export const wrapper = createWrapper(makeStore, { debug: true });
 
 export default memo(ReactReduxProvider);

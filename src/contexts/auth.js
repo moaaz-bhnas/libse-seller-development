@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
-      console.log("onIdTokenChanged - user: ", user);
       if (!user) {
         setUser(null);
         destroyCookie({}, "token", { path: "/" });

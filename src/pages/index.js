@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { getInitialLocale } from "../translations/getInitialLocale";
 
 const Index = () => {
-  console.log("router index");
   useEffect(() => {
     window.location.replace(`/${getInitialLocale()}`);
   });

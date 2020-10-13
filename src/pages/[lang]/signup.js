@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import AuthForm from "../../components/authForm";
 import { AuthContext } from "../../contexts/auth";
 import { SellerContext } from "../../contexts/seller";
-import withLocale from "../../hocs/withLocale";
 import Layout from "../../components/layout";
 
 const SignupPage = () => {
@@ -23,4 +22,4 @@ const SignupPage = () => {
   );
 };
 
-export default withLocale(SignupPage);
+export default SignupPage;
