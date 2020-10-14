@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext, useContext } from "react";
+import { useRouter } from "next/router";
 import { setCookie, destroyCookie } from "nookies";
 import firebase from "../lib/firebase/client";
 import { LocaleContext } from "./locale";
@@ -7,15 +8,17 @@ import { LocaleContext } from "./locale";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // const router = useRouter();
-  const { locale } = useContext(LocaleContext);
-  const [user, setUser] = useState(null);
+  const router = useRouter();
+  console.log(router);
+  const { lang } = router.query;
+  const [user, setUser] = useState("not set");
 
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
       if (!user) {
         setUser(null);
         destroyCookie({}, "token", { path: "/" });
+        router.push(`/${lang}/login`);
         return;
       }
 
@@ -27,5 +30,9 @@ export const AuthProvider = ({ children }) => {
 
   console.log("(auth) user: ", user);
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={user}>
+      {user !== "not set" ? children : <></>}
+    </AuthContext.Provider>
+  );
 };

@@ -2,7 +2,7 @@ import firebase from "../lib/firebase/client";
 
 const firestore = firebase.firestore();
 
-export const getProducts = async (sellerId) => {
+export const getSellerProducts = async (sellerId) => {
   // request data
   const snapshot = await firestore
     .collection("products")
@@ -12,6 +12,7 @@ export const getProducts = async (sellerId) => {
   // build the array
   const products = [];
   snapshot.forEach((doc) => products.push({ id: doc.id, ...doc.data() }));
+  console.log("getSellerProducts - products: ", products);
 
   return products;
 };

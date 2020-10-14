@@ -2,37 +2,57 @@ import { AddProductButton } from "../../components/button";
 import styled from "styled-components";
 import { title } from "../../components/title/style";
 import ProductsGrid from "../../components/productsGrid";
-import { useSelector } from "react-redux";
 import useTranslation from "../../hooks/useTranslation";
 import strings from "../../translations/strings/productsPage";
 import Layout from "../../components/layout";
-import checkAuthInServer from "../../utils/checkAuthInServer";
-import getLocaleInServer from "../../utils/getLocaleInServer";
-import { setProducts } from "../../redux/actions/productActions";
-import { wrapper } from "../../redux/store";
+import useSWR from "swr";
+import { getSellerProducts } from "../../api/firebase";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth";
+import { LocaleProvider } from "../../contexts/locale";
+import { ContentDirectionProvider } from "../../contexts/contentDirection";
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  async (context) => {
-    const locale = getLocaleInServer(context);
-    const token = await checkAuthInServer(locale, context);
-    const { dispatch } = context.store;
-    await dispatch(setProducts(token.uid)); // async firestore request
-  }
-);
+export const getStaticPaths = async () => {
+  const languages = ["ar", "en"];
 
-const ProductsPage = () => {
-  const { products } = useSelector((state) => state.product);
+  const paths = languages.map((lang) => ({
+    params: { lang },
+  }));
 
-  const { t } = useTranslation();
+  // fallback: false means pages that don’t have the
+  // correct id will 404.
+  return { paths, fallback: false };
+};
+
+export async function getStaticProps({ params }) {
+  return {
+    props: {
+      lang: params.lang,
+    },
+  };
+}
+
+const fetcher = (uid) => getSellerProducts(uid);
+
+const IndexPage = ({ lang }) => {
+  const user = useContext(AuthContext);
+  const { uid } = user;
+  const { data: products, error } = useSWR(uid, fetcher);
+
+  const { t } = useTranslation(lang);
 
   return (
-    <Layout>
-      <AddProductButton />
+    <LocaleProvider lang={lang}>
+      <ContentDirectionProvider>
+        <Layout>
+          <AddProductButton />
 
-      <Title>{t(strings, "myProducts")}</Title>
+          <Title>{t(strings, "myProducts")}</Title>
 
-      {products && <ProductsGrid products={products} seller />}
-    </Layout>
+          {products && <ProductsGrid products={products} seller />}
+        </Layout>
+      </ContentDirectionProvider>
+    </LocaleProvider>
   );
 };
 
@@ -40,4 +60,4 @@ const Title = styled.h2`
   ${title}
 `;
 
-export default ProductsPage;
+export default IndexPage;

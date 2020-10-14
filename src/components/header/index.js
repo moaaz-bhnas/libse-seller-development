@@ -10,15 +10,15 @@ const Header = () => {
   const { isSeller } = useContext(SellerContext);
 
   return (
-    <StyledHeader seller={user && isSeller}>
+    <StyledHeader
+    // seller={user && isSeller}
+    >
       <Title>{title}</Title>
 
-      {user && isSeller && (
-        <Navigation>
-          <NavigationTitle>Navigation</NavigationTitle>
-          <TopBar />
-        </Navigation>
-      )}
+      <Navigation>
+        <NavigationTitle>Navigation</NavigationTitle>
+        <TopBar />
+      </Navigation>
     </StyledHeader>
   );
 };
@@ -31,7 +31,8 @@ const unvisible = css`
 
 const StyledHeader = styled.header`
   margin-bottom: 2em;
-  padding-top: ${({ seller }) => (seller ? "3em" : null)};
+  /* padding-top: ${({ seller }) => (seller ? "3em" : null)}; */
+  padding-top: 3em;
   position: relative;
   z-index: 1;
 `;

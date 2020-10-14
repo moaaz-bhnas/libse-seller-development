@@ -10,8 +10,13 @@ import styled from "styled-components";
 import theme from "../../shared/theme";
 import { rectButton } from "../button/style";
 import { title } from "../title/style";
+import useTranslation from "../../hooks/useTranslation";
+import translations from "../../translations/strings/register";
 
 const Register = () => {
+  // translations
+  const { t } = useTranslation();
+
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -57,16 +62,16 @@ const Register = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Title>Register your store</Title>
+      <Title>{t(translations, "registerStore")}</Title>
 
       <PersonalInfo>
-        <SubTitle>Personal Information</SubTitle>
+        <SubTitle>{t(translations, "personalInfo")}</SubTitle>
         <InputGroup>
           <Input
             half
             type="text"
-            aria-label="First name"
-            placeholder="First name"
+            aria-label={t(translations, "firstName")}
+            placeholder={t(translations, "firstName")}
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
             required
@@ -74,16 +79,16 @@ const Register = () => {
           <Input
             half
             type="text"
-            aria-label="Last name"
-            placeholder="Last name"
+            aria-label={t(translations, "surName")}
+            placeholder={t(translations, "surName")}
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
           />
         </InputGroup>
         <Input
           type="tel"
-          aria-label="Phone number"
-          placeholder="Phone number (e.g. 01027050131)"
+          aria-label={t(translations, "phone")}
+          placeholder={t(translations, "phone")}
           value={phoneNumber}
           onChange={(event) => setPhoneNumber(event.target.value)}
           required
@@ -93,19 +98,19 @@ const Register = () => {
       <Hr />
 
       <ShopInfo>
-        <SubTitle>Store</SubTitle>
+        <SubTitle>{t(translations, "store")}</SubTitle>
         <Input
           type="text"
-          aria-label="Store name"
-          placeholder="Name"
+          aria-label={t(translations, "storeName")}
+          placeholder={t(translations, "storeName")}
           value={storeName}
           onChange={(event) => setStoreName(event.target.value)}
           required
         />
         <Input
           type="text"
-          aria-label="Store address"
-          placeholder="Address"
+          aria-label={t(translations, "address")}
+          placeholder={t(translations, "address")}
           value={address}
           onChange={(event) => setAddress(event.target.value)}
           required
@@ -115,11 +120,13 @@ const Register = () => {
       <Hr />
 
       <WorkingHours>
-        <SubTitle>Working Hours</SubTitle>
+        <SubTitle>{t(translations, "workingHours")}</SubTitle>
 
         <InputGroup>
           <InputContainer>
-            <Label htmlFor="workingHours__from">From:</Label>
+            <Label htmlFor="workingHours__from">
+              {t(translations, "from")}:
+            </Label>
             <Input
               type="time"
               id="workingHours__from"
@@ -129,7 +136,7 @@ const Register = () => {
             />
           </InputContainer>
           <InputContainer>
-            <Label htmlFor="workingHours__to">To:</Label>
+            <Label htmlFor="workingHours__to">{t(translations, "to")}:</Label>
             <Input
               type="time"
               id="workingHours__to"
@@ -141,7 +148,7 @@ const Register = () => {
         </InputGroup>
       </WorkingHours>
 
-      <SubmitButton type="submit">Register</SubmitButton>
+      <SubmitButton type="submit">{t(translations, "register")}</SubmitButton>
     </Form>
   );
 };

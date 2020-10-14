@@ -6,12 +6,12 @@ import fonts from "../../shared/fonts";
 import { ContentDirectionContext } from "../../contexts/contentDirection";
 import { LocaleContext } from "../../contexts/locale";
 
-const Logo = ({ fontSize, color }) => {
+const Logo = ({ fontSize, color, isSeller }) => {
   const { locale } = useContext(LocaleContext);
   const contentDirection = useContext(ContentDirectionContext);
 
   return (
-    <Link passHref href={`/${locale}`}>
+    <Link passHref href={isSeller ? `/${locale}` : `/${locale}/login`}>
       <LogoLink contentDirection={contentDirection}>
         <LogoText fontSize={fontSize} color={color}>
           {title}

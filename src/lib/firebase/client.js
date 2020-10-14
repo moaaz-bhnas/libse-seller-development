@@ -20,5 +20,5 @@ if (typeof window !== undefined && !firebase.apps.length) {
   firebase.firestore();
 }
 
-const functions = firebase.functions();
+export const functions = firebase.functions();
 export default firebase;

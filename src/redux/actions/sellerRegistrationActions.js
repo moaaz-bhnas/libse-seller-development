@@ -1,4 +1,4 @@
-import { functions } from "../../lib/firebase";
+import { functions } from "../../lib/firebase/client";
 
 export const registerSeller = (seller, setIsSeller, router) => {
   return async (dispatch, getState, { getFirestore }) => {

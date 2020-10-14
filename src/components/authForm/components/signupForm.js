@@ -4,6 +4,8 @@ import { Form, Title, SubmitButton, P, AuthLink } from "../style";
 import { Input } from "../../input/style";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../../redux/actions/authActions";
+import translations from "../../../translations/strings/signup";
+import useTranslation from "../../../hooks/useTranslation";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -22,14 +24,17 @@ const SignupForm = () => {
     [username, email, password]
   );
 
+  // translations
+  const { t } = useTranslation();
+
   return (
     <Form onSubmit={handleSubmit}>
-      <Title>Create Account</Title>
+      <Title>{t(translations, "createAccount")}</Title>
 
       <Input
         type="text"
-        aria-label="Your name"
-        placeholder="Your name"
+        aria-label={t(translations, "name")}
+        placeholder={t(translations, "name")}
         value={username}
         onChange={(event) => setUsername(event.target.value)}
         required
@@ -37,8 +42,8 @@ const SignupForm = () => {
 
       <Input
         type="email"
-        aria-label="Email"
-        placeholder="Email"
+        aria-label={t(translations, "email")}
+        placeholder={t(translations, "email")}
         value={email}
         onChange={(event) => setEmail(event.target.value)}
         required
@@ -46,19 +51,19 @@ const SignupForm = () => {
 
       <Input
         type="password"
-        aria-label="password"
-        placeholder="Password"
+        aria-label={t(translations, "pass")}
+        placeholder={t(translations, "pass")}
         value={password}
         onChange={(event) => setPassword(event.target.value)}
         required
       />
 
-      <SubmitButton type="submit">Create</SubmitButton>
+      <SubmitButton type="submit">{t(translations, "create")}</SubmitButton>
 
       <P>
-        Already have an account?{" "}
+        {t(translations, "haveAccount")}{" "}
         <Link passHref href="/login">
-          <AuthLink>Login</AuthLink>
+          <AuthLink>{t(translations, "login")}</AuthLink>
         </Link>
       </P>
     </Form>

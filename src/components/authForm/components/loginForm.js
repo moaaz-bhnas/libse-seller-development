@@ -11,6 +11,8 @@ import {
 import { Input } from "../../input/style";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../../redux/actions/authActions";
+import translations from "../../../translations/strings/login";
+import useTranslation from "../../../hooks/useTranslation";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -28,14 +30,17 @@ const LoginForm = () => {
     [email, password]
   );
 
+  // translations
+  const { t } = useTranslation();
+
   return (
     <Form onSubmit={handleSubmit}>
-      <Title>Login</Title>
+      <Title>{t(translations, "login")}</Title>
 
       <Input
         type="email"
-        aria-label="Email"
-        placeholder="Email"
+        aria-label={t(translations, "email")}
+        placeholder={t(translations, "email")}
         value={email}
         onChange={(event) => setEmail(event.target.value)}
         required
@@ -43,23 +48,25 @@ const LoginForm = () => {
 
       <Input
         type="password"
-        aria-label="password"
-        placeholder="Password"
+        aria-label={t(translations, "pass")}
+        placeholder={t(translations, "pass")}
         value={password}
         onChange={(event) => setPassword(event.target.value)}
         required
       />
 
       <Link passHref href="/password-recovery">
-        <PasswordRecoveryLink>Forgot your password?</PasswordRecoveryLink>
+        <PasswordRecoveryLink>
+          {t(translations, "forgotPass")}
+        </PasswordRecoveryLink>
       </Link>
 
-      <SubmitButton type="submit">Login</SubmitButton>
+      <SubmitButton type="submit">{t(translations, "login")}</SubmitButton>
 
       <P>
-        Don't have an account?{" "}
+        {t(translations, "noAccount")}{" "}
         <Link passHref href="/signup">
-          <AuthLink>Create account</AuthLink>
+          <AuthLink>{t(translations, "createAccount")}</AuthLink>
         </Link>
       </P>
     </Form>

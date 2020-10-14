@@ -10,8 +10,13 @@ import { headerButtonStyles } from "../../button/style";
 import { LocaleContext } from "../../../contexts/locale";
 import { useRouter } from "next/router";
 import { ContentDirectionContext } from "../../../contexts/contentDirection";
+import { AuthContext } from "../../../contexts/auth";
+import { SellerContext } from "../../../contexts/seller";
 
 const TopBar = () => {
+  const user = useContext(AuthContext);
+  const { isSeller } = useContext(SellerContext);
+
   const router = useRouter();
   const { locale } = useContext(LocaleContext);
 
@@ -28,10 +33,12 @@ const TopBar = () => {
 
   return (
     <StyledTopBar>
-      <Sidebar />
-      <Logo />
-      <Chat ref={chatButtonRef} />
-      <AccountDropdown previousInteractiveElement={chatButtonRef} />
+      {isSeller && <Sidebar />}
+      <Logo isSeller={isSeller} />
+      {isSeller && <Chat ref={chatButtonRef} />}
+      {isSeller && (
+        <AccountDropdown previousInteractiveElement={chatButtonRef} />
+      )}
       <Button onClick={setLocale} contentDirection={contentDirection}>
         {locale === "ar" ? "English" : "العربية "}
       </Button>

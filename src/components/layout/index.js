@@ -6,7 +6,6 @@ import measurements from "../../shared/measurements";
 import time from "../../shared/time";
 import { AuthContext } from "../../contexts/auth";
 import { SellerContext } from "../../contexts/seller";
-import { LocaleContext } from "../../contexts/locale";
 import { ContentDirectionContext } from "../../contexts/contentDirection";
 
 const Layout = ({ children }) => {
@@ -22,7 +21,7 @@ const Layout = ({ children }) => {
 
       <Main>
         <Wrapper
-          seller={user && isSeller}
+          seller={isSeller}
           sidebarExpanded={sidebarExpanded}
           contentDirection={contentDirection}
         >

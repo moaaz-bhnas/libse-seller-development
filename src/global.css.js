@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import theme from './shared/theme';
-import fonts from './shared/fonts';
+import { createGlobalStyle } from "styled-components";
+import theme from "./shared/theme";
+import fonts from "./shared/fonts";
 
 export default createGlobalStyle`
   * {

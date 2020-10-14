@@ -5,26 +5,34 @@ import { isLocale } from "../translations/types";
 
 export const LocaleContext = createContext();
 
-export const LocaleProvider = ({ children }) => {
+export const LocaleProvider = ({ children, lang }) => {
   const { query } = useRouter();
-  const [locale, setLocale] = useState("ar");
+  const [locale, setLocale] = useState(lang);
   console.log("LocaleProvider - locale: ", locale);
 
-  useEffect(() => {
-    if (
-      typeof query.lang === "string" &&
-      isLocale(query.lang) &&
-      locale !== query.lang
-    ) {
-      setLocale(query.lang);
-    }
-  }, [query.lang]);
+  useEffect(
+    function updateLocaleOnQueryChange() {
+      console.log("updateLocaleOnQueryChange - query.lang: ", query.lang);
+      if (
+        typeof query.lang === "string" &&
+        isLocale(query.lang) &&
+        locale !== query.lang
+      ) {
+        setLocale(query.lang);
+      }
+    },
+    [query.lang]
+  );
 
-  useEffect(() => {
-    if (locale !== localStorage.getItem("locale")) {
-      localStorage.setItem("locale", locale);
-    }
-  }, [locale]);
+  useEffect(
+    function setLocalStorageLocale() {
+      console.log("setLocalStorageLocale - locale: ", locale);
+      if (locale !== localStorage.getItem("locale")) {
+        localStorage.setItem("locale", locale);
+      }
+    },
+    [locale]
+  );
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>

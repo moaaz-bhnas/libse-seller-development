@@ -13,18 +13,18 @@ import { ContentDirectionProvider } from "../contexts/contentDirection";
 function MyApp({ Component, pageProps }) {
   return (
     <Provider>
-      <LocaleProvider>
-        <AuthProvider>
-          <SellerProvider>
-            <LayoutProvider>
-              <ContentDirectionProvider>
-                <GlobalStyles />
-                <Component {...pageProps} />
-              </ContentDirectionProvider>
-            </LayoutProvider>
-          </SellerProvider>
-        </AuthProvider>
-      </LocaleProvider>
+      {/* <LocaleProvider> */}
+      <AuthProvider>
+        <SellerProvider>
+          <LayoutProvider>
+            {/* <ContentDirectionProvider> */}
+            <GlobalStyles />
+            <Component {...pageProps} />
+            {/* </ContentDirectionProvider> */}
+          </LayoutProvider>
+        </SellerProvider>
+      </AuthProvider>
+      {/* </LocaleProvider> */}
     </Provider>
   );
 }
