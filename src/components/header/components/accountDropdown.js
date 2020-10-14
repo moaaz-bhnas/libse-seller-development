@@ -19,6 +19,8 @@ import capitalize from "../../../utils/capitalize";
 import strings from "../../../translations/strings/header";
 import { ContentDirectionContext } from "../../../contexts/contentDirection";
 import { LocaleContext } from "../../../contexts/locale";
+import { setProfile } from "../../../redux/actions/profileActions";
+import { AuthContext } from "../../../contexts/auth";
 
 const MenuItem = (props) => {
   const {
@@ -68,11 +70,14 @@ const AccountDropdown = ({ previousInteractiveElement }) => {
   // content direction
   const contentDirection = useContext(ContentDirectionContext);
 
-  // redux
-  // const profile = useSelector((state) => state.firebase.profile);
-  // const firstName = profile.username && profile.username.split(" ")[0];
-  const firstName = "test";
+  // profile
+  const { uid } = useContext(AuthContext);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setProfile(uid));
+  }, []);
+  const profile = useSelector((state) => state.profile.profile);
+  const firstName = profile && profile.username.split(" ")[0];
 
   // Refs
   const containerRef = useRef(null);
