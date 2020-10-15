@@ -3,43 +3,16 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers/rootReducer";
 import thunk from "redux-thunk";
-import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
-import {
-  reduxFirestore,
-  createFirestoreInstance,
-  getFirestore,
-} from "redux-firestore";
-import firebase from "../lib/firebase/client";
+import firebase, { firestore } from "../lib/firebase/client";
 import { createWrapper } from "next-redux-wrapper";
 
 export const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reduxFirestore(firebase)
-  )
+  applyMiddleware(thunk.withExtraArgument({ firebase, firestore }))
 );
 
-const rrfConfig = {
-  useFirestoreForProfile: true,
-  userProfile: "users",
-};
-
-const rrfProps = {
-  firebase,
-  config: rrfConfig,
-  dispatch: store.dispatch,
-  createFirestoreInstance,
-};
-
 const ReactReduxProvider = ({ children }) => {
-  return (
-    <Provider store={store}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        {children}
-      </ReactReduxFirebaseProvider>
-    </Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 // makeStore function that returns a new store for every request

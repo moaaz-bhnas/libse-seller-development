@@ -1,8 +1,5 @@
 export const signUp = (credentials) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-
+  return (dispatch, getState, { firebase, firestore }) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
@@ -25,9 +22,7 @@ export const signUp = (credentials) => {
 };
 
 export const logIn = (credentials) => {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase();
-
+  return (dispatch, getState, { firebase }) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
@@ -41,9 +36,7 @@ export const logIn = (credentials) => {
 };
 
 export const signOut = ({ callback }) => {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase();
-
+  return (dispatch, getState, { firebase }) => {
     firebase
       .auth()
       .signOut()

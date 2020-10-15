@@ -47,10 +47,8 @@ const uploadProductToFirestore = async (
 };
 
 export const addProduct = (sellerId, product, router) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, { firebase, firestore }) => {
     const { colors } = product;
-    const firebase = getFirebase();
-    const firestore = getFirestore();
 
     const uploadImage = (imagesArray, imageIndex, file) => {
       const uuid = uuidGenerator();
@@ -105,10 +103,7 @@ export const addProduct = (sellerId, product, router) => {
 };
 
 export const addToFavorites = (userId, productId) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-
+  return (dispatch, getState, { firebase, firestore }) => {
     firestore
       .collection("users")
       .doc(userId)
@@ -125,10 +120,7 @@ export const addToFavorites = (userId, productId) => {
 };
 
 export const removeFromFavorites = (userId, productId) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-
+  return (dispatch, getState, { firebase, firestore }) => {
     firestore
       .collection("users")
       .doc(userId)

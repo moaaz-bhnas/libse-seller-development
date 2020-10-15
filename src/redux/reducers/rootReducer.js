@@ -1,18 +1,9 @@
 import { combineReducers } from "redux";
-import authReducer from "./authReducer";
-import sellerRegistrationReducer from "./sellerRegistrationReducer";
-import productReducer from "./productReducer";
 import profileReducer from "./profileReducer";
-import { firebaseReducer } from "react-redux-firebase";
-import { firestoreReducer } from "redux-firestore";
 import { HYDRATE } from "next-redux-wrapper";
 
 const combinedReducers = combineReducers({
-  // auth: authReducer,
-  // sellerRegistration: sellerRegistrationReducer,
   profile: profileReducer,
-  // firebase: firebaseReducer,
-  // firestore: firestoreReducer,
 });
 
 const rootReducer = (state, action) => {

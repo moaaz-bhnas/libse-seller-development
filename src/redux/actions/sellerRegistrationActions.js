@@ -1,8 +1,7 @@
 import { functions } from "../../lib/firebase/client";
 
 export const registerSeller = (seller, setIsSeller, router) => {
-  return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+  return async (dispatch, getState, { firestore }) => {
     console.log(seller);
     const {
       uid,
