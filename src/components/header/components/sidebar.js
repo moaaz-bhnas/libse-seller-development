@@ -15,7 +15,7 @@ import styled, { keyframes } from "styled-components";
 import time from "../../../shared/time";
 import useTranslation from "../../../hooks/useTranslation";
 import translations from "../../../translations/strings/header";
-import formatValue from "../../../utils/formatValue";
+import formatSmallDashSeperated from "../../../utils/formatSmallDashSeperated";
 import { LocaleContext } from "../../../contexts/locale";
 import { ContentDirectionContext } from "../../../contexts/contentDirection";
 

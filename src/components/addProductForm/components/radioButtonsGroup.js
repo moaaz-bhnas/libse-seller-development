@@ -2,7 +2,7 @@ import { memo, useContext } from "react";
 import styled from "styled-components";
 // import { LanguageContext } from "../../../contexts/language";
 import { RadioInput } from "../../input";
-import formatValue from "../../../utils/formatValue";
+import formatSmallDashSeperated from "../../../utils/formatSmallDashSeperated";
 import { LocaleContext } from "../../../contexts/locale";
 
 const RadioButtonsGroup = ({
@@ -20,7 +20,7 @@ const RadioButtonsGroup = ({
     <RadioGroup>
       {items.map((item, index) => {
         const label = multiLanguage ? item[`name_${locale}`] : item.name;
-        const value = formatValue(label);
+        const value = formatSmallDashSeperated(label);
 
         return (
           <RadioInput

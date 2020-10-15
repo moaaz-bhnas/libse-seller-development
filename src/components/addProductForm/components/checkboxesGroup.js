@@ -2,7 +2,7 @@ import { memo, useContext } from "react";
 import styled from "styled-components";
 // import { LanguageContext } from "../../../contexts/language";
 import { CheckboxInput } from "../../input";
-import formatValue from "../../../utils/formatValue";
+import formatSmallDashSeperated from "../../../utils/formatSmallDashSeperated";
 import { LocaleContext } from "../../../contexts/locale";
 
 const CheckboxesGroup = ({
@@ -21,7 +21,7 @@ const CheckboxesGroup = ({
     <Group inline={inline}>
       {items.map((item, index) => {
         const label = multiLanguage ? item[`name_${locale}`] : item.name;
-        const value = formatValue(label);
+        const value = formatSmallDashSeperated(label);
 
         return (
           <CheckboxInput
